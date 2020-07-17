@@ -35,8 +35,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
-                        <li><a class="ml-2" href="{{route('course.index')}}">Courses</a></li>
+                        @if(Gate::allows('is_methodist'))
+                            <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
+                            <li><a class="ml-2" href="{{route('course.index')}}">Courses</a></li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
