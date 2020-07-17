@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('js/script.js') }}" defer></script>
 </head>
 <body>
     <div id="app">
@@ -33,7 +35,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
+                        <li><a class="ml-2" href="{{route('course.index')}}">Courses</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
