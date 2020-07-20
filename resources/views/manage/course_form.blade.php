@@ -9,7 +9,7 @@
                         <span>@lang('Create course')</span>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('course.store')}}" method="post">
+                        <form action="{{route('manage.course.store')}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{$course->id ?? ''}}">
 
@@ -31,7 +31,7 @@
                                 </select>
                             </div>
 
-                            <a href="{{route('direction.edit', $direction)}}"><button type="button" class="btn btn-secondary  float-left">@lang('Back')</button></a>
+                            <a href="{{route('manage.direction.edit', $direction)}}"><button type="button" class="btn btn-secondary  float-left">@lang('Back')</button></a>
                             <button type="submit" class="btn btn-primary  float-right">@lang('Submit')</button>
                         </form>
                     </div>

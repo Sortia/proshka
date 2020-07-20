@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
-use Illuminate\Http\Request;
+use App\CourseUser;
 
 class DirectionController extends Controller
 {
@@ -11,30 +11,12 @@ class DirectionController extends Controller
     {
         $directions = Direction::all();
 
-        return view('manage.direction', compact('directions'));
+        return view('public.direction', compact('directions'));
     }
 
-    public function create()
+    public function show(Direction $direction)
     {
-        return view('manage.direction_form');
+        return view('public.direction_show', compact('direction'));
     }
 
-    public function edit(Direction $direction)
-    {
-        return view('manage.direction_form', compact('direction'));
-    }
-
-    public function store(Request $request)
-    {
-        Direction::updateOrCreate(['id' => $request->id], $request->all());
-
-        return redirect(route('direction.index'));
-    }
-
-    public function destroy(Direction $direction)
-    {
-        $direction->delete();
-
-        return redirect(route('direction.index'));
-    }
 }

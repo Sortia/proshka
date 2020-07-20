@@ -2,6 +2,7 @@
 
 use App\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        Role::truncate();
+
         $roles = [
             [
                 'id' => 1,

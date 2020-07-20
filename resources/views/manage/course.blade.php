@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header pb-2 h5">
                         <span>@lang('Courses')</span>
-                        <span><a href="{{route('course.create')}}"
+                        <span><a href="{{route('manage.course.create')}}"
                                  class="btn btn-sm btn-success float-right">@lang('Create')</a></span>
                     </div>
                     <div class="card-body">
@@ -27,8 +27,8 @@
                                     <td>{{$course->name}}</td>
                                     <td>{{$course->description}}</td>
                                     <td>
-                                        <a href="{{route('course.edit', $course)}}"><button class="btn btn-sm btn-primary">@lang('Show')</button></a>
-                                        <form class="d-inline" method="post" action="{{route('course.destroy', ['course' => $course->id])}}">
+                                        <a href="{{route('manage.course.edit', $course)}}"><button class="btn btn-sm btn-primary">@lang('Show')</button></a>
+                                        <form class="d-inline" method="post" action="{{route('manage.course.destroy', ['course' => $course->id])}}">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger btn-sm">@lang('Delete')</button>

@@ -37,7 +37,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function isMethodist()
     {
         return $this->role_id === 1;

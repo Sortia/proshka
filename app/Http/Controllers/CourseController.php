@@ -3,53 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use App\Direction;
-use Illuminate\Http\Request;
+use App\CourseUser;
 
 class CourseController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function show(Course $course)
     {
-        $this->middleware('auth');
+        return view('public.course_show', compact('course'));
     }
 
-    public function index()
-    {
-        $courses = Course::all();
 
-        return view('manage.course', compact('courses'));
+    public function buy(Course $course)
+    {
+        $userCourse = CourseUser::create([
+            'user_id' => auth()->user()->id,
+            'course_id' => $course->id,
+            'balance' => 100,
+        ]);
+
+        return redirect(route('course.show', $course));
     }
 
-    public function create()
+    public function my()
     {
-        $directions = Direction::all();
+        $courses = Course::my(auth()->user()->id)->get();
 
-        return view('manage.course_form', compact('directions'));
-    }
-
-    public function edit(Course $course)
-    {
-        $directions = Direction::all();
-
-        return view('manage.course_form', compact('directions', 'course'));
-    }
-
-    public function store(Request $request)
-    {
-        Course::updateOrCreate(['id' => $request->id], $request->all());
-
-        return redirect(route('course.index'));
-    }
-
-    public function destroy(Course $course)
-    {
-        $course->delete();
-
-        return redirect(route('course.index'));
+        return view('public.course_my', compact('courses'));
     }
 }

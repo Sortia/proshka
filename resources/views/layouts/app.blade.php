@@ -36,8 +36,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if(Gate::allows('is_methodist'))
+                            <li><a class="ml-2" href="{{route('manage.direction.index')}}">@lang('Directions')</a></li>
+                            <li><a class="ml-2" href="{{route('manage.course.index')}}">Courses</a></li>
+                            <li><a class="ml-2" href="{{route('manage.lesson.index')}}">Lessons</a></li>
+                        @endif
+                        @if(Gate::allows('is_student'))
                             <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
-                            <li><a class="ml-2" href="{{route('course.index')}}">Courses</a></li>
+                            <li><a class="ml-2" href="{{route('course.my')}}">@lang('Courses')</a></li>
+                        @endif
+                        @if(Gate::allows('is_teacher'))
+                            <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Lessons')</a></li>
                         @endif
                     </ul>
 
