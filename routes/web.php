@@ -40,7 +40,7 @@ Route::middleware('student')->group(function () {
     Route::post('lesson/{lesson}/complete', 'LessonController@complete')->name('lesson.complete');
 });
 
-Route::middleware('methodist')->group(function () {
+Route::middleware('teacher')->group(function () {
     Route::get('teacher/lesson/completed', 'TeacherController@index')->name('teacher.lesson.completed');
     Route::get('teacher/lesson/{lessonUser}/show', 'TeacherController@show')->name('teacher.lesson.show');
 
