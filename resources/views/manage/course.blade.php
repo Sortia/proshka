@@ -17,7 +17,7 @@
                                 <th scope="col">@lang('#')</th>
                                 <th scope="col">@lang('Name')</th>
                                 <th scope="col">@lang('Description')</th>
-                                <th scope="col">@lang('Show')</th>
+                                <th scope="col">@lang('Actions')</th>
                             </tr>
                             </thead>
                             <tbody>

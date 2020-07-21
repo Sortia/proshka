@@ -22,10 +22,6 @@ class CourseController extends Controller
 
     public function index()
     {
-//        if (Gate::denies('is_methodist')) {
-//            return abort(404);
-//        }
-
         $courses = Course::all();
 
         return view('manage.course', compact('courses'));
