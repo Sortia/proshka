@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use App\Http\Requests\Student\LessonRequest;
+use App\Http\Requests\Student\ShowLessonRequest;
 use App\Lesson;
-use App\LessonUser;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class LessonController extends Controller
 {
-    public function show(Lesson $lesson)
+    public function show(Lesson $lesson, ShowLessonRequest $request)
     {
         $lesson->load('videos', 'files', 'course', 'user');
 
@@ -32,7 +32,7 @@ class LessonController extends Controller
         return view('public.lesson_show', compact('lesson', 'lessonUser'));
     }
 
-    public function complete(Lesson $lesson, Request $request)
+    public function complete(Lesson $lesson, LessonRequest $request)
     {
         $lesson->load('user');
 

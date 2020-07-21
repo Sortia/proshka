@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CourseUser;
+use App\Http\Requests\Teacher\EvaluateLessonRequest;
 use App\LessonUser;
-use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
@@ -24,18 +24,18 @@ class TeacherController extends Controller
         return view('public.lesson_show', compact('lesson', 'lessonUser'));
     }
 
-    public function wrong(LessonUser $lessonUser)
+    public function wrong(LessonUser $lessonUser, EvaluateLessonRequest $request)
     {
         $lessonUser->update(['status' => 'wrong']);
 
         return redirect(route('teacher.lesson.completed'));
     }
 
-    public function right(LessonUser $lessonUser)
+    public function right(LessonUser $lessonUser, EvaluateLessonRequest $request)
     {
         $lessonUser->update(['status' => 'right']);
 
-        $courseUser = CourseUser::on()
+        $courseUser = CourseUser::on() // todo move to service
             ->where('user_id', $lessonUser->user_id)
             ->where('course_id', $lessonUser->lesson->course_id)
             ->first();

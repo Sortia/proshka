@@ -5,21 +5,12 @@ namespace App\Http\Controllers\Manage;
 use App\Course;
 use App\Direction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Manage\CourseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $courses = Course::all();
@@ -41,7 +32,7 @@ class CourseController extends Controller
         return view('manage.course_form', compact('directions', 'course'));
     }
 
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
         Course::updateOrCreate(['id' => $request->id], $request->all());
 

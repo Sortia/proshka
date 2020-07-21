@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $lessons = Lesson::all();
@@ -28,21 +18,6 @@ class LessonController extends Controller
 
     public function create()
     {
-        $test = [
-            'course_id' => 1,
-            'name' => 'first lesson',
-            'description' => 'lesson description',
-            'order_number' => 1,
-            'cost' => 5,
-            'bonus' => 10,
-            'fine' => 7,
-//            'text' => 1,
-//            'video' => 1,
-//            'file' => 1,
-        ];
-
-        Lesson::updateOrCreate(['id' => null], $test);
-
         $directions = Direction::all();
 
         return view('manage.lesson_form', compact('directions'));
@@ -55,21 +30,8 @@ class LessonController extends Controller
         return view('manage.lesson_form', compact('directions', 'lesson'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request) // todo страница создания урока
     {
-//        $test = [
-//            'course_id' => 1,
-//            'name' => 'first lesson',
-//            'description' => 'lesson description',
-//            'order_number' => 1,
-//            'cost' => 5,
-//            'bonus' => 10,
-//            'fine' => 7,
-//            'text' => 1,
-//            'video' => 1,
-//            'file' => 1,
-//        ];
-
         Lesson::updateOrCreate(['id' => $request->id], $request->all());
 
         return redirect(route('manage.lesson.index'));

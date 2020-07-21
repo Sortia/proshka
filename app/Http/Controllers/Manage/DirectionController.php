@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manage;
 
 use App\Direction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Manage\DirectionRequest;
 use Illuminate\Http\Request;
 
 class DirectionController extends Controller
@@ -25,7 +26,7 @@ class DirectionController extends Controller
         return view('manage.direction_form', compact('direction'));
     }
 
-    public function store(Request $request)
+    public function store(DirectionRequest $request)
     {
         Direction::updateOrCreate(['id' => $request->id], $request->all());
 

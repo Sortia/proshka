@@ -12,14 +12,12 @@ class CourseController extends Controller
         return view('public.course_show', compact('course'));
     }
 
-
     public function buy(Course $course)
     {
-        $userCourse = CourseUser::create([
+        CourseUser::on()->firstOrCreate([
             'user_id' => auth()->user()->id,
             'course_id' => $course->id,
-            'balance' => 100,
-        ]);
+        ], ['balance' => 100]);
 
         return redirect(route('course.show', $course));
     }
