@@ -6,6 +6,7 @@ use App\Course;
 use App\Direction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
@@ -21,6 +22,10 @@ class CourseController extends Controller
 
     public function index()
     {
+//        if (Gate::denies('is_methodist')) {
+//            return abort(404);
+//        }
+
         $courses = Course::all();
 
         return view('manage.course', compact('courses'));
