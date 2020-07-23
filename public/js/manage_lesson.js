@@ -25,7 +25,21 @@ $(() => {
     });
 
     $('.add_task').on('click', function () {
-        $('#task_lesson_id').val($(this).parents('tr').data('lesson_id'))
+        let lesson_id = $(this).parents('tr').data('lesson_id');
+
+        $.ajax({
+            method: "GET",
+            url: "/manage/task",
+            data: {
+                lesson_id: lesson_id,
+            },
+            success: (response) => {
+                window.editor.clipboard.dangerouslyPasteHTML(response);
+            }
+        });
+
+
+        $('#task_lesson_id').val(lesson_id);
     })
 
     $('#createLessonTaskModal').on('hidden.bs.modal', function () {
@@ -39,9 +53,9 @@ $(() => {
             data: {
                 task: $('.ql-editor').html(),
                 lesson_id: $('#task_lesson_id').val(),
-            }
+            },
+            success: () => location.reload()
         });
 
-        console.log(task);
     });
 });

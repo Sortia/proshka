@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('lesson', 'Manage\LessonController', ['names' => 'manage.lesson']);
 
         Route::get('lesson/{direction}/{course}', 'Manage\LessonController@create')->name('manage.lesson.create');
+        Route::get('task', 'Manage\TaskController@index')->name('manage.task.index');
         Route::post('task', 'Manage\TaskController@store')->name('manage.task.store');
     });
 
