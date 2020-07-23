@@ -24,17 +24,22 @@
                         <div class="col-lg-12">
                             <form action="{{route('manage.lesson.index')}}" method="get">
                                 @csrf
-                                <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">@lang('Course')</label>
-                                    <div class="col-sm-8">
+                                <div class="row">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">@lang('Course')</span>
+                                        </div>
                                         <select name="course_id" id="search_course_id"
                                                 class="form-control select2-enable input-lg">
+                                            <option>@lang('Select course')</option>
                                             @foreach($courses as $course)
                                                 <option value="{{$course->id}}">{{$course->name}}</option>
                                             @endforeach
                                         </select>
+                                        <button class="btn btn-primary ml-3">@lang('Search')</button>
+
                                     </div>
-                                    <button class="btn btn-primary col-sm-2">Search</button>
                                 </div>
                             </form>
                         </div>
@@ -52,7 +57,7 @@
                                 <th scope="col">@lang('Task')</th>
                                 <th scope="col">@lang('Available at')</th>
                                 <th scope="col">@lang('Time')</th>
-                                <th scope="col">@lang('Edit')</th>
+                                <th scope="col">@lang('Actions')</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,7 +77,8 @@
                                     <th class="row-available_at" scope="row">{{$lesson->available_at}}</th>
                                     <th class="row-time" scope="row">{{$lesson->time}}</th>
                                     <th class="row-time" scope="row">
-                                        <button class="btn btn-sm btn-outline-primary edit-lesson">@lang('Edit')</button>
+                                        <button
+                                            class="btn btn-sm btn-outline-primary edit-lesson">@lang('Edit')</button>
                                     </th>
                                 </tr>
                             @endforeach
@@ -173,7 +179,7 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">@lang('Create task')</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('Task')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

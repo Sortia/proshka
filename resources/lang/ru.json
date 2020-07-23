@@ -4,8 +4,8 @@
     "Courses": "Курсы",
     "Course": "Курс",
     "My courses": "Мои курсы",
-    "Lessons": "Задания",
-    "Lesson": "Задание",
+    "Lessons": "Занятия",
+    "Lesson": "Занятие",
     "Dashboard": "Доска объявлений",
     "You are logged in!": "Вы вошли!",
     "Create": "Создать",
@@ -48,5 +48,8 @@
     "Complete": "Выполнено",
     "Right": "Верно",
     "Wrong": "Неверно",
-    "Balance": "Баланс"
+    "Balance": "Баланс",
+
+    "Select course": "Выберите курс",
+    "Search": "Поиск"
 }

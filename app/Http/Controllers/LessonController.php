@@ -20,7 +20,7 @@ class LessonController extends Controller
 
     public function show(Lesson $lesson, ShowLessonRequest $request)
     {
-        $lesson->load('videos', 'files', 'course', 'user');
+        $lesson->load('videos', 'files', 'cou   rse', 'user');
 
         $lessonUser = $this->service->maybeBuyLesson($lesson);
 
