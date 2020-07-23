@@ -18,6 +18,10 @@ class Lesson extends Model
         'text',
         'video',
         'file',
+        'complexity',
+        'time',
+        'available_at',
+        'task',
     ];
 
     public function files()

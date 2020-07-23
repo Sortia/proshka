@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('direction', 'Manage\DirectionController', ['names' => 'manage.direction']);
         Route::resource('course', 'Manage\CourseController', ['names' => 'manage.course']);
         Route::resource('lesson', 'Manage\LessonController', ['names' => 'manage.lesson']);
+
+        Route::get('lesson/{direction}/{course}', 'Manage\LessonController@create')->name('manage.lesson.create');
+        Route::post('task', 'Manage\TaskController@store')->name('manage.task.store');
     });
 
     Route::middleware('student')->group(function () {
