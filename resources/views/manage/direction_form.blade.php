@@ -14,7 +14,7 @@
                             <input type="hidden" name="id" value="{{$direction->id ?? ''}}">
                             <div class="form-group">
                                 <label for="name">@lang('Name')</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{$direction->name ?? ''}}" placeholder="@lang('Enter direction name')">
+                                <input type="text" class="form-control" id="name" name="name" value="{{$direction->name ?? ''}}" placeholder="@lang('Enter name')">
                             </div>
                             <div class="form-group">
                                 <label for="description">@lang('Description')</label>

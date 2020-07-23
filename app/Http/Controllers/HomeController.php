@@ -24,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+//        dd(app()->getLocale());
+
         return view('home');
     }
 }

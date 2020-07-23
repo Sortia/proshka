@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header pb-2 h5">
-                        <span>@lang('Create course')</span>
+                        <span>@lang('Course')</span>
                     </div>
                     <div class="card-body">
                         <form action="{{route('manage.course.store')}}" method="post">
@@ -15,7 +15,7 @@
 
                             <div class="form-group">
                                 <label for="name">@lang('Name')</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{$course->name ?? ''}}" placeholder="@lang('Enter course name')">
+                                <input type="text" class="form-control" id="name" name="name" value="{{$course->name ?? ''}}" placeholder="@lang('Enter name')">
                             </div>
                             <div class="form-group">
                                 <label for="description">@lang('Description')</label>

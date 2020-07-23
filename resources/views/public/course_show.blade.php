@@ -27,7 +27,11 @@
                                         <div class="row">
                                             <div class="col-lg-2">{{$lesson->name}}</div>
                                             <div class="col-lg-8">{{$lesson->description}}</div>
-                                            <div class="col-lg-2">{{\Illuminate\Support\Str::ucfirst($lesson->user->status ?? (__('Cost') . ': ' . $lesson->cost))}}</div>
+                                            @if($lesson->user)
+                                                <div class="col-lg-2">{{__(Str::ucfirst($lesson->user->status))}}</div>
+                                            @else
+                                                <div class="col-lg-2">{{(__('Cost') . ': ' . $lesson->cost)}}</div>
+                                            @endif
                                         </div>
                                     </a>
                                 @else

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,8 +40,8 @@
                     <ul class="navbar-nav mr-auto">
                         @if(Gate::allows('is_methodist'))
                             <li><a class="ml-2" href="{{route('manage.direction.index')}}">@lang('Directions')</a></li>
-                            <li><a class="ml-2" href="{{route('manage.course.index')}}">Courses</a></li>
-                            <li><a class="ml-2" href="{{route('manage.lesson.index')}}">Lessons</a></li>
+                            <li><a class="ml-2" href="{{route('manage.course.index')}}">@lang('Courses')</a></li>
+                            <li><a class="ml-2" href="{{route('manage.lesson.index')}}">@lang('Lessons')</a></li>
                         @endif
                         @if(Gate::allows('is_student'))
                             <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>

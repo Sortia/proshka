@@ -25,7 +25,7 @@
                             <form action="{{route('manage.lesson.index')}}" method="get">
                                 @csrf
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Course</label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">@lang('Course')</label>
                                     <div class="col-sm-8">
                                         <select name="course_id" id="search_course_id"
                                                 class="form-control select2-enable input-lg">
@@ -43,14 +43,13 @@
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">@lang('Order number')</th>
+                                <th scope="col">@lang('#')</th>
                                 <th scope="col">@lang('Name')</th>
                                 <th scope="col">@lang('Complexity')</th>
                                 <th scope="col">@lang('Cost')</th>
                                 <th scope="col">@lang('Bonus')</th>
-                                <th scope="col">@lang('Theory')</th>
                                 <th scope="col">@lang('Description')</th>
-                                <th scope="col">@lang('Add task')</th>
+                                <th scope="col">@lang('Task')</th>
                                 <th scope="col">@lang('Available at')</th>
                                 <th scope="col">@lang('Time')</th>
                                 <th scope="col">@lang('Edit')</th>
@@ -64,7 +63,6 @@
                                     <th class="row-complexity" scope="row">{{$lesson->complexity}}</th>
                                     <th class="row-cost" scope="row">{{$lesson->cost}}</th>
                                     <th class="row-bonus" scope="row">{{$lesson->bonus}}</th>
-                                    <th class="row-text" scope="row">{{$lesson->text}}</th>
                                     <th class="row-description" scope="row">{{$lesson->description}}</th>
                                     <th scope="row">
                                         <button data-toggle="modal" data-target="#createLessonTaskModal"
@@ -74,7 +72,7 @@
                                     <th class="row-available_at" scope="row">{{$lesson->available_at}}</th>
                                     <th class="row-time" scope="row">{{$lesson->time}}</th>
                                     <th class="row-time" scope="row">
-                                        <button class="btn btn-sm btn-primary edit-lesson">Edit</button>
+                                        <button class="btn btn-sm btn-outline-primary edit-lesson">@lang('Edit')</button>
                                     </th>
                                 </tr>
                             @endforeach
@@ -97,7 +95,7 @@
                     <input type="hidden" id="course_id" name="course_id">
                     <input type="hidden" id="id" name="id">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">@lang('Create lesson')</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">@lang('Lesson')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -161,7 +159,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
                         <button class="btn btn-primary">@lang('Save')</button>
                     </div>
                 </form>
@@ -186,7 +184,7 @@
                     <input type="hidden" id="task_lesson_id">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
                     <button id="save_task" type="button" class="btn btn-primary">@lang('Save')</button>
                 </div>
             </div>

@@ -20,7 +20,7 @@
                         <fieldset @if(Gate::allows('is_teacher') or Gate::denies('update', $lessonUser)) disabled @endif>
 
                             <div class="answer mt-5">
-                                <h3>Answer</h3>
+                                <h5>@lang('Answer')</h5>
                                 <form action="{{route('lesson.complete', $lesson)}}" method="post"
                                       enctype="multipart/form-data">
                                     @csrf
@@ -32,8 +32,7 @@
                                     @if(Gate::allows('is_student'))
                                         <div class="custom-file mt-3">
                                             <input type="file" class="custom-file-input" id="file" name="file">
-                                            <label id="file-label" class="custom-file-label" for="customFile">Choose
-                                                file</label>
+                                            <label id="file-label" class="custom-file-label" for="customFile">@lang('Choose file')</label>
                                         </div>
                                         <button class="btn btn-success mt-3 float-right">@lang('Send')</button>
                                     @endif
