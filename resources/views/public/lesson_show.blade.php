@@ -11,19 +11,7 @@
                         <div class="description">{{$lesson->description}}</div>
                         <hr>
                         <div class="text">{{$lesson->text}}</div>
-                        <hr>
-                        <div class="videos">
-                            @foreach($lesson->videos->sortBy('type') as $video)
-                                @if($video->type === 'file')
-                                    <video controls width="100%">
-                                        <source src="{{asset($video->path)}}">
-                                    </video>
-                                @else
-                                    <a href="{{$video->path}}">{{$video->path}}</a>
-                                @endif
-                            @endforeach
-                        </div>
-                        <hr>
+                        <div class="task">{!! print_task($lesson->task) !!}</div>
                         <div class="files">
                             @foreach($lesson->files as $file)
                                 <a href="{{route('lesson.file', $file)}}">{{$file->name}}</a>
