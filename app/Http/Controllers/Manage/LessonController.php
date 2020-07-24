@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manage;
 
 use App\Course;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Manage\LessonRequest;
 use App\Lesson;
 use App\Direction;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class LessonController extends Controller
         return view('manage.lesson_form', compact('directions', 'lesson'));
     }
 
-    public function store(Request $request)
+    public function store(LessonRequest $request)
     {
         Lesson::updateOrCreate(['id' => $request->id], $request->all());
 

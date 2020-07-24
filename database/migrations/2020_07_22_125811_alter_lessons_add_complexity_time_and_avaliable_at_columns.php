@@ -14,7 +14,7 @@ class AlterLessonsAddComplexityTimeAndAvaliableAtColumns extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->integer('complexity')->after('bonus');
+            $table->float('complexity')->after('bonus');
             $table->integer('time')->after('complexity');
             $table->integer('available_at')->after('time');
             $table->longText('task')->after('text')->nullable();

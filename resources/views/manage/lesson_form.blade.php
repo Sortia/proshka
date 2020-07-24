@@ -57,7 +57,6 @@
                                 <th scope="col">@lang('Bonus')</th>
                                 <th scope="col">@lang('Description')</th>
                                 <th scope="col">@lang('Available at')</th>
-                                <th scope="col">@lang('Time')</th>
                                 <th scope="col">@lang('Actions')</th>
                             </tr>
                             </thead>
@@ -69,9 +68,10 @@
                                     <th class="row-complexity" scope="row">{{$lesson->complexity}}</th>
                                     <th class="row-cost" scope="row">{{$lesson->cost}}</th>
                                     <th class="row-bonus" scope="row">{{$lesson->bonus}}</th>
+                                    <th class="row-text d-none" scope="row">{{$lesson->text}}</th>
                                     <th class="row-description" scope="row">{{$lesson->description}}</th>
                                     <th class="row-available_at" scope="row">{{$lesson->available_at}}</th>
-                                    <th class="row-time" scope="row">{{$lesson->time}}</th>
+                                    <th class="row-time d-none" scope="row">{{$lesson->time}}</th>
                                     <th class="" scope="row">
                                         <button data-toggle="modal" data-target="#createLessonTaskModal"
                                                 class="add_task btn btn-sm btn-outline-primary">
@@ -145,7 +145,7 @@
                             <div class="row mt-2">
                                 <div class="col-lg-4">
                                     <label for="complexity">@lang('Complexity')</label>
-                                    <input required type="number" class="form-control" id="complexity" name="complexity"
+                                    <input step="0.01" required type="number" class="form-control" id="complexity" name="complexity"
                                            placeholder="@lang('Enter complexity')">
                                 </div>
                                 <div class="col-lg-4">
