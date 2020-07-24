@@ -2,6 +2,7 @@
 
 @section('css')
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
 @endsection
 
 @section('js')
@@ -21,11 +22,25 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="col-lg-12">
-                            <form action="{{route('manage.lesson.index')}}" method="get">
-                                @csrf
-                                <div class="row">
-
+                        <form action="{{route('manage.lesson.index')}}" method="get">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">@lang('Direction')</span>
+                                        </div>
+                                        <select name="direction_id" id="search_direction_id"
+                                                class="form-control select2-enable input-lg">
+                                            <option>@lang('Select direction')</option>
+                                            @foreach($directions as $direction)
+                                                <option @if(request()->direction_id == $direction->id) selected
+                                                        @endif value="{{$direction->id}}">{{$direction->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">@lang('Course')</span>
@@ -38,41 +53,38 @@
                                                         @endif value="{{$course->id}}">{{$course->name}}</option>
                                             @endforeach
                                         </select>
-                                        <button class="btn btn-primary ml-3">@lang('Search')</button>
-
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
-                        <br>
-
-                        <table class="table table-striped table-hover">
+                        <table class="table mt-3" data-toggle="table">
                             <thead>
                             <tr>
-                                <th scope="col">@lang('#')</th>
-                                <th scope="col">@lang('Name')</th>
-                                <th scope="col">@lang('Complexity')</th>
-                                <th scope="col">@lang('Cost')</th>
-                                <th scope="col">@lang('Bonus')</th>
-                                <th scope="col">@lang('Description')</th>
-                                <th scope="col">@lang('Available at')</th>
-                                <th scope="col">@lang('Actions')</th>
+                                <th data-sortable="true" data-field="#">@lang('#')</th>
+                                <th data-sortable="true" data-field="name">@lang('Name')</th>
+                                <th data-sortable="true" data-field="complexity">@lang('Complexity')</th>
+                                <th data-sortable="true" data-field="cost">@lang('Cost')</th>
+                                <th data-sortable="true" data-field="bonus">@lang('Bonus')</th>
+                                <th data-sortable="true" data-field="description">@lang('Description')</th>
+                                <th data-sortable="true" data-field="available_at">@lang('Available at')</th>
+                                <th data-sortable="true" data-field="actions">@lang('Actions')</th>
+
+                                <th class="d-none" data-sortable="true" data-field="theory">@lang('Theory')</th>
+                                <th class="d-none" data-sortable="true" data-field="time">@lang('Time')</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($lessons->sortBy('order_number') as $lesson)
                                 <tr class="lesson_row" data-lesson_id="{{$lesson->id}}">
-                                    <th class="row-order_number" scope="row">{{$lesson->order_number}}</th>
-                                    <th class="row-name" scope="row">{{$lesson->name}}</th>
-                                    <th class="row-complexity" scope="row">{{$lesson->complexity}}</th>
-                                    <th class="row-cost" scope="row">{{$lesson->cost}}</th>
-                                    <th class="row-bonus" scope="row">{{$lesson->bonus}}</th>
-                                    <th class="row-text d-none" scope="row">{{$lesson->text}}</th>
-                                    <th class="row-description" scope="row">{{$lesson->description}}</th>
-                                    <th class="row-available_at" scope="row">{{$lesson->available_at}}</th>
-                                    <th class="row-time d-none" scope="row">{{$lesson->time}}</th>
-                                    <th class="" scope="row">
+                                    <td class="row-order_number">{{$lesson->order_number}}</td>
+                                    <td class="row-name">{{$lesson->name}}</td>
+                                    <td class="row-complexity">{{$lesson->complexity}}</td>
+                                    <td class="row-cost">{{$lesson->cost}}</td>
+                                    <td class="row-bonus">{{$lesson->bonus}}</td>
+                                    <td class="row-description">{{$lesson->description}}</td>
+                                    <td class="row-available_at">{{$lesson->available_at}}</td>
+                                    <td class="">
                                         <button data-toggle="modal" data-target="#createLessonTaskModal"
                                                 class="add_task btn btn-sm btn-outline-primary">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book"
@@ -101,13 +113,19 @@
                                                 <path fill-rule="evenodd" d="M10 6H6v4h4V6zM5 5v6h6V5H5z"/>
                                             </svg>
                                         </button>
-                                    </th>
+                                        <button class="btn btn-sm btn-outline-danger delete-lesson">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td class="row-text d-none">{{$lesson->text}}</td>
+                                    <td class="row-time d-none">{{$lesson->time}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>
@@ -145,7 +163,8 @@
                             <div class="row mt-2">
                                 <div class="col-lg-4">
                                     <label for="complexity">@lang('Complexity')</label>
-                                    <input step="0.01" required type="number" class="form-control" id="complexity" name="complexity"
+                                    <input step="0.01" required type="number" class="form-control" id="complexity"
+                                           name="complexity"
                                            placeholder="@lang('Enter complexity')">
                                 </div>
                                 <div class="col-lg-4">

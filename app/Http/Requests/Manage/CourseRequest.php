@@ -26,7 +26,7 @@ class CourseRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'direction_id' => 'exists:App\Direction,id'
+            'direction_id' => 'required|exists:App\Direction,id'
         ];
     }
 }

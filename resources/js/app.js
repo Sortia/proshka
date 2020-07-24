@@ -11,6 +11,8 @@ window.Vue = require('vue');
 import 'select2';                       // globally assign select2 fn to $ element
 import 'select2/dist/css/select2.css';  // optional if you have css loader
 
+import 'bootstrap-table'
+
 $(() => {
     $('.select2-enable').select2();
 });

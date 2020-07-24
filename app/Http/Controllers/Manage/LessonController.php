@@ -15,7 +15,7 @@ class LessonController extends Controller
     {
         $lessons = Lesson::on()->where('course_id', $request->course_id)->get();
         $directions = Direction::all();
-        $courses = Course::all();
+        $courses = Course::where('direction_id', $request->direction_id)->get();
 
         return view('manage.lesson_form', compact('directions', 'courses', 'lessons'));
     }
@@ -29,6 +29,7 @@ class LessonController extends Controller
 
     public function store(LessonRequest $request)
     {
+//        dd($request->all());
         Lesson::updateOrCreate(['id' => $request->id], $request->all());
 
         return redirect()->back();
@@ -38,6 +39,6 @@ class LessonController extends Controller
     {
         $lesson->delete();
 
-        return redirect(route('manage.lesson.index'));
+        return $this->respondSuccess();
     }
 }

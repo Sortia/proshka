@@ -125,15 +125,37 @@ $(() => {
                 $.each(response, function (i, item) {
                     $('#policy_constraint_course_id').append($('<option>', {
                         value: item.id,
-                        text : item.name
+                        text: item.name
                     }));
                 });
 
                 $('#policy_constraint_course_id').trigger('change');
-
-                console.log(response);
             }
         });
+    });
+
+    $('#search_direction_id').on('change', function () {
+        $.ajax({
+            method: "GET",
+            url: "/course/list",
+            data: {
+                direction_id: $("#search_direction_id option:selected").val()
+            },
+            success: (response) => {
+                $('#search_course_id').empty().append(`<option>Выберите курс</option>`);
+
+                $.each(response, function (i, item) {
+                    $('#search_course_id').append($('<option>', {
+                        value: item.id,
+                        text: item.name
+                    }));
+                });
+            }
+        });
+    });
+
+    $('#search_course_id').on('change', function () {
+        location.href = `/manage/lesson?direction_id=${$("#search_direction_id option:selected").val()}&course_id=${$("#search_course_id option:selected").val()}`;
     });
 
     $('#policy_constraint_course_id').on('change', () => {
@@ -184,6 +206,17 @@ $(() => {
             },
             success: () => {
                 $('#politicsModal').modal('hide');
+            }
+        });
+    });
+
+    $('.delete-lesson').on('click', function () {
+        console.log($(this).parents('tr').data('lesson_id'));
+        $.ajax({
+            method: "DELETE",
+            url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
+            success: () => {
+                location.reload();
             }
         });
     });

@@ -13,7 +13,8 @@ class LessonRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->role_id === 1;
+        return true;
+//        return auth()->user()->role_id === 1;
     }
 
     /**
@@ -24,6 +25,7 @@ class LessonRequest extends FormRequest
     public function rules()
     {
         return [
+            'course_id' => 'required|numeric',
             'name' => 'required|max:255',
             'description' => 'required|max:255',
             'complexity' => 'required|numeric',
