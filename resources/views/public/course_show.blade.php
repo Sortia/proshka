@@ -23,7 +23,7 @@
                         <div class="list-group">
                             @foreach($course->lessons->sortBy('order_number') as $lesson)
                                 @if($course->isBought())
-                                    <a href="{{route('lesson.show', $lesson)}}" class="list-group-item list-group-item-action">
+                                    <a href="{{route('lesson.show', $lesson)}}" class="list-group-item list-group-item-action @unless($lesson->available()) disabled @endunless">
                                         <div class="row">
                                             <div class="col-lg-2">{{$lesson->name}}</div>
                                             <div class="col-lg-8">{{$lesson->description}}</div>

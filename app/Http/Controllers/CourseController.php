@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\CourseUser;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    public function list(Request $request)
+    {
+        return Course::where('direction_id', $request->direction_id)->get();
+    }
+
     public function show(Course $course)
     {
         return view('public.course_show', compact('course'));

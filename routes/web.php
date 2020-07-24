@@ -32,6 +32,9 @@ Route::middleware(['auth', 'locale'])->group(function () {
         Route::get('lesson/{direction}/{course}', 'Manage\LessonController@create')->name('manage.lesson.create');
         Route::get('task', 'Manage\TaskController@index')->name('manage.task.index');
         Route::post('task', 'Manage\TaskController@store')->name('manage.task.store');
+
+        Route::post('policy', 'Manage\PolicyController@store')->name('manage.policy.store');
+        Route::post('policy/show/{lesson}', 'Manage\PolicyController@show')->name('manage.policy.show');
     });
 
     Route::middleware('student')->group(function () {
@@ -53,6 +56,9 @@ Route::middleware(['auth', 'locale'])->group(function () {
         Route::post('teacher/lesson/{lessonUser}/wrong', 'TeacherController@wrong')->name('teacher.lesson.wrong');
         Route::post('teacher/lesson/{lessonUser}/right', 'TeacherController@right')->name('teacher.lesson.right');
     });
+
+    Route::get('course/list', 'CourseController@list')->name('course.list');
+    Route::get('lesson/list', 'LessonController@list')->name('lesson.list');
 
     Route::get('file/{file}', 'LessonController@file')->name('lesson.file');
 });

@@ -43,4 +43,28 @@ class Lesson extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function constraints()
+    {
+        return $this->belongsToMany(Lesson::class, 'lesson_constraint', 'lesson_id', 'constraint_lesson_id');
+    }
+
+    public function available()
+    {
+        return $this->balanceAvailable() and $this->constraintAvailable();
+    }
+
+    private function balanceAvailable()
+    {
+        return $this->available_at <= $this->course->user->balance;
+    }
+
+    private function constraintAvailable()
+    {
+        $constraintLessonIds = $this->constraints->pluck('id');
+        $rightLessonIds = $this->user->where('status', 'right')->pluck('lesson_id');
+        $intersect = $constraintLessonIds->intersect($rightLessonIds);
+
+        return $intersect->count() === $constraintLessonIds->count();
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\Student\LessonRequest;
 use App\Http\Requests\Student\ShowLessonRequest;
 use App\Http\Services\LessonService;
 use App\Lesson;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class LessonController extends Controller
@@ -18,9 +19,14 @@ class LessonController extends Controller
         $this->service = $service;
     }
 
+    public function list(Request $request)
+    {
+        return Lesson::where('course_id', $request->course_id)->get();
+    }
+
     public function show(Lesson $lesson, ShowLessonRequest $request)
     {
-        $lesson->load('videos', 'files', 'cou   rse', 'user');
+        $lesson->load('videos', 'files', 'course', 'user');
 
         $lessonUser = $this->service->maybeBuyLesson($lesson);
 

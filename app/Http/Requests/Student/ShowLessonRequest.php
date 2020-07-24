@@ -15,7 +15,7 @@ class ShowLessonRequest extends FormRequest
     {
         $lesson = $this->route('lesson');
 
-        return !is_null($lesson->course->user);
+        return !is_null($lesson->course->user) && $lesson->available();
     }
 
     /**
