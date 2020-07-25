@@ -42,9 +42,7 @@ class LessonController extends Controller
 
     public function store(LessonRequest $request)
     {
-        $lesson = Lesson::updateOrCreate(['id' => $request->id], $request->toArray());
-
-        $this->service->maybeUploadFiles($request, $lesson);
+        Lesson::updateOrCreate(['id' => $request->id], $request->toArray());
 
         return redirect()->back();
     }
