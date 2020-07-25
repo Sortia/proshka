@@ -49,7 +49,11 @@ class LessonController extends Controller
 
     public function destroy(Lesson $lesson)
     {
-        $lesson->delete();
+        try {
+            $lesson->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
 
         return $this->respondSuccess();
     }

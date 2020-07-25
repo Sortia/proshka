@@ -41,7 +41,11 @@ class CourseController extends Controller
 
     public function destroy(Course $course)
     {
-        $course->delete();
+        try {
+            $course->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
 
         return redirect(route('manage.course.index'));
     }

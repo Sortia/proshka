@@ -6,6 +6,7 @@ use App\Direction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manage\DirectionRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DirectionController extends Controller
 {
@@ -35,7 +36,13 @@ class DirectionController extends Controller
 
     public function destroy(Direction $direction)
     {
-        $direction->delete();
+        $direction->load('courses.lessons.files');
+
+        try {
+            $direction->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
 
         return redirect(route('manage.direction.index'));
     }
