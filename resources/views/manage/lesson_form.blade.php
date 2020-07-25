@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('css')
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
+    <link href="{{asset('libraries/quilljs/quill.css')}}" rel="stylesheet">
 @endsection
 
 @section('js')
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="{{asset('libraries/quilljs/quill.js')}}"></script>
     <script src="{{asset('js/editor.js')}}" defer></script>
     <script src="{{asset('js/manage_lesson.js')}}" defer></script>
 @endsection
