@@ -1,4 +1,8 @@
 $(() => {
+
+    let policy_lessons = [];
+
+
     $('#create_lesson').on('click', () => {
         $('#course_id').val($("#search_course_id option:selected").val())
     });
@@ -24,10 +28,9 @@ $(() => {
         $.ajax({
             method: "POST",
             url: `/manage/policy/show/${$(this).parents('tr').data('lesson_id')}`,
-            data: {
-                lesson_id: 3,
-            },
             success: (response) => {
+                policy_lessons = [];
+
                 $('#policy_constraint_direction_id').empty();
                 $('#policy_constraint_course_id').empty();
                 $('#policy_lesson_list').empty();
@@ -46,6 +49,9 @@ $(() => {
 
                 $.each(response.lesson.course.lessons, function (i, item) {
                     let id = randomInteger(1, 10000);
+
+                    if (response.lessons.includes(item.id))
+                        policy_lessons.push(item.id);
 
                     $('#policy_lesson_list').append(`
                         <div class="col-lg-3">
@@ -203,9 +209,10 @@ $(() => {
             data: {
                 lessons: lessons,
                 constraints: constraints,
+                prevent_lessons: policy_lessons,
             },
             success: () => {
-                $('#politicsModal').modal('hide');
+                location.reload();
             }
         });
     });

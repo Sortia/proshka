@@ -13,7 +13,7 @@ class LessonController extends Controller
 {
     public function index(Request $request)
     {
-        $lessons = Lesson::on()->where('course_id', $request->course_id)->get();
+        $lessons = Lesson::with('constraints')->where('course_id', $request->course_id)->get();
         $directions = Direction::all();
         $courses = Course::where('direction_id', $request->direction_id)->get();
 
@@ -29,7 +29,6 @@ class LessonController extends Controller
 
     public function store(LessonRequest $request)
     {
-//        dd($request->all());
         Lesson::updateOrCreate(['id' => $request->id], $request->all());
 
         return redirect()->back();

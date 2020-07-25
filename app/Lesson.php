@@ -62,7 +62,7 @@ class Lesson extends Model
     private function constraintAvailable()
     {
         $constraintLessonIds = $this->constraints->pluck('id');
-        $rightLessonIds = $this->user->where('status', 'right')->pluck('lesson_id');
+        $rightLessonIds = $this->user ? $this->user->where('status', 'right')->pluck('lesson_id') : [];
         $intersect = $constraintLessonIds->intersect($rightLessonIds);
 
         return $intersect->count() === $constraintLessonIds->count();

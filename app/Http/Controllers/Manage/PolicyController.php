@@ -13,10 +13,10 @@ class PolicyController extends Controller
 {
     public function store(Request $request)
     {
-        LessonConstraint::whereIn('lesson_id', $request->lessons)->delete();
+        LessonConstraint::whereIn('lesson_id', array_merge($request->lessons ?? [], $request->prevent_lessons ?? []))->delete();
 
-        foreach ($request->lessons as $lessonId) {
-            foreach ($request->constraints as $constraintId) {
+        foreach ($request->lessons ?? [] as $lessonId) {
+            foreach ($request->constraints ?? [] as $constraintId) {
                 LessonConstraint::create([ // todo optimize
                     'lesson_id' => $lessonId,
                     'constraint_lesson_id' => $constraintId

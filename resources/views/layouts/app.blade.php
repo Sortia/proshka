@@ -45,7 +45,7 @@
                         @endif
                         @if(Gate::allows('is_student'))
                             <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
-                            <li><a class="ml-2" href="{{route('course.my')}}">@lang('Courses')</a></li>
+                            <li><a class="ml-2" href="{{route('course.my')}}">@lang('My courses')</a></li>
                         @endif
                         @if(Gate::allows('is_teacher'))
                             <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Lessons')</a></li>
