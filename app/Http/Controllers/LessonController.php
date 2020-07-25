@@ -42,7 +42,7 @@ class LessonController extends Controller
             'status' => 'complete',
         ]);
 
-        $this->service->maybeUploadFile($request, $lesson);
+        $this->service->maybeUploadFile($request, 'answers', $lesson->user);
 
         return redirect(route('course.show', ['course' => $lesson->course]));
     }

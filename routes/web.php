@@ -30,6 +30,7 @@ Route::middleware(['auth', 'locale'])->group(function () {
         Route::resource('lesson', 'Manage\LessonController', ['names' => 'manage.lesson']);
 
         Route::get('lesson/{direction}/{course}', 'Manage\LessonController@create')->name('manage.lesson.create');
+        Route::post('lesson/{lesson}/upload_file', 'Manage\LessonController@uploadFile')->name('manage.lesson.file');
         Route::get('task', 'Manage\TaskController@index')->name('manage.task.index');
         Route::post('task', 'Manage\TaskController@store')->name('manage.task.store');
 
@@ -61,4 +62,5 @@ Route::middleware(['auth', 'locale'])->group(function () {
     Route::get('lesson/list', 'LessonController@list')->name('lesson.list');
 
     Route::get('file/{file}', 'LessonController@file')->name('lesson.file');
+    Route::delete('file/{file}', 'FileController@destroy')->name('lesson.destroy');
 });

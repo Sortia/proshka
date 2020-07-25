@@ -6,7 +6,7 @@ class LessonService
 {
     public function maybeBuyLesson($lesson)
     {
-        if (!$lesson->user) { // todo move to service class
+        if (!$lesson->user) {
             $lesson->user()->create([
                 'user_id' => auth()->user()->id,
                 'lesson_id' => $lesson->id,
@@ -22,13 +22,15 @@ class LessonService
         return $lesson->user;
     }
 
-    public function maybeUploadFile($request, $lesson)
+    public function maybeUploadFile($request, $path, $model)
     {
-        if (!is_null($request->file('file'))) { // todo move to service
-            $lesson->user->files()->create([
-                'path' => $request->file('file')->store('answers'),
+        if (!is_null($request->file('file'))) {
+            return $model->files()->create([
+                'path' => $request->file('file')->store($path),
                 'name' => $request->file('file')->getClientOriginalName(),
             ]);
         }
+
+        return null;
     }
 }

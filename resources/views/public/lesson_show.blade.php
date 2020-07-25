@@ -31,7 +31,7 @@
                                     @endforeach
                                     @if(Gate::allows('is_student'))
                                         <div class="custom-file mt-3">
-                                            <input type="file" class="custom-file-input" id="file" name="file">
+                                            <input type="file" class="custom-file-input change-file-input" id="file" name="file">
                                             <label id="file-label" class="custom-file-label" for="customFile">@lang('Choose file')</label>
                                         </div>
                                         <button class="btn btn-success mt-3 float-right">@lang('Send')</button>

@@ -1,33 +1,39 @@
 $(() => {
 
     let policy_lessons = [];
-
+    let current_row = 0;
 
     $('#create_lesson').on('click', () => {
         $('#course_id').val($("#search_course_id option:selected").val())
     });
 
     $('.edit-lesson').on('click', function () {
-        let row = $(this).parents('tr');
+        $.ajax({
+            method: "GET",
+            url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
+            success: (response) => {
+                $('#id').val(response.id);
+                $('#order_number').val(response.order_number);
+                $('#name').val(response.name);
+                $('#complexity').val(response.complexity);
+                $('#cost').val(response.cost);
+                $('#bonus').val(response.bonus);
+                $('#text').val(response.text);
+                $('#description').val(response.description);
+                $('#available_at').val(response.available_at);
+                $('#time').val(response.time);
 
-        $('#id').val(row.data('lesson_id'));
-        $('#order_number').val(row.children('.row-order_number').text());
-        $('#name').val(row.children('.row-name').text());
-        $('#complexity').val(row.children('.row-complexity').text());
-        $('#cost').val(row.children('.row-cost').text());
-        $('#bonus').val(row.children('.row-bonus').text());
-        $('#text').val(row.children('.row-text').text());
-        $('#description').val(row.children('.row-description').text());
-        $('#available_at').val(row.children('.row-available_at').text());
-        $('#time').val(row.children('.row-time').text());
-
-        $('#create_lesson').click();
+                $('#create_lesson').click();
+            },
+            error: (response) => show_error(response),
+        });
     });
 
     $('.set-politics').on('click', function () {
         $.ajax({
             method: "POST",
             url: `/manage/policy/show/${$(this).parents('tr').data('lesson_id')}`,
+            error: (response) => show_error(response),
             success: (response) => {
                 policy_lessons = [];
 
@@ -95,7 +101,8 @@ $(() => {
             },
             success: (response) => {
                 window.editor.clipboard.dangerouslyPasteHTML(response);
-            }
+            },
+            error: (response) => show_error(response),
         });
 
 
@@ -114,7 +121,8 @@ $(() => {
                 task: $('.ql-editor').html(),
                 lesson_id: $('#task_lesson_id').val(),
             },
-            success: () => location.reload()
+            success: () => location.reload(),
+            error: (response) => show_error(response),
         });
     });
 
@@ -125,6 +133,7 @@ $(() => {
             data: {
                 direction_id: $("#policy_constraint_direction_id option:selected").val()
             },
+            error: (response) => show_error(response),
             success: (response) => {
                 $('#policy_constraint_course_id').empty();
 
@@ -147,6 +156,7 @@ $(() => {
             data: {
                 direction_id: $("#search_direction_id option:selected").val()
             },
+            error: (response) => show_error(response),
             success: (response) => {
                 $('#search_course_id').empty().append(`<option>Выберите курс</option>`);
 
@@ -171,6 +181,7 @@ $(() => {
             data: {
                 course_id: $("#policy_constraint_course_id option:selected").val()
             },
+            error: (response) => show_error(response),
             success: (response) => {
                 $('#policy_constraint_lesson_list').empty();
 
@@ -211,6 +222,7 @@ $(() => {
                 constraints: constraints,
                 prevent_lessons: policy_lessons,
             },
+            error: (response) => show_error(response),
             success: () => {
                 location.reload();
             }
@@ -222,10 +234,74 @@ $(() => {
         $.ajax({
             method: "DELETE",
             url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
+            error: (response) => show_error(response),
             success: () => {
                 location.reload();
             }
         });
     });
 
+    $('.set-files').on('click', function () {
+        $.ajax({
+            method: "GET",
+            url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
+            error: (response) => show_error(response),
+            success: (response) => {
+                current_row = response.id;
+
+                $('#lesson-files .list-group').empty();
+                for (let file in response.files) {
+                    add_file(response.files[file]);
+                }
+                console.log(response);
+            }
+        });
+    });
+
+    $('body').on('click', '.delete-file', function () {
+        $.ajax({
+            url: `/file/${$(this).data('file_id')}`,
+            type: 'delete',
+            contentType: false,
+            processData: false,
+            error: (response) => show_error(response),
+            success: () => {
+                $(this).parents('.list-group-item').remove();
+            },
+        });
+    });
+
+    $('body').on('change', '.lesson-file', function () {
+        let fd = new FormData();
+        let files = $('#upload_file')[0].files[0];
+        fd.append('file', files);
+
+        $.ajax({
+            url: `/manage/lesson/${current_row}/upload_file`,
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            error: (response) => show_error(response),
+            success: function (response) {
+                add_file(response);
+            },
+        });
+    });
+
+    function add_file(file) {
+        $('#lesson-files .list-group').append(`
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-lg-10"><a href="/file/${file.id}">${file.name}</a></a></div>
+                    <div class="col-lg-2"><button class="btn btn-outline-danger btn-sm float-right delete-file" data-file_id="${file.id}">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </button></div>
+                </div>
+            </div>`
+        );
+    }
 });

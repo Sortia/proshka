@@ -30,7 +30,7 @@
                                             <span class="input-group-text" id="basic-addon1">@lang('Direction')</span>
                                         </div>
                                         <select name="direction_id" id="search_direction_id"
-                                                class="form-control select2-enable input-lg">
+                                                class="form-control input-lg">
                                             <option>@lang('Select direction')</option>
                                             @foreach($directions as $direction)
                                                 <option @if(request()->direction_id == $direction->id) selected
@@ -45,7 +45,7 @@
                                             <span class="input-group-text" id="basic-addon1">@lang('Course')</span>
                                         </div>
                                         <select name="course_id" id="search_course_id"
-                                                class="form-control select2-enable input-lg">
+                                                class="form-control input-lg">
                                             <option>@lang('Select course')</option>
                                             @foreach($courses as $course)
                                                 <option @if(request()->course_id == $course->id) selected
@@ -68,9 +68,6 @@
                                 <th data-sortable="true" data-field="description">@lang('Description')</th>
                                 <th data-sortable="true" data-field="available_at">@lang('Available at')</th>
                                 <th data-sortable="true" data-field="actions">@lang('Actions')</th>
-
-                                <th class="d-none" data-sortable="true" data-field="theory">@lang('Theory')</th>
-                                <th class="d-none" data-sortable="true" data-field="time">@lang('Time')</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -117,6 +114,14 @@
                                                 </svg>
                                             @endif
                                         </button>
+
+                                        <button class="btn btn-sm btn-outline-primary set-files" data-toggle="modal"
+                                                data-target="#filesModal">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3z"/>
+                                                <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
+                                            </svg>
+                                        </button>
                                         <button class="btn btn-sm btn-outline-danger delete-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -124,8 +129,6 @@
                                             </svg>
                                         </button>
                                     </td>
-                                    <td class="row-text d-none">{{$lesson->text}}</td>
-                                    <td class="row-time d-none">{{$lesson->time}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -140,7 +143,7 @@
          aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
-                <form action="{{route('manage.lesson.store')}}" method="post">
+                <form action="{{route('manage.lesson.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="course_id" name="course_id">
                     <input type="hidden" id="id" name="id">
@@ -241,6 +244,58 @@
         </div>
     </div>
 
+    <div class="modal fade" id="filesModal" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('Files')</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="lesson-files" class="my-3">
+                        <div class="list-group">
+
+                        </div>
+                    </div>
+                    <div class="files">
+                        <form method="post" action="" enctype="multipart/form-data" id="myform">
+                        <div class="custom-file">
+                            <input type="file" id="upload_file" class="custom-file-input lesson-file" name="file">
+                            <label class="custom-file-label" for="customFile">@lang('Choose file')</label>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createLessonTaskModal" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">@lang('Task')</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Create the editor container -->
+                        <div id="editor"></div>
+                        <input type="hidden" id="task_lesson_id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
+                        <button id="save_task" type="button" class="btn btn-primary">@lang('Save')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <div class="modal fade" id="politicsModal" tabindex="-1" role="dialog"
          aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -296,6 +351,6 @@
                 </div>
             </div>
         </div>
-
+    </div>
 
 @endsection
