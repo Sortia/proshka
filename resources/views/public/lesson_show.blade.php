@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link href="{{asset('libraries/quilljs/quill.css')}}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -11,7 +15,7 @@
                         <div class="description">{{$lesson->description}}</div>
                         <hr>
                         <div class="text">{{$lesson->text}}</div>
-                        <div class="task">{!! print_task($lesson->task) !!}</div>
+                        <div class="task ql-editor">{!! print_task($lesson->task) !!}</div>
                         <div class="files">
                             @foreach($lesson->files as $file)
                                 <a href="{{route('lesson.file', $file)}}">{{$file->name}}</a>
