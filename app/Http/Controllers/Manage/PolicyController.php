@@ -7,13 +7,23 @@ use App\Direction;
 use App\Http\Controllers\Controller;
 use App\Lesson;
 use App\LessonConstraint;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PolicyController extends Controller
 {
+    /**
+     * Сохранение политик
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function store(Request $request)
     {
-        LessonConstraint::whereIn('lesson_id', array_merge($request->lessons ?? [], $request->prevent_lessons ?? []))->delete();
+        $preventConstraints = array_merge($request->lessons ?? [], $request->prevent_lessons ?? []);
+
+        LessonConstraint::whereIn('lesson_id', $preventConstraints)->delete();
 
         foreach ($request->lessons ?? [] as $lessonId) {
             foreach ($request->constraints ?? [] as $constraintId) {
@@ -27,6 +37,12 @@ class PolicyController extends Controller
         return $this->respondSuccess();
     }
 
+    /**
+     * Отображение политик
+     *
+     * @param Lesson $lesson
+     * @return JsonResponse
+     */
     public function show(Lesson $lesson)
     {
         $lesson->load('course.lessons', 'constraints');

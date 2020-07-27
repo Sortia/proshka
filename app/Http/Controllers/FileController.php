@@ -3,21 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\File;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FileController extends Controller
 {
-    public function __construct()
+    /**
+     * Возвращает файл на скачивание
+     *
+     * @param File $file
+     * @return BinaryFileResponse
+     */
+    public function show(File $file)
     {
-        $this->middleware('methodist');
+        return Response::download(storage_path('app/' . $file->path));
     }
 
+    /**
+     * Удаление файла. Только для методиста
+     *
+     * @param File $file
+     * @return \Illuminate\Http\Response|RedirectResponse
+     * @throws Exception
+     */
     public function destroy(File $file)
     {
-        Storage::delete($file->path);
+        try {
+            Storage::delete($file->path);
 
-        $file->delete();
+            $file->delete();
+
+        } catch (Exception $e) {
+            return response($e->getMessage());
+        }
 
         return $this->respondSuccess();
     }

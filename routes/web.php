@@ -61,6 +61,6 @@ Route::middleware(['auth', 'locale'])->group(function () {
     Route::get('course/list', 'CourseController@list')->name('course.list');
     Route::get('lesson/list', 'LessonController@list')->name('lesson.list');
 
-    Route::get('file/{file}', 'LessonController@file')->name('lesson.file');
-    Route::delete('file/{file}', 'FileController@destroy')->name('lesson.destroy');
+    Route::get('file/{file}', 'FileController@show')->name('file.show');
+    Route::delete('file/{file}', 'FileController@destroy')->name('lesson.destroy')->middleware('methodist');
 });

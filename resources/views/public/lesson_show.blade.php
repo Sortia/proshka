@@ -15,10 +15,10 @@
                         <div class="description">{{$lesson->description}}</div>
                         <hr>
                         <div class="text">{{$lesson->text}}</div>
-                        <div class="task ql-editor">{!! print_task($lesson->task) !!}</div>
+                        <div class="task ql-editor">{!! $lesson->printTask() !!}</div>
                         <div class="files">
                             @foreach($lesson->files as $file)
-                                <a href="{{route('lesson.file', $file)}}">{{$file->name}}</a>
+                                <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
                             @endforeach
                         </div>
                         <fieldset @if(Gate::allows('is_teacher') or Gate::denies('update', $lessonUser)) disabled @endif>
@@ -31,7 +31,7 @@
                                     <textarea name="text" id="text" class="form-control"
                                               rows="10">{{$lessonUser->text ?? ''}}</textarea>
                                     @foreach($lessonUser->files as $file)
-                                        <a href="{{route('lesson.file', $file)}}">{{$file->name}}</a><br>
+                                        <a href="{{route('file.show', $file)}}">{{$file->name}}</a><br>
                                     @endforeach
                                     @if(Gate::allows('is_student'))
                                         <div class="custom-file mt-3">
