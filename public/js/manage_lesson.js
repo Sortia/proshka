@@ -12,6 +12,8 @@ $(() => {
             method: "GET",
             url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
             success: (response) => {
+                current_row = response.id;
+
                 $('#id').val(response.id);
                 $('#order_number').val(response.order_number);
                 $('#name').val(response.name);
@@ -22,6 +24,7 @@ $(() => {
                 $('#description').val(response.description);
                 $('#available_at').val(response.available_at);
                 $('#time').val(response.time);
+                window.editor.clipboard.dangerouslyPasteHTML(response.task);
 
                 $('#create_lesson').click();
             },
@@ -113,18 +116,18 @@ $(() => {
         $('#task_lesson_id').val('');
     });
 
-    $('#save_task').on('click', () => {
-        $.ajax({
-            method: "POST",
-            url: "/manage/task",
-            data: {
-                task: $('.ql-editor').html(),
-                lesson_id: $('#task_lesson_id').val(),
-            },
-            success: () => location.reload(),
-            error: (response) => show_error(response),
-        });
-    });
+    // $('#save_task').on('click', () => {
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "/manage/task",
+    //         data: {
+    //             task: $('.ql-editor').html(),
+    //             lesson_id: $('#task_lesson_id').val(),
+    //         },
+    //         success: () => location.reload(),
+    //         error: (response) => show_error(response),
+    //     });
+    // });
 
     $('#policy_constraint_direction_id').on('change', function () {
         $.ajax({
@@ -285,6 +288,32 @@ $(() => {
             error: (response) => show_error(response),
             success: function (response) {
                 add_file(response);
+            },
+        });
+    });
+
+    $('#save_lesson').on('submit', function (event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: `/manage/lesson`,
+            method: 'post',
+            data: {
+                id: $('#id').val(),
+                course_id: $('#course_id').val(),
+                order_number: $('#order_number').val(),
+                name: $('#name').val(),
+                complexity: $('#complexity').val(),
+                cost: $('#cost').val(),
+                bonus: $('#bonus').val(),
+                description: $('#description').val(),
+                available_at: $('#available_at').val(),
+                time: $('#time').val(),
+                task: $('.ql-editor').html(),
+            },
+            error: (response) => show_error(response),
+            success: function () {
+                location.reload();
             },
         });
     });

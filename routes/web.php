@@ -31,8 +31,6 @@ Route::middleware(['auth', 'locale'])->group(function () {
 
         Route::get('lesson/{direction}/{course}', 'Manage\LessonController@create')->name('manage.lesson.create');
         Route::post('lesson/{lesson}/upload_file', 'Manage\LessonController@uploadFile')->name('manage.lesson.file');
-        Route::get('task', 'Manage\TaskController@index')->name('manage.task.index');
-        Route::post('task', 'Manage\TaskController@store')->name('manage.task.store');
 
         Route::post('policy', 'Manage\PolicyController@store')->name('manage.policy.store');
         Route::post('policy/show/{lesson}', 'Manage\PolicyController@show')->name('manage.policy.show');

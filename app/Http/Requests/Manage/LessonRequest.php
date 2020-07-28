@@ -13,8 +13,7 @@ class LessonRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-//        return auth()->user()->role_id === 1;
+        return auth()->user()->role_id === 1;
     }
 
     /**
@@ -34,7 +33,6 @@ class LessonRequest extends FormRequest
             'bonus' => 'required|numeric',
             'time' => 'required|numeric',
             'available_at' => 'required|numeric',
-            'text' => 'required',
         ];
     }
 }

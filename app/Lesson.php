@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\Services\TaskService;
+use App\Http\Services\LessonService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 
@@ -93,6 +93,6 @@ class Lesson extends Model
      */
     public function printTask()
     {
-        return (new TaskService())->print($this->task);
+        return (new LessonService())->printTask($this->task);
     }
 }

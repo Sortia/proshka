@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manage;
 use App\Course;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manage\LessonRequest;
+use App\Http\Resources\LessonResource;
 use App\Http\Services\LessonService;
 use App\Lesson;
 use App\Direction;
@@ -30,7 +31,11 @@ class LessonController extends Controller
 
     public function show(Lesson $lesson)
     {
-        return $lesson->load('files');
+        $lesson = $lesson->load('files')->toArray(); // todo resource
+
+        $lesson['task'] = $this->service->printTask($lesson['task']);
+
+        return response()->json($lesson);
     }
 
     public function edit(Lesson $lesson)
@@ -42,7 +47,11 @@ class LessonController extends Controller
 
     public function store(LessonRequest $request)
     {
-        Lesson::updateOrCreate(['id' => $request->id], $request->toArray());
+        $lesson = Lesson::updateOrCreate(['id' => $request->id], $request->toArray());
+
+        $task = $this->service->replaceImages($request->task);
+
+        $lesson->update(['task' => $task]); // todo optimize
 
         return redirect()->back();
     }
