@@ -160,7 +160,7 @@
                             <div class="row mt-2">
                                 <div class="col-lg-4">
                                     <label for="complexity">@lang('Complexity')</label>
-                                    <input step="0.01" required type="number" class="form-control" id="complexity"
+                                    <input required type="number" class="form-control" id="complexity"
                                            name="complexity"
                                            placeholder="@lang('Enter complexity')">
                                 </div>
