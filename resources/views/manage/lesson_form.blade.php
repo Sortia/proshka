@@ -176,15 +176,6 @@
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-lg-12">
-                                    <label for="text" class="m-0 mt-2">@lang('Theory')</label>
-                                    <hr class="mt-1">
-                                    <div class="editor-overlay">
-                                        <div id="editor"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
                                 <div class="col-lg-4">
                                     <label for="available_at">@lang('Available at')</label>
                                     <input required type="number" class="form-control" id="available_at"
@@ -201,6 +192,15 @@
                                     <input required type="number" class="form-control" id="order_number"
                                            name="order_number"
                                            placeholder="@lang('Enter order number')">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-12">
+                                    <label for="text" class="m-0 mt-2">@lang('Theory')</label>
+                                    <hr class="mt-1">
+                                    <div class="editor-overlay">
+                                        <div id="editor"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
