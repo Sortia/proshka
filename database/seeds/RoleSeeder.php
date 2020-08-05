@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-//        Role::truncate();
+        Role::truncate();
 
         $roles = [
             [
