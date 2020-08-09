@@ -14,3 +14,12 @@
 .task p {
     margin-bottom: 0 !important;
 }
+
+.dz-progress {
+    /* progress bar covers file name */
+    display: none !important;
+}
+
+.dropzone {
+    min-height: 100px !important;
+}

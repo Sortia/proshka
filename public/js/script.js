@@ -26,5 +26,14 @@ $(() => {
         alert(response.statusText);
     }
 
+    window.initFiler = function (selector) {
+        return new Dropzone(selector, {
+            url: "/file/post",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            parallelUploads: 10 // Number of files process at a time (default 2)
+        });
+    }
+
 });
 

@@ -46,10 +46,7 @@ class LessonService
     public function maybeUploadFile($request, $path, $model)
     {
         if (!is_null($request->file('file'))) {
-            return $model->files()->create([
-                'path' => $request->file('file')->store($path),
-                'name' => $request->file('file')->getClientOriginalName(),
-            ]);
+            return FileService::save($model, $request->file('file'), $path);
         }
 
         return null;

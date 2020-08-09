@@ -34,6 +34,9 @@ Route::middleware(['auth', 'locale'])->group(function () {
 
         Route::post('policy', 'Manage\PolicyController@store')->name('manage.policy.store');
         Route::post('policy/show/{lesson}', 'Manage\PolicyController@show')->name('manage.policy.show');
+
+        Route::post('test', 'Manage\TestController@store')->name('manage.test.store');
+        Route::get('test/{lesson}', 'Manage\TestController@show')->name('manage.test.show');
     });
 
     Route::middleware('student')->group(function () {

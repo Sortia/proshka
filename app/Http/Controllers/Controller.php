@@ -20,4 +20,12 @@ class Controller extends BaseController
     {
         return response($message, 500);
     }
+
+    /**
+     * Заполнение blade-шаблона значениями и возврашение в виде строки
+     */
+    protected function prepareLayout(string $view, array $data = []): string
+    {
+        return view($view, $data)->toHtml();
+    }
 }

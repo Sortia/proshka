@@ -2,12 +2,15 @@
 
 @section('css')
     <link href="{{asset('libraries/quilljs/quill.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('libraries/dropzone/dropzone.css')}}">
 @endsection
 
 @section('js')
     <script src="{{asset('libraries/quilljs/quill.js')}}"></script>
     <script src="{{asset('js/editor.js')}}" defer></script>
     <script src="{{asset('js/manage_lesson.js')}}" defer></script>
+    <script src="{{asset('js/manage_test.js')}}" defer></script>
+    <script src="{{asset('libraries/dropzone/dropzone.js')}}"></script>
 @endsection
 
 @section('content')
@@ -90,32 +93,52 @@
                                                       d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
                                             </svg>
                                         </button>
+                                        <button id="ccc" class="btn btn-sm btn-outline-primary edit-test" data-toggle="modal"
+                                                data-target="#testModal">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                                <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+                                            </svg>
+                                        </button>
                                         <button class="btn btn-sm btn-outline-primary set-politics" data-toggle="modal"
                                                 data-target="#politicsModal">
                                             @if($lesson->constraints->isEmpty())
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-flag" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M3.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
-                                                <path fill-rule="evenodd" d="M3.762 2.558C4.735 1.909 5.348 1.5 6.5 1.5c.653 0 1.139.325 1.495.562l.032.022c.391.26.646.416.973.416.168 0 .356-.042.587-.126a8.89 8.89 0 0 0 .593-.25c.058-.027.117-.053.18-.08.57-.255 1.278-.544 2.14-.544a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5c-.638 0-1.18.21-1.734.457l-.159.07c-.22.1-.453.205-.678.287A2.719 2.719 0 0 1 9 9.5c-.653 0-1.139-.325-1.495-.562l-.032-.022c-.391-.26-.646-.416-.973-.416-.833 0-1.218.246-2.223.916a.5.5 0 1 1-.515-.858C4.735 7.909 5.348 7.5 6.5 7.5c.653 0 1.139.325 1.495.562l.032.022c.391.26.646.416.973.416.168 0 .356-.042.587-.126.187-.068.376-.153.593-.25.058-.027.117-.053.18-.08.456-.204 1-.43 1.64-.512V2.543c-.433.074-.83.234-1.234.414l-.159.07c-.22.1-.453.205-.678.287A2.719 2.719 0 0 1 9 3.5c-.653 0-1.139-.325-1.495-.562l-.032-.022c-.391-.26-.646-.416-.973-.416-.833 0-1.218.246-2.223.916a.5.5 0 0 1-.554-.832l.04-.026z"/>
-                                            </svg>
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-flag"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M3.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
+                                                    <path fill-rule="evenodd"
+                                                          d="M3.762 2.558C4.735 1.909 5.348 1.5 6.5 1.5c.653 0 1.139.325 1.495.562l.032.022c.391.26.646.416.973.416.168 0 .356-.042.587-.126a8.89 8.89 0 0 0 .593-.25c.058-.027.117-.053.18-.08.57-.255 1.278-.544 2.14-.544a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5c-.638 0-1.18.21-1.734.457l-.159.07c-.22.1-.453.205-.678.287A2.719 2.719 0 0 1 9 9.5c-.653 0-1.139-.325-1.495-.562l-.032-.022c-.391-.26-.646-.416-.973-.416-.833 0-1.218.246-2.223.916a.5.5 0 1 1-.515-.858C4.735 7.909 5.348 7.5 6.5 7.5c.653 0 1.139.325 1.495.562l.032.022c.391.26.646.416.973.416.168 0 .356-.042.587-.126.187-.068.376-.153.593-.25.058-.027.117-.053.18-.08.456-.204 1-.43 1.64-.512V2.543c-.433.074-.83.234-1.234.414l-.159.07c-.22.1-.453.205-.678.287A2.719 2.719 0 0 1 9 3.5c-.653 0-1.139-.325-1.495-.562l-.032-.022c-.391-.26-.646-.416-.973-.416-.833 0-1.218.246-2.223.916a.5.5 0 0 1-.554-.832l.04-.026z"/>
+                                                </svg>
                                             @else
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-flag-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M3.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
-                                                    <path fill-rule="evenodd" d="M3.762 2.558C4.735 1.909 5.348 1.5 6.5 1.5c.653 0 1.139.325 1.495.562l.032.022c.391.26.646.416.973.416.168 0 .356-.042.587-.126a8.89 8.89 0 0 0 .593-.25c.058-.027.117-.053.18-.08.57-.255 1.278-.544 2.14-.544a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5c-.638 0-1.18.21-1.734.457l-.159.07c-.22.1-.453.205-.678.287A2.719 2.719 0 0 1 9 9.5c-.653 0-1.139-.325-1.495-.562l-.032-.022c-.391-.26-.646-.416-.973-.416-.833 0-1.218.246-2.223.916A.5.5 0 0 1 3.5 9V3a.5.5 0 0 1 .223-.416l.04-.026z"/>
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                     class="bi bi-flag-fill" fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M3.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
+                                                    <path fill-rule="evenodd"
+                                                          d="M3.762 2.558C4.735 1.909 5.348 1.5 6.5 1.5c.653 0 1.139.325 1.495.562l.032.022c.391.26.646.416.973.416.168 0 .356-.042.587-.126a8.89 8.89 0 0 0 .593-.25c.058-.027.117-.053.18-.08.57-.255 1.278-.544 2.14-.544a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5c-.638 0-1.18.21-1.734.457l-.159.07c-.22.1-.453.205-.678.287A2.719 2.719 0 0 1 9 9.5c-.653 0-1.139-.325-1.495-.562l-.032-.022c-.391-.26-.646-.416-.973-.416-.833 0-1.218.246-2.223.916A.5.5 0 0 1 3.5 9V3a.5.5 0 0 1 .223-.416l.04-.026z"/>
                                                 </svg>
                                             @endif
                                         </button>
 
                                         <button class="btn btn-sm btn-outline-primary set-files" data-toggle="modal"
                                                 data-target="#filesModal">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3z"/>
-                                                <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3z"/>
+                                                <path
+                                                    d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
                                             </svg>
                                         </button>
                                         <button class="btn btn-sm btn-outline-danger delete-lesson">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd"
+                                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                             </svg>
                                         </button>
                                     </td>
@@ -129,221 +152,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createLessonModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <form id="save_lesson" action="{{route('manage.lesson.store')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" id="course_id" name="course_id">
-                    <input type="hidden" id="id" name="id">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">@lang('Lesson')</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <label for="name">@lang('Name')</label>
-                                    <input required type="text" class="form-control" id="name" name="name"
-                                           placeholder="@lang('Enter name')">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="description">@lang('Description')</label>
-                                    <input required type="text" class="form-control" id="description" name="description"
-                                           placeholder="@lang('Enter description')">
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-lg-4">
-                                    <label for="complexity">@lang('Complexity')</label>
-                                    <input required type="number" class="form-control" id="complexity"
-                                           name="complexity"
-                                           placeholder="@lang('Enter complexity')">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="cost">@lang('Cost')</label>
-                                    <input required type="number" class="form-control" id="cost" name="cost"
-                                           placeholder="@lang('Enter cost')">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="bonus">@lang('Bonus')</label>
-                                    <input required type="number" class="form-control" id="bonus" name="bonus"
-                                           placeholder="@lang('Enter bonus')">
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-lg-4">
-                                    <label for="available_at">@lang('Available at')</label>
-                                    <input required type="number" class="form-control" id="available_at"
-                                           name="available_at"
-                                           placeholder="@lang('Enter available at')">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="time">@lang('Time')</label>
-                                    <input required type="number" class="form-control" id="time" name="time"
-                                           placeholder="@lang('Enter time')">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="order_number">@lang('Order number')</label>
-                                    <input required type="number" class="form-control" id="order_number"
-                                           name="order_number"
-                                           placeholder="@lang('Enter order number')">
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-lg-12">
-                                    <label for="text" class="m-0 mt-2">@lang('Theory')</label>
-                                    <hr class="mt-1">
-                                    <div class="editor-overlay">
-                                        <div id="editor"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
-                        <button class="btn btn-primary">@lang('Save')</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="createLessonTaskModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">@lang('Task')</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Create the editor container -->
-                    <div id="editor"></div>
-                    <input type="hidden" id="task_lesson_id">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
-                    <button id="save_task" type="button" class="btn btn-primary">@lang('Save')</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="filesModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">@lang('Files')</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="lesson-files" class="my-3">
-                        <div class="list-group">
-
-                        </div>
-                    </div>
-                    <div class="files">
-                        <form method="post" action="" enctype="multipart/form-data" id="myform">
-                        <div class="custom-file">
-                            <input type="file" id="upload_file" class="custom-file-input lesson-file" name="file">
-                            <label class="custom-file-label" for="customFile">@lang('Choose file')</label>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="createLessonTaskModal" tabindex="-1" role="dialog"
-             aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">@lang('Task')</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Create the editor container -->
-                        <div id="editor"></div>
-                        <input type="hidden" id="task_lesson_id">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
-                        <button id="save_task" type="button" class="btn btn-primary">@lang('Save')</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <div class="modal fade" id="politicsModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">@lang('Politics')</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-lg-12">Задания:</div>
-                    </div>
-                    <div class="offset-1">
-                        <div id="policy_lesson_list" class="row my-3 ml-3"></div>
-                    </div>
-                    <p>Доступны при:</p>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">@lang('Direction')</span>
-                                </div>
-                                <select id="policy_constraint_direction_id"
-                                        class="form-control input-lg">
-                                    <option value="">@lang('Select direction')</option>
-                                    @foreach($directions as $direction)
-                                        <option value="{{$direction->id}}">{{$direction->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">@lang('Direction')</span>
-                                </div>
-                                <select name="course_id" id="policy_constraint_course_id"
-                                        class="form-control input-lg direction-select"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offset-1">
-                        <div id="policy_constraint_lesson_list" class="row my-3 ml-3"></div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
-                        <button id="save_policy" type="button" class="btn btn-primary">@lang('Save')</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('manage.modals.create_lesson')
+    @include('manage.modals.lesson_files')
+    @include('manage.modals.lesson_politics')
+    @include('manage.modals.lesson_test')
 @endsection

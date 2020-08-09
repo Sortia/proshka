@@ -54,5 +54,15 @@
     "Select direction": "Выберите направление",
     "Search": "Поиск",
     "Politics": "Политики",
-    "Files": "Файлы"
+    "Files": "Файлы",
+
+    "Question text": "Текст вопроса",
+    "Answer type": "Тип ответа",
+    "Ability to attach a file": "Возможность прикрепить файл",
+    "Add answer option": "Добавить вариант ответа",
+    "Add question": "Добавить вопрос",
+    "Choice from several": "Выбор из нескольких",
+    "Text field": "Текстовое поле",
+    "Without field": "Без поля",
+    "Test": "Тест"
 }

@@ -1,0 +1,3 @@
+Dropzone.autoDiscover = false;
+Dropzone.prototype.defaultOptions.dictDefaultMessage = "Выберите файл для загрузки";
+// todo его же не везде подключать нужно...

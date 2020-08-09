@@ -51,6 +51,11 @@ class Lesson extends Model
         return $this->belongsToMany(Lesson::class, 'lesson_constraint', 'lesson_id', 'constraint_lesson_id');
     }
 
+    public function test()
+    {
+        return $this->hasOne(Test::class);
+    }
+
     /**
      * Проверка на доступ к заданию для текущего студента
      *
