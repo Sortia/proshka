@@ -33,7 +33,9 @@ class TestService
      */
     public function saveQuestion(Test $test, array $questionData): Question
     {
-        return $test->questions()->updateOrCreate(['id' => $questionData['index']], $questionData);
+        $id = $questionData['index'] > 0 ? $questionData['index'] : null;
+
+        return $test->questions()->updateOrCreate(['id' => $id], $questionData);
     }
 
     /**
