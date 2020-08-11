@@ -28,4 +28,22 @@ class Question extends Model
     {
         return $this->morphMany(File::class, 'fileable');
     }
+
+    public function user()
+    {
+        return $this->hasOne(QuestionUser::class)->where('user_id', auth()->user()->id);
+    }
+
+    public function isActive()
+    {
+        if (is_null($this->user)) {
+            return true;
+        }
+
+        if ($this->user->status === 'rework') {
+            return true;
+        }
+
+        return false;
+    }
 }

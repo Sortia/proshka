@@ -21,10 +21,7 @@
                                 <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
                             @endforeach
                         </div>
-
-                        <a href="{{route('test.show', $lesson->test)}}" class="btn btn-outline-primary btn-block">@lang('Test')</a>
-
-                        <fieldset @if(Gate::denies('update', $lessonUser)) disabled @endif>
+                        <fieldset disabled>
 
                             <div class="answer mt-5">
                                 <h5>@lang('Answer')</h5>
@@ -36,17 +33,20 @@
                                     @foreach($lessonUser->files as $file)
                                         <a href="{{route('file.show', $file)}}">{{$file->name}}</a><br>
                                     @endforeach
-                                    <div class="custom-file mt-3">
-                                        <input type="file" class="custom-file-input change-file-input" id="file"
-                                               name="file">
-                                        <label id="file-label" class="custom-file-label"
-                                               for="customFile">@lang('Choose file')</label>
-                                    </div>
-                                    <button class="btn btn-success mt-3 float-right">@lang('Send')</button>
                                 </form>
                             </div>
                         </fieldset>
 
+                        <div class="mt-3">
+                            <form action="{{route('teacher.lesson.wrong', $lessonUser)}}" method="post">
+                                @csrf
+                                <button class="btn-danger btn float-left">@lang('Wrong')</button>
+                            </form>
+                            <form action="{{route('teacher.lesson.right', $lessonUser)}}" method="post">
+                                @csrf
+                                <button class="btn-success btn float-right">@lang('Right')</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

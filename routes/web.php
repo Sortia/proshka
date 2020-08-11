@@ -49,6 +49,10 @@ Route::middleware(['auth', 'locale'])->group(function () {
 
         Route::get('lesson/{lesson}/show', 'LessonController@show')->name('lesson.show');
         Route::post('lesson/{lesson}/complete', 'LessonController@complete')->name('lesson.complete');
+
+        Route::get('test/{test}/show', 'TestController@show')->name('test.show');
+
+        Route::post('question_user/store', 'QuestionController@store')->name('test.store');
     });
 
     Route::middleware('teacher')->group(function () {

@@ -34,7 +34,7 @@ class TeacherController extends Controller
 
         $lesson = $lessonUser->lesson;
 
-        return view('public.lesson_show', compact('lesson', 'lessonUser'));
+        return view('teacher.lesson_show', compact('lesson', 'lessonUser'));
     }
 
     /**

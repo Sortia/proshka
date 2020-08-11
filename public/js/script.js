@@ -26,9 +26,10 @@ $(() => {
         alert(response.statusText);
     }
 
-    window.initFiler = function (selector) {
+    window.initFiler = function (selector, clickable = true) {
         return new Dropzone(selector, {
             url: "/file/post",
+            clickable: clickable,
             addRemoveLinks: true,
             autoProcessQueue: false,
             parallelUploads: 10 // Number of files process at a time (default 2)
