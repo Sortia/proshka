@@ -28,9 +28,9 @@
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="input-group">
+                                    <div class="input-group mt-2">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">@lang('Direction')</span>
+                                            <span class="input-group-text">@lang('Direction')</span>
                                         </div>
                                         <select name="direction_id" id="search_direction_id"
                                                 class="form-control input-lg">
@@ -43,9 +43,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="input-group">
+                                    <div class="input-group mt-2">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">@lang('Course')</span>
+                                            <span class="input-group-text">@lang('Course')</span>
                                         </div>
                                         <select name="course_id" id="search_course_id"
                                                 class="form-control input-lg">
@@ -84,7 +84,7 @@
                                     <td class="row-description">{{$lesson->description}}</td>
                                     <td class="row-available_at">{{$lesson->available_at}}</td>
                                     <td class="">
-                                        <button class="btn btn-sm btn-outline-primary edit-lesson">
+                                        <button class="btn btn-sm btn-outline-primary mt-1 edit-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -93,14 +93,14 @@
                                                       d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
                                             </svg>
                                         </button>
-                                        <button id="ccc" class="btn btn-sm btn-outline-primary edit-test" data-toggle="modal"
+                                        <button class="btn btn-sm mt-1 btn-outline-primary edit-test" data-toggle="modal"
                                                 data-target="#testModal">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                                                 <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
                                             </svg>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-primary set-politics" data-toggle="modal"
+                                        <button class="btn btn-sm btn-outline-primary mt-1 set-politics" data-toggle="modal"
                                                 data-target="#politicsModal">
                                             @if($lesson->constraints->isEmpty())
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-flag"
@@ -122,7 +122,7 @@
                                             @endif
                                         </button>
 
-                                        <button class="btn btn-sm btn-outline-primary set-files" data-toggle="modal"
+                                        <button class="btn btn-sm btn-outline-primary mt-1 set-files" data-toggle="modal"
                                                 data-target="#filesModal">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +132,7 @@
                                                     d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
                                             </svg>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger delete-lesson">
+                                        <button class="btn btn-sm btn-outline-danger mt-1 delete-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path

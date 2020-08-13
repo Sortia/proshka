@@ -45,21 +45,20 @@
                     <label>@lang('Question')</label>
                     <div id="question"></div>
                 </div>
-                <div class="files"></div>
+                <div class="files mt-3"></div>
                 <div class="form-group">
                     <label>@lang('Answer')</label>
                     <div id="answer"></div>
                 </div>
-                <div class="files"></div>
 
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mt-2">
                         <button class="btn btn-success btn-block" id="accept_question" data-status="right">@lang('Accept task')</button>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mt-2">
                         <button class="btn btn-dark btn-block" id="rework_question" data-status="rework">@lang('Send for rework')</button>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mt-2">
                         <button class="btn btn-danger btn-block" id="wrong_question" data-status="wrong">@lang('Revoke the job')</button>
                     </div>
                 </div>
