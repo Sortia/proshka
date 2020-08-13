@@ -8,6 +8,7 @@ use App\Http\Services\LessonService;
 use App\Lesson;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class LessonController extends Controller
@@ -39,11 +40,13 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson, ShowLessonRequest $request)
     {
-        $lesson->load('videos', 'files', 'course', 'user');
+        return DB::transaction(function () use ($lesson) {
+            $lesson->load('videos', 'files', 'course', 'user');
 
-        $lessonUser = $this->service->maybeBuyLesson($lesson);
+            $lessonUser = $this->service->maybeBuyLesson($lesson);
 
-        return view('public.lesson_show', compact('lesson', 'lessonUser'));
+            return view('public.lesson_show', compact('lesson', 'lessonUser'));
+        });
     }
 
     /**
@@ -55,15 +58,17 @@ class LessonController extends Controller
      */
     public function complete(Lesson $lesson, LessonRequest $request)
     {
-        $lesson->load('user');
+        return DB::transaction(function () use ($lesson, $request) {
+            $lesson->load('user');
 
-        $lesson->user->update([
-            'text' => $request->text,
-            'status' => 'complete',
-        ]);
+            $lesson->user->update([
+                'text' => $request->text,
+                'status' => 'complete',
+            ]);
 
-        $this->service->maybeUploadFile($request, 'answers', $lesson->user);
+            $this->service->maybeUploadFile($request, 'answers', $lesson->user);
 
-        return redirect(route('course.show', ['course' => $lesson->course]));
+            return redirect(route('course.show', ['course' => $lesson->course]));
+        });
     }
 }

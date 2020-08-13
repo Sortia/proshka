@@ -37,6 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function fullName()
+    {
+        return $this->name;
+    }
+
     public function isMethodist()
     {
         return $this->role_id === 1;

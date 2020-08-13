@@ -6,6 +6,7 @@ use App\CourseUser;
 use App\Http\Requests\Teacher\EvaluateLessonRequest;
 use App\LessonUser;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class TeacherController extends Controller
@@ -60,15 +61,17 @@ class TeacherController extends Controller
      */
     public function right(LessonUser $lessonUser, EvaluateLessonRequest $request)
     {
-        $lessonUser->update(['status' => 'right']);
+        return DB::transaction(function () use ($lessonUser, $request) {
+            $lessonUser->update(['status' => 'right']);
 
-        $courseUser = CourseUser::on()
-            ->where('user_id', $lessonUser->user_id)
-            ->where('course_id', $lessonUser->lesson->course_id)
-            ->first();
+            $courseUser = CourseUser::on()
+                ->where('user_id', $lessonUser->user_id)
+                ->where('course_id', $lessonUser->lesson->course_id)
+                ->first();
 
-        $courseUser->update(['balance' => $courseUser->balance + $lessonUser->lesson->bonus]);
+            $courseUser->update(['balance' => $courseUser->balance + $lessonUser->lesson->bonus]);
 
-        return redirect(route('teacher.lesson.completed'));
+            return redirect(route('teacher.lesson.completed'));
+        });
     }
 }

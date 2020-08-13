@@ -22,6 +22,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="{{ asset('js/script.js') }}" defer></script>
+    <script src="{{ asset('js/translate.js') }}" defer></script>
 
     @yield('css')
 
@@ -51,6 +52,7 @@
                         @endif
                         @if(Gate::allows('is_teacher'))
                             <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Lessons')</a></li>
+                            <li><a class="ml-2" href="{{route('teacher.question.show')}}">@lang('Tests')</a></li>
                         @endif
                     </ul>
 

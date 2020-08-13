@@ -10,6 +10,7 @@ use App\LessonConstraint;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class PolicyController extends Controller
 {
@@ -21,20 +22,22 @@ class PolicyController extends Controller
      */
     public function store(Request $request)
     {
-        $preventConstraints = array_merge($request->lessons ?? [], $request->prevent_lessons ?? []);
+        return DB::transaction(function () use ($request) {
+            $preventConstraints = array_merge($request->lessons ?? [], $request->prevent_lessons ?? []);
 
-        LessonConstraint::whereIn('lesson_id', $preventConstraints)->delete();
+            LessonConstraint::whereIn('lesson_id', $preventConstraints)->delete();
 
-        foreach ($request->lessons ?? [] as $lessonId) {
-            foreach ($request->constraints ?? [] as $constraintId) {
-                LessonConstraint::create([ // todo optimize
-                    'lesson_id' => $lessonId,
-                    'constraint_lesson_id' => $constraintId
-                ]);
+            foreach ($request->lessons ?? [] as $lessonId) {
+                foreach ($request->constraints ?? [] as $constraintId) {
+                    LessonConstraint::create([ // todo optimize
+                        'lesson_id' => $lessonId,
+                        'constraint_lesson_id' => $constraintId
+                    ]);
+                }
             }
-        }
 
-        return $this->respondSuccess();
+            return $this->respondSuccess();
+        });
     }
 
     /**
@@ -54,9 +57,9 @@ class PolicyController extends Controller
         $lessons = LessonConstraint::getBlock($constraints->toArray());
         $constraintCourse = $lesson->constraints->first()->course ?? [];
 
-        if ($constraintCourse)
+        if ($constraintCourse) {
             $constraintCourse->load('lessons');
-
+        }
 
         return response()->json(compact(
             'lessons',

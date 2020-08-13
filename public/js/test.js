@@ -14,6 +14,7 @@ $(() => {
         let item = $('.carousel .active .test-item');
         let answer_type = item.find('.answer_type').val();
         let question_id = item.find('.question_id').val();
+        let question_user_id = item.find('.question_user_id').val();
 
         // если вопрос не активен - ответ не отправляется на сервер
         // не активен он если ученик на него уже ответил (исключение - учитель отправил задание на доработку)
@@ -26,6 +27,7 @@ $(() => {
         let fd = new FormData();
 
         fd.append('question_id', question_id);
+        fd.append('question_user_id', question_user_id);
 
         switch (answer_type) {
             case "select":

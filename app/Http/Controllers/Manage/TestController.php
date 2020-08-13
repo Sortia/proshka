@@ -47,7 +47,7 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request) {
             $data = json_decode($request->data, true);
             $questions = $data['questions'];
 
@@ -62,8 +62,8 @@ class TestController extends Controller
                 $this->service->saveQuestionFiles($question, $request->file("files_$questionData[index]"));
                 $this->service->saveQuestionAnswers($question, $questionData['answers']);
             }
-        });
 
-        return $this->respondSuccess();
+            return $this->respondSuccess();
+        });
     }
 }

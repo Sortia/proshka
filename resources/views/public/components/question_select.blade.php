@@ -5,7 +5,9 @@
             <div class="form-row align-items-center answer">
                 <div class="col-auto">
                     <div class="form-check mb-2">
-                        <input class="form-check-input answer_right" type="radio" data-answer_id="{{$answer->id}}" name="card_radio_{{$question->id}}">
+                        <input class="form-check-input answer_right"
+                               @if($question->user && $question->user->answer_id === $answer->id) checked @endif
+                               type="radio" data-answer_id="{{$answer->id}}" name="card_radio_{{$question->id}}">
                         <label class="form-check-label"></label>
                     </div>
                 </div>
@@ -16,3 +18,4 @@
         @endforeach
     </div>
 </div>
+<hr>

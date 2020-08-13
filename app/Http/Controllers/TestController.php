@@ -17,7 +17,7 @@ class TestController extends Controller
      */
     public function show(Test $test, TestShowRequest $request)
     {
-        $test->load(['questions.answers', 'questions.files']);
+        $test->load(['questions.answers', 'questions.files', 'questions.user.studentFiles', 'questions.user.teacherFiles']);
 
         return view('public.test_show', compact('test'));
     }

@@ -10,7 +10,8 @@ class File extends Model
         'path',
         'fileable_id',
         'fileable_type',
-        'name'
+        'name',
+        'user_id'
     ];
 
     public function fileable()

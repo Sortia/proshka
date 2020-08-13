@@ -6,6 +6,7 @@ use App\File;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FileService
@@ -23,6 +24,7 @@ class FileService
         return $model->files()->create([
             'path' => $file->store($path),
             'name' => $file->getClientOriginalName(),
+            'user_id' => Auth::user()->id,
         ]);
     }
 

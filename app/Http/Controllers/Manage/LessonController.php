@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Manage;
 use App\Course;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manage\LessonRequest;
-use App\Http\Resources\LessonResource;
 use App\Http\Services\LessonService;
 use App\Lesson;
 use App\Direction;

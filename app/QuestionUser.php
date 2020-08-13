@@ -14,6 +14,7 @@ class QuestionUser extends Model
         'answer_id',
         'text',
         'status',
+        'comment',
     ];
 
     public function user()
@@ -34,5 +35,15 @@ class QuestionUser extends Model
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function studentFiles()
+    {
+        return $this->morphMany(File::class, 'fileable')->where('path', 'like', 'user_answers%');
+    }
+
+    public function teacherFiles()
+    {
+        return $this->morphMany(File::class, 'fileable')->where('path', 'like', 'teacher_comment%');
     }
 }
