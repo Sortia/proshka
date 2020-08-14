@@ -64,5 +64,13 @@
     "Choice from several": "Выбор из нескольких",
     "Text field": "Текстовое поле",
     "Without field": "Без поля",
-    "Test": "Тест"
+    "Test": "Тест",
+    "Accept task": "Принять задание",
+    "Send for rework": "Отправить на доработку",
+    "Revoke the job": "Отозвать задание",
+    "Tests": "Тесты",
+    "Status": "Статус",
+    "Student": "Ученик",
+    "Next": "Далее",
+    "Question": "Вопрос"
 }
