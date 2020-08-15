@@ -22,7 +22,9 @@
                             @endforeach
                         </div>
 
-                        <a href="{{route('test.show', $lesson->test)}}" class="btn btn-outline-primary btn-block">@lang('Test')</a>
+                        @if($lesson->test)
+                            <a href="{{route('test.show', $lesson->test)}}" class="btn btn-outline-primary btn-block">@lang('Test')</a>
+                        @endif
 
                         <fieldset @if(Gate::denies('update', $lessonUser)) disabled @endif>
 
