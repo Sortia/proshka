@@ -3,9 +3,58 @@
 namespace App;
 
 use App\Http\Services\LessonService;
+use Eloquent;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Lesson
+ *
+ * @property int $id
+ * @property int $course_id
+ * @property string|null $name
+ * @property string|null $description
+ * @property int $order_number
+ * @property int $cost
+ * @property int $bonus
+ * @property int $complexity
+ * @property int $time
+ * @property int $available_at
+ * @property string|null $text
+ * @property string|null $task
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Lesson[] $constraints
+ * @property-read int|null $constraints_count
+ * @property-read Course $course
+ * @property-read Collection|\App\File[] $files
+ * @property-read int|null $files_count
+ * @property-read Test|null $test
+ * @property-read LessonUser|null $user
+ * @property-read Collection|\App\Video[] $videos
+ * @property-read int|null $videos_count
+ * @method static Builder|Lesson newModelQuery()
+ * @method static Builder|Lesson newQuery()
+ * @method static Builder|Lesson query()
+ * @method static Builder|Lesson whereAvailableAt($value)
+ * @method static Builder|Lesson whereBonus($value)
+ * @method static Builder|Lesson whereComplexity($value)
+ * @method static Builder|Lesson whereCost($value)
+ * @method static Builder|Lesson whereCourseId($value)
+ * @method static Builder|Lesson whereCreatedAt($value)
+ * @method static Builder|Lesson whereDescription($value)
+ * @method static Builder|Lesson whereId($value)
+ * @method static Builder|Lesson whereName($value)
+ * @method static Builder|Lesson whereOrderNumber($value)
+ * @method static Builder|Lesson whereTask($value)
+ * @method static Builder|Lesson whereText($value)
+ * @method static Builder|Lesson whereTime($value)
+ * @method static Builder|Lesson whereUpdatedAt($value)
+ * @mixin Eloquent
+ */
 class Lesson extends Model
 {
     protected $fillable = [

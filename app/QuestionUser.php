@@ -2,8 +2,46 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\QuestionUser
+ *
+ * @property int $id
+ * @property int $question_id
+ * @property int $user_id
+ * @property int|null $answer_id
+ * @property string|null $text
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $comment
+ * @property-read Answer|null $answer
+ * @property-read Collection|File[] $files
+ * @property-read int|null $files_count
+ * @property-read Question $question
+ * @property-read Collection|File[] $studentFiles
+ * @property-read int|null $student_files_count
+ * @property-read Collection|File[] $teacherFiles
+ * @property-read int|null $teacher_files_count
+ * @property-read User $user
+ * @method static Builder|QuestionUser newModelQuery()
+ * @method static Builder|QuestionUser newQuery()
+ * @method static Builder|QuestionUser query()
+ * @method static Builder|QuestionUser whereAnswerId($value)
+ * @method static Builder|QuestionUser whereComment($value)
+ * @method static Builder|QuestionUser whereCreatedAt($value)
+ * @method static Builder|QuestionUser whereId($value)
+ * @method static Builder|QuestionUser whereQuestionId($value)
+ * @method static Builder|QuestionUser whereStatus($value)
+ * @method static Builder|QuestionUser whereText($value)
+ * @method static Builder|QuestionUser whereUpdatedAt($value)
+ * @method static Builder|QuestionUser whereUserId($value)
+ * @mixin Eloquent
+ */
 class QuestionUser extends Model
 {
     protected $table = 'question_user';

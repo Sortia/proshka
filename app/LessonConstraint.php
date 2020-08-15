@@ -2,9 +2,32 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\LessonConstraint
+ *
+ * @property int $id
+ * @property int $lesson_id
+ * @property int $constraint_lesson_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Lesson $constraints
+ * @property-read Lesson $lesson
+ * @method static Builder|LessonConstraint newModelQuery()
+ * @method static Builder|LessonConstraint newQuery()
+ * @method static Builder|LessonConstraint query()
+ * @method static Builder|LessonConstraint whereConstraintLessonId($value)
+ * @method static Builder|LessonConstraint whereCreatedAt($value)
+ * @method static Builder|LessonConstraint whereId($value)
+ * @method static Builder|LessonConstraint whereLessonId($value)
+ * @method static Builder|LessonConstraint whereUpdatedAt($value)
+ * @mixin Eloquent
+ */
 class LessonConstraint extends Model
 {
     protected $table = 'lesson_constraint';

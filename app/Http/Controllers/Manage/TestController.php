@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use App\Http\Services\TestService;
 use App\Lesson;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
