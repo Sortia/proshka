@@ -152,7 +152,11 @@ $(() => {
         });
     });
 
-    $('#search_direction_id, #search_course_id').on('change', function () {
+    $('#search_direction_id').on('change', function () {
+        search($("#search_direction_id option:selected").val(), '');
+    });
+
+    $('#search_course_id').on('change', function () {
         search($("#search_direction_id option:selected").val(), $("#search_course_id option:selected").val());
     });
 
