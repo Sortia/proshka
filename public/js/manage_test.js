@@ -11,7 +11,7 @@ $(() => {
     $('.edit-test').on('click', function () {
         $.ajax({
             method: "GET",
-            url: `/manage/test/${$(this).parents('tr').data('lesson_id')}`,
+            url: `/manage/test/${$('#id').val()}`,
             success: (response) => {
                 console.log(response);
                 current_row = response.lesson.id;

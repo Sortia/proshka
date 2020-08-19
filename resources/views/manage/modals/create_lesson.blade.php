@@ -74,9 +74,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
-                    <button class="btn btn-primary">@lang('Save')</button>
+                <div class="modal-footer d-block col-lg-12 mb-3">
+                    <span class="float-left mb-3">
+                         <button type="button" class="btn btn-outline-danger edit-test" data-toggle="modal"
+                                 data-target="#testModal">@lang('Add/Edit tests')</button>
+                    </span>
+                    <span class="float-right mb-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>
+                        <button class="btn btn-primary">@lang('Save')</button>
+                    </span>
                 </div>
             </form>
         </div>
