@@ -7,7 +7,7 @@
                 <input type="hidden" id="course_id" name="course_id">
                 <input type="hidden" id="id" name="id">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">@lang('Lesson')</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('Task')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

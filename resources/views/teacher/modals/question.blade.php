@@ -6,7 +6,7 @@
             <input type="hidden" id="course_id" name="course_id">
             <input type="hidden" id="id" name="id">
             <div class="modal-header p-2">
-                <h5 class="modal-title" id="exampleModalLabel">@lang('Lesson')</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@lang('Task')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">@lang('Lesson')</label>
+                    <label class="col-sm-3 col-form-label">@lang('Task')</label>
                     <div class="col-sm-9">
                         <input type="text" id="lesson_id" class="form-control" disabled
                                value="">

@@ -18,7 +18,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Lessons') }}
+                    <div class="card-header">{{ __('Tasks') }}
                         <span><button id="create_lesson" data-toggle="modal" data-target="#createLessonModal"
                                       class="btn btn-sm btn-success float-right">@lang('Create')</button></span>
                     </div>

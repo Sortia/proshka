@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header pb-2 h5">
-                        <span>{{$course->name}} @lang('Lessons')</span>
+                        <span>{{$course->name}} @lang('Tasks')</span>
                         @if($course->isBought())
                             <span class="float-right">
                                 @lang('Balance'): {{$course->user->balance}}

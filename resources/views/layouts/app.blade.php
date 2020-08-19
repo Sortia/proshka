@@ -44,14 +44,14 @@
                         @if(Gate::allows('is_methodist'))
                             <li><a class="ml-2" href="{{route('manage.direction.index')}}">@lang('Directions')</a></li>
                             <li><a class="ml-2" href="{{route('manage.course.index')}}">@lang('Courses')</a></li>
-                            <li><a class="ml-2" href="{{route('manage.lesson.index')}}">@lang('Lessons')</a></li>
+                            <li><a class="ml-2" href="{{route('manage.lesson.index')}}">@lang('Tasks')</a></li>
                         @endif
                         @if(Gate::allows('is_student'))
                             <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
                             <li><a class="ml-2" href="{{route('course.my')}}">@lang('My courses')</a></li>
                         @endif
                         @if(Gate::allows('is_teacher'))
-                            <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Lessons')</a></li>
+                            <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Tasks')</a></li>
                             <li><a class="ml-2" href="{{route('teacher.question.show')}}">@lang('Tests')</a></li>
                         @endif
                     </ul>
