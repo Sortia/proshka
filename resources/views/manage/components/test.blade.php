@@ -3,7 +3,9 @@
         <summary data-toggle="collapse" data-target="#answer_card_question_id_{{$question->id}}" aria-expanded="true">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <span class="header-label">{{\Illuminate\Support\Str::limit($question->question, 20, '...')}}</span>
+                    <span class="header-label">
+                        {{\Illuminate\Support\Str::limit($question->question, 20, '...') ?: __('Task')}}
+                    </span>
                     <span class="float-right">
                         <button class="btn btn-sm btn-outline-danger delete_question">Delete</button>
                     </span>
