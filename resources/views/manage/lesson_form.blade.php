@@ -84,7 +84,7 @@
                                     <td class="row-description">{{$lesson->description}}</td>
                                     <td class="row-available_at">{{$lesson->available_at}}</td>
                                     <td class="">
-                                        <button class="btn btn-sm btn-outline-primary mt-1 edit-lesson">
+                                        <button title="@lang('Edit task')" class="btn btn-sm btn-outline-primary mt-1 edit-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -100,7 +100,7 @@
                                                 <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
                                             </svg>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-primary mt-1 set-politics" data-toggle="modal"
+                                        <button title="@lang('Access policies')" class="btn btn-sm btn-outline-primary mt-1 set-politics" data-toggle="modal"
                                                 data-target="#politicsModal">
                                             @if($lesson->constraints->isEmpty())
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-flag"
@@ -122,7 +122,7 @@
                                             @endif
                                         </button>
 
-                                        <button class="btn btn-sm btn-outline-primary mt-1 set-files" data-toggle="modal"
+                                        <button title="@lang('Attach file')" class="btn btn-sm btn-outline-primary mt-1 set-files" data-toggle="modal"
                                                 data-target="#filesModal">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +132,7 @@
                                                     d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
                                             </svg>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger mt-1 delete-lesson">
+                                        <button title="@lang('Delete')" class="btn btn-sm btn-outline-danger mt-1 delete-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path

@@ -57,6 +57,10 @@
     "Politics": "Политики",
     "Files": "Файлы",
 
+    "Edit task": "Редактировать задание",
+    "Access policies": "Политики доступа",
+    "Attach file": "Прикрепить файл",
+
     "Question text": "Текст вопроса",
     "Answer type": "Тип ответа",
     "Ability to attach a file": "Возможность прикрепить файл",
