@@ -34,7 +34,7 @@
                                         </div>
                                         <select name="direction_id" id="search_direction_id"
                                                 class="form-control input-lg">
-                                            <option>@lang('Select direction')</option>
+                                            <option value="">@lang('Select direction')</option>
                                             @foreach($directions as $direction)
                                                 <option @if(request()->direction_id == $direction->id) selected
                                                         @endif value="{{$direction->id}}">{{$direction->name}}</option>
@@ -49,7 +49,7 @@
                                         </div>
                                         <select name="course_id" id="search_course_id"
                                                 class="form-control input-lg">
-                                            <option>@lang('Select course')</option>
+                                            <option value="">@lang('Select course')</option>
                                             @foreach($courses as $course)
                                                 <option @if(request()->course_id == $course->id) selected
                                                         @endif value="{{$course->id}}">{{$course->name}}</option>
@@ -139,6 +139,12 @@
                             @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="col-lg-12">
+                        <span class="float-right">
+
+                        {{ $lessons->links() }}
+                        </span>
                     </div>
                 </div>
             </div>

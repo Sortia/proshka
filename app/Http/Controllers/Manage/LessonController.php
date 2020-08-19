@@ -21,9 +21,15 @@ class LessonController extends Controller
 
     public function index(Request $request)
     {
-        $lessons = Lesson::with('constraints')->where('course_id', $request->course_id)->get();
-        $directions = Direction::all();
         $courses = Course::where('direction_id', $request->direction_id)->get();
+
+        $lessons = Lesson::with('constraints')->when($request->course_id, function ($query) use ($request) {
+            $query->where('course_id', $request->course_id);
+        })->when($request->direction_id, function ($query) use ($courses) {
+            $query->whereIn('course_id', $courses->pluck('id'));
+        })->paginate(20);
+
+        $directions = Direction::all();
 
         return view('manage.lesson_form', compact('directions', 'courses', 'lessons'));
     }

@@ -152,30 +152,23 @@ $(() => {
         });
     });
 
-    $('#search_direction_id').on('change', function () {
-        $.ajax({
-            method: "GET",
-            url: "/course/list",
-            data: {
-                direction_id: $("#search_direction_id option:selected").val()
-            },
-            error: (response) => show_error(response),
-            success: (response) => {
-                $('#search_course_id').empty().append(`<option>Выберите курс</option>`);
-
-                $.each(response, function (i, item) {
-                    $('#search_course_id').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
-            }
-        });
+    $('#search_direction_id, #search_course_id').on('change', function () {
+        search($("#search_direction_id option:selected").val(), $("#search_course_id option:selected").val());
     });
 
-    $('#search_course_id').on('change', function () {
-        location.href = `/manage/lesson?direction_id=${$("#search_direction_id option:selected").val()}&course_id=${$("#search_course_id option:selected").val()}`;
-    });
+    function search(direction_id, course_id) {
+        let url = '/manage/lesson?'
+
+        if (direction_id !== '') {
+            url += `direction_id=${direction_id}`;
+        }
+
+        if (course_id !== '') {
+            url += `&course_id=${course_id}`;
+        }
+
+        location.href = url;
+    }
 
     $('#policy_constraint_course_id').on('change', () => {
         $.ajax({
