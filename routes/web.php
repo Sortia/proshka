@@ -22,11 +22,6 @@ Route::get('/', function () {
     return view('chat');
 });
 
-Route::post('/messages', function (\Illuminate\Http\Request $request) {
-//    event(new \App\Events\MessageEvent($request->body));
-    \App\Events\MessageEvent::dispatch($request->body);
-});
-
 Auth::routes();
 
 Route::middleware(['auth', 'locale'])->group(function () {

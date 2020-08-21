@@ -10,6 +10,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Musonza\Chat\Traits\Messageable;
 
 /**
  * App\User
@@ -38,10 +39,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereRoleId($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read mixed $participant_details
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Musonza\Chat\Models\Participation[] $participation
+ * @property-read int|null $participation_count
  */
 class User extends Authenticatable
 {
     use Notifiable;
+    use Messageable;
 
     /**
      * The attributes that are mass assignable.
@@ -88,5 +93,12 @@ class User extends Authenticatable
     public function isStudent()
     {
         return $this->role_id === 3;
+    }
+
+    public function getParticipantDetailsAttribute()
+    {
+        return [
+            'name' => $this->fullName(),
+        ];
     }
 }

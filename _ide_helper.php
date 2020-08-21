@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.20.0.
+ * Generated for Laravel 7.25.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -800,6 +800,17 @@
                         return $instance->getLocale();
         }
                     /**
+         * Get the current application fallback locale.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getFallbackLocale()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->getFallbackLocale();
+        }
+                    /**
          * Set the current application locale.
          *
          * @param string $locale
@@ -810,6 +821,18 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         $instance->setLocale($locale);
+        }
+                    /**
+         * Set the current application fallback locale.
+         *
+         * @param string $fallbackLocale
+         * @return void 
+         * @static 
+         */ 
+        public static function setFallbackLocale($fallbackLocale)
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->setFallbackLocale($fallbackLocale);
         }
                     /**
          * Determine if application locale is the given locale.
@@ -2438,6 +2461,17 @@
         public static function sanitizeComponentAttribute($value)
         {
                         return \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($value);
+        }
+                    /**
+         * Compile an end-once block into valid PHP.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function compileEndOnce()
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        return $instance->compileEndOnce();
         }
                     /**
          * Compile Blade echos into valid PHP.
@@ -6108,7 +6142,7 @@
                     /**
          * Assert how many requests have been recorded.
          *
-         * @param $count
+         * @param int $count
          * @return void 
          * @static 
          */ 
@@ -6567,7 +6601,7 @@
                     /**
          * Unset the given channel instance.
          *
-         * @param string|null $name
+         * @param string|null $driver
          * @return \Illuminate\Log\LogManager 
          * @static 
          */ 
@@ -7267,6 +7301,11 @@
      *
      * @method static mixed reset(array $credentials, \Closure $callback)
      * @method static string sendResetLink(array $credentials)
+     * @method static \Illuminate\Contracts\Auth\CanResetPassword getUser(array $credentials)
+     * @method static string createToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
+     * @method static void deleteToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
+     * @method static bool tokenExists(\Illuminate\Contracts\Auth\CanResetPassword $user, string $token)
+     * @method static \Illuminate\Auth\Passwords\TokenRepositoryInterface getRepository()
      * @see \Illuminate\Auth\Passwords\PasswordBroker
      */ 
         class Password {
@@ -8017,6 +8056,100 @@
         public static function hasMacro($name)
         {
                         return \Illuminate\Routing\Redirector::hasMacro($name);
+        }
+         
+    }
+            /**
+     * 
+     *
+     * @method static \Illuminate\Redis\Limiters\ConcurrencyLimiterBuilder funnel(string $name)
+     * @method static \Illuminate\Redis\Limiters\DurationLimiterBuilder throttle(string $name)
+     * @see \Illuminate\Redis\RedisManager
+     * @see \Illuminate\Contracts\Redis\Factory
+     */ 
+        class Redis {
+                    /**
+         * Get a Redis connection by name.
+         *
+         * @param string|null $name
+         * @return \Illuminate\Redis\Connections\Connection 
+         * @static 
+         */ 
+        public static function connection($name = null)
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        return $instance->connection($name);
+        }
+                    /**
+         * Resolve the given connection by name.
+         *
+         * @param string|null $name
+         * @return \Illuminate\Redis\Connections\Connection 
+         * @throws \InvalidArgumentException
+         * @static 
+         */ 
+        public static function resolve($name = null)
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        return $instance->resolve($name);
+        }
+                    /**
+         * Return all of the created connections.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function connections()
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        return $instance->connections();
+        }
+                    /**
+         * Enable the firing of Redis command events.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function enableEvents()
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        $instance->enableEvents();
+        }
+                    /**
+         * Disable the firing of Redis command events.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function disableEvents()
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        $instance->disableEvents();
+        }
+                    /**
+         * Set the default driver.
+         *
+         * @param string $driver
+         * @return void 
+         * @static 
+         */ 
+        public static function setDriver($driver)
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        $instance->setDriver($driver);
+        }
+                    /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
+         * @return \Illuminate\Redis\RedisManager 
+         * @static 
+         */ 
+        public static function extend($driver, $callback)
+        {
+                        /** @var \Illuminate\Redis\RedisManager $instance */
+                        return $instance->extend($driver, $callback);
         }
          
     }
@@ -9707,6 +9840,18 @@
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->filled($key);
+        }
+                    /**
+         * Determine if the request contains an empty value for an input item.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function isNotFilled($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->isNotFilled($key);
         }
                     /**
          * Determine if the request contains a non-empty value for any of the given inputs.
@@ -11554,7 +11699,7 @@
          * Get the value of a given key and then forget it.
          *
          * @param string $key
-         * @param string|null $default
+         * @param mixed $default
          * @return mixed 
          * @static 
          */ 
@@ -12228,7 +12373,7 @@
          *
          * @param string $path
          * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
-         * @param array $options
+         * @param mixed $options
          * @return string|false 
          * @static 
          */ 
@@ -12243,7 +12388,7 @@
          * @param string $path
          * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
          * @param string $name
-         * @param array $options
+         * @param mixed $options
          * @return string|false 
          * @static 
          */ 
@@ -13316,6 +13461,30 @@
                         return $instance->doneRendering();
         }
                     /**
+         * Determine if the given once token has been rendered.
+         *
+         * @param string $id
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasRenderedOnce($id)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->hasRenderedOnce($id);
+        }
+                    /**
+         * Mark the given once token as having been rendered.
+         *
+         * @param string $id
+         * @return void 
+         * @static 
+         */ 
+        public static function markAsRenderedOnce($id)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        $instance->markAsRenderedOnce($id);
+        }
+                    /**
          * Add a location to the array of view locations.
          *
          * @param string $location
@@ -13786,6 +13955,18 @@
                         return $instance->hasSection($name);
         }
                     /**
+         * Check if section does not exist.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function sectionMissing($name)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->sectionMissing($name);
+        }
+                    /**
          * Get the contents of a section.
          *
          * @param string $name
@@ -14231,6 +14412,496 @@
         {
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
+        }
+         
+    }
+     
+}
+
+    namespace Musonza\Chat\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class ChatFacade {
+                    /**
+         * Creates a new conversation.
+         *
+         * @param array $participants
+         * @param array $data
+         * @return \Musonza\Chat\Conversation 
+         * @static 
+         */ 
+        public static function createConversation($participants, $data = [])
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->createConversation($participants, $data);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function makeDirect()
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->makeDirect();
+        }
+                    /**
+         * Sets message.
+         *
+         * @param string $message
+         * @return \Musonza\Chat\MessageService 
+         * @static 
+         */ 
+        public static function message($message)
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->message($message);
+        }
+                    /**
+         * Gets MessageService.
+         *
+         * @return \Musonza\Chat\MessageService 
+         * @static 
+         */ 
+        public static function messages()
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->messages();
+        }
+                    /**
+         * Sets Conversation.
+         *
+         * @param \Musonza\Chat\Conversation $conversation
+         * @return \Musonza\Chat\ConversationService 
+         * @static 
+         */ 
+        public static function conversation($conversation)
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->conversation($conversation);
+        }
+                    /**
+         * Gets ConversationService.
+         *
+         * @return \Musonza\Chat\ConversationService 
+         * @static 
+         */ 
+        public static function conversations()
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->conversations();
+        }
+                    /**
+         * Get unread notifications.
+         *
+         * @return \Musonza\Chat\MessageNotification 
+         * @static 
+         */ 
+        public static function unReadNotifications()
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->unReadNotifications();
+        }
+                    /**
+         * Should the messages be broadcasted.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function broadcasts()
+        {
+                        return \Musonza\Chat\Chat::broadcasts();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function sentMessageEvent()
+        {
+                        return \Musonza\Chat\Chat::sentMessageEvent();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function senderFieldsWhitelist()
+        {
+                        return \Musonza\Chat\Chat::senderFieldsWhitelist();
+        }
+                    /**
+         * Sets participant.
+         *
+         * @param \Musonza\Chat\Model $participant
+         * @return \Musonza\Chat\Chat 
+         * @static 
+         */ 
+        public static function setParticipant($participant)
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->setParticipant($participant);
+        }
+                    /**
+         * Sets the participant that's sending the message.
+         *
+         * @param \Musonza\Chat\Model $sender
+         * @return \Musonza\Chat\Chat 
+         * @static 
+         */ 
+        public static function from($sender)
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->from($sender);
+        }
+                    /**
+         * Sets the participant to receive the message.
+         *
+         * @param \Musonza\Chat\Model $recipient
+         * @return \Musonza\Chat\Chat 
+         * @static 
+         */ 
+        public static function to($recipient)
+        {
+                        /** @var \Musonza\Chat\Chat $instance */
+                        return $instance->to($recipient);
+        }
+         
+    }
+     
+}
+
+    namespace Spatie\Fractal { 
+            /**
+     * 
+     *
+     * @see \Spatie\Fractal\Fractal
+     */ 
+        class FractalFacade {
+                    /**
+         * 
+         *
+         * @param null|mixed $data
+         * @param null|callable|\League\Fractal\TransformerAbstract $transformer
+         * @param null|\League\Fractal\Serializer\SerializerAbstract $serializer
+         * @return \Spatie\Fractalistic\Fractal 
+         * @static 
+         */ 
+        public static function create($data = null, $transformer = null, $serializer = null)
+        {
+                        return \Spatie\Fractal\Fractal::create($data, $transformer, $serializer);
+        }
+                    /**
+         * Return a new JSON response.
+         *
+         * @param callable|int $statusCode
+         * @param callable|array $headers
+         * @param callable|int $options
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function respond($statusCode = 200, $headers = [], $options = 0)
+        {
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->respond($statusCode, $headers, $options);
+        }
+                    /**
+         * Set the collection data that must be transformed.
+         *
+         * @param mixed $data
+         * @param null|string|callable|\League\Fractal\TransformerAbstract $transformer
+         * @param null|string $resourceName
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function collection($data, $transformer = null, $resourceName = null)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->collection($data, $transformer, $resourceName);
+        }
+                    /**
+         * Set the item data that must be transformed.
+         *
+         * @param mixed $data
+         * @param null|string|callable|\League\Fractal\TransformerAbstract $transformer
+         * @param null|string $resourceName
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function item($data, $transformer = null, $resourceName = null)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->item($data, $transformer, $resourceName);
+        }
+                    /**
+         * Set the primitive data that must be transformed.
+         *
+         * @param mixed $data
+         * @param null|string|callable|\League\Fractal\TransformerAbstract $transformer
+         * @param null|string $resourceName
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function primitive($data, $transformer = null, $resourceName = null)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->primitive($data, $transformer, $resourceName);
+        }
+                    /**
+         * Set the data that must be transformed.
+         *
+         * @param string $dataType
+         * @param mixed $data
+         * @param null|string|callable|\League\Fractal\TransformerAbstract $transformer
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function data($dataType, $data, $transformer = null)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->data($dataType, $data, $transformer);
+        }
+                    /**
+         * Set the class or function that will perform the transform.
+         *
+         * @param string|callable|\League\Fractal\TransformerAbstract $transformer
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function transformWith($transformer)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->transformWith($transformer);
+        }
+                    /**
+         * Set the serializer to be used.
+         *
+         * @param string|\League\Fractal\Serializer\SerializerAbstract $serializer
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function serializeWith($serializer)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->serializeWith($serializer);
+        }
+                    /**
+         * Set a Fractal paginator for the data.
+         *
+         * @param \League\Fractal\Pagination\PaginatorInterface $paginator
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function paginateWith($paginator)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->paginateWith($paginator);
+        }
+                    /**
+         * Set a Fractal cursor for the data.
+         *
+         * @param \League\Fractal\Pagination\CursorInterface $cursor
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function withCursor($cursor)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->withCursor($cursor);
+        }
+                    /**
+         * Specify the includes.
+         *
+         * @param array|string $includes Array or string of resources to include.
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function parseIncludes($includes)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->parseIncludes($includes);
+        }
+                    /**
+         * Specify the excludes.
+         *
+         * @param array|string $excludes Array or string of resources to exclude.
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function parseExcludes($excludes)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->parseExcludes($excludes);
+        }
+                    /**
+         * Specify the fieldsets to include in the response.
+         *
+         * @param array $fieldsets array with key = resourceName and value = fields to include
+         *                                (array or comma separated string with field names)
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function parseFieldsets($fieldsets)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->parseFieldsets($fieldsets);
+        }
+                    /**
+         * Set the meta data.
+         *
+         * @param $array,...
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function addMeta()
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->addMeta();
+        }
+                    /**
+         * Set the resource name, to replace 'data' as the root of the collection or item.
+         *
+         * @param string $resourceName
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function withResourceName($resourceName)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->withResourceName($resourceName);
+        }
+                    /**
+         * Upper limit to how many levels of included data are allowed.
+         *
+         * @param int $recursionLimit
+         * @return \Spatie\Fractal\Fractal 
+         * @static 
+         */ 
+        public static function limitRecursion($recursionLimit)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->limitRecursion($recursionLimit);
+        }
+                    /**
+         * Perform the transformation to json.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */ 
+        public static function toJson($options = 0)
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->toJson($options);
+        }
+                    /**
+         * Perform the transformation to array.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function toArray()
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->toArray();
+        }
+                    /**
+         * Create fractal data.
+         *
+         * @return \League\Fractal\Scope 
+         * @throws \Spatie\Fractalistic\Exceptions\InvalidTransformation
+         * @throws \Spatie\Fractalistic\Exceptions\NoTransformerSpecified
+         * @static 
+         */ 
+        public static function createData()
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->createData();
+        }
+                    /**
+         * Get the resource.
+         *
+         * @return \League\Fractal\Resource\ResourceInterface 
+         * @throws \Spatie\Fractalistic\Exceptions\InvalidTransformation
+         * @static 
+         */ 
+        public static function getResource()
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->getResource();
+        }
+                    /**
+         * Return the name of the resource.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getResourceName()
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->getResourceName();
+        }
+                    /**
+         * Convert the object into something JSON serializable.
+         *
+         * @static 
+         */ 
+        public static function jsonSerialize()
+        {            //Method inherited from \Spatie\Fractalistic\Fractal         
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->jsonSerialize();
+        }
+                    /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+                        \Spatie\Fractal\Fractal::macro($name, $macro);
+        }
+                    /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {
+                        \Spatie\Fractal\Fractal::mixin($mixin, $replace);
+        }
+                    /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+                        return \Spatie\Fractal\Fractal::hasMacro($name);
+        }
+                    /**
+         * Dynamically handle calls to the class.
+         *
+         * @param string $method
+         * @param array $parameters
+         * @return mixed 
+         * @throws \BadMethodCallException
+         * @static 
+         */ 
+        public static function macroCall($method, $parameters)
+        {
+                        /** @var \Spatie\Fractal\Fractal $instance */
+                        return $instance->macroCall($method, $parameters);
         }
          
     }
@@ -15858,6 +16529,22 @@ namespace  {
             }
              
                 /**
+             * Add a where between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @param string $boolean
+             * @param bool $not
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function whereBetweenColumns($column, $values, $boolean = 'and', $not = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereBetweenColumns($column, $values, $boolean, $not);
+            }
+             
+                /**
              * Add an or where between statement to the query.
              *
              * @param string $column
@@ -15869,6 +16556,20 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereBetween($column, $values);
+            }
+             
+                /**
+             * Add an or where between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereBetweenColumns($column, $values)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereBetweenColumns($column, $values);
             }
              
                 /**
@@ -15887,6 +16588,21 @@ namespace  {
             }
              
                 /**
+             * Add a where not between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function whereNotBetweenColumns($column, $values, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereNotBetweenColumns($column, $values, $boolean);
+            }
+             
+                /**
              * Add an or where not between statement to the query.
              *
              * @param string $column
@@ -15898,6 +16614,20 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereNotBetween($column, $values);
+            }
+             
+                /**
+             * Add an or where not between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereNotBetweenColumns($column, $values)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereNotBetweenColumns($column, $values);
             }
              
                 /**
@@ -16097,7 +16827,7 @@ namespace  {
                 /**
              * Add another query builder as a nested where to the query builder.
              *
-             * @param $this $query
+             * @param \Illuminate\Database\Query\Builder $query
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -16572,6 +17302,8 @@ namespace  {
                 /**
              * Remove all existing orders and optionally add a new order.
              *
+             * @param string|null $column
+             * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */ 
@@ -17140,6 +17872,7 @@ namespace  {
             class Password extends \Illuminate\Support\Facades\Password {}
             class Queue extends \Illuminate\Support\Facades\Queue {}
             class Redirect extends \Illuminate\Support\Facades\Redirect {}
+            class Redis extends \Illuminate\Support\Facades\Redis {}
             class Request extends \Illuminate\Support\Facades\Request {}
             class Response extends \Illuminate\Support\Facades\Response {}
             class Route extends \Illuminate\Support\Facades\Route {}
@@ -17151,6 +17884,8 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class Chat extends \Musonza\Chat\Facades\ChatFacade {}
+            class Fractal extends \Spatie\Fractal\FractalFacade {}
      
 }
 

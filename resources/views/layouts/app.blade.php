@@ -24,6 +24,11 @@
     <script src="{{ asset('js/script.js') }}" defer></script>
     <script src="{{ asset('js/translate.js') }}" defer></script>
 
+    <script>
+        var conversations = {!! isset($conversations) ? json_encode($conversations) : '' !!};
+        var participant = {!! isset($participant) ? json_encode($participant) : '' !!};
+    </script>
+
     @yield('css')
 
 </head>
