@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
  * App\User
  *
  * @property int $id
+ * @property int $representative_id
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -39,7 +40,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -49,7 +50,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'surname', 'nickname', 'phone', 'city', 'avatar', 'role_id',
     ];
 
     /**

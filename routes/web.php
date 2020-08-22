@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::middleware(['auth', 'locale'])->group(function () {
+Route::middleware(['auth', 'locale', 'verified'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
