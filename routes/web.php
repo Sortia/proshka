@@ -24,6 +24,9 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::post('/profile/register', 'ProfileController@register')->name('profile.register');
+
     Route::middleware('methodist')->prefix('manage')->group(function () {
         Route::resource('direction', 'Manage\DirectionController', ['names' => 'manage.direction']);
         Route::resource('course', 'Manage\CourseController', ['names' => 'manage.course']);

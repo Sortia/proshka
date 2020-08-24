@@ -50,42 +50,7 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group row required">
-                <label for="role_id"
-                       class="col-md-4 col-form-label text-md-right">{{trans.get('auth.user_type')}}</label>
 
-                <div class="col-md-6">
-                    <select class="custom-select" v-model="role_id" v-bind:class="[errors.role_id ? 'is-invalid' : '', '']" id="role_id">
-                        <option value="3">{{trans.get('auth.student')}}</option>
-                        <option value="4">{{trans.get('auth.representative')}}</option>
-                    </select>
-
-                    <span v-for="(error) in errors.role_id" v-if="errors.role_id" class="invalid-feedback" role="alert">
-                        <strong>{{ error }}</strong>
-                    </span>
-                </div>
-            </div>
-            <div v-if="role_id === '3'" class="d-flex justify-content-center bd-highlight mb-3">
-                <div class="p-2 bd-highlight">
-                    <div class="custom-control custom-checkbox align-content-center">
-                        <input name="adult_checkbox" value="1" v-model="adult_checkbox"
-                        type="checkbox" class="custom-control-input" id="adult_checkbox">
-                        <label class="custom-control-label" for="adult_checkbox">{{trans.get('auth.is_adult')}}</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row required" v-if="role_id === '3' && !adult_checkbox">
-                <label for="representative_email" class="col-md-4 col-form-label text-md-right">{{trans.get('auth.representative_email')}}</label>
-                <div class="col-md-6">
-                    <input id="representative_email" type="email" required class="form-control"
-                           v-bind:class="[errors.representative_email ? 'is-invalid' : '', '']"
-                           v-model="representative_email" autocomplete="representative_email"
-                           autofocus>
-                    <span v-for="(error) in errors.representative_email" v-if="errors.representative_email" class="invalid-feedback" role="alert">
-                        <strong>{{ error }}</strong>
-                    </span>
-                </div>
-            </div>
             <div class="form-group row">
                 <label for="city" class="col-md-4 col-form-label text-md-right">{{trans.get('auth.city')}}</label>
                 <div class="col-md-6">
@@ -129,30 +94,6 @@
 
 <!--                </div>-->
 <!--            </div>-->
-            <div class="form-group row required">
-                <label for="password" class="col-md-4 col-form-label text-md-right">{{trans.get('auth.password')}}</label>
-                <div class="col-md-6">
-                    <input id="password" type="password" required class="form-control"
-                           v-bind:class="[errors.password ? 'is-invalid' : '', '']"
-                           v-model="password" autocomplete="password"
-                           autofocus>
-                    <span v-for="(error) in errors.password" v-if="errors.password" class="invalid-feedback" role="alert">
-                        <strong>{{ error }}</strong>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row required">
-                <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">{{trans.get('auth.confirm_password')}}</label>
-                <div class="col-md-6">
-                    <input id="password_confirmation" type="password" required class="form-control"
-                           v-bind:class="[errors.password_confirmation ? 'is-invalid' : '', '']"
-                           v-model="password_confirmation" autocomplete="password_confirmation"
-                           autofocus>
-                    <span v-for="(error) in errors.password_confirmation" v-if="errors.password_confirmation" class="invalid-feedback" role="alert">
-                        <strong>{{ error }}</strong>
-                    </span>
-                </div>
-            </div>
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
                     <button class="btn btn-primary">{{trans.get('auth.register')}}</button>
@@ -173,13 +114,10 @@ export default {
         surname: '',
         nickname: '',
         email: '',
-        representative_email: '',
         city: '',
         phone: '',
         password: '',
         password_confirmation: '',
-        role_id: '3',
-        adult_checkbox: '',
         // avatar: '',
         file_name: '',
     }),
@@ -205,24 +143,24 @@ export default {
             formData.append("surname", this.surname);
             formData.append("nickname", this.nickname);
             formData.append("email", this.email);
-            formData.append("representative_email", this.representative_email);
+            formData.append("representative_email", $('#representative_email').val());
             formData.append("city", this.city);
             formData.append("phone", this.phone);
             formData.append("password", this.password);
             formData.append("password_confirmation", this.password_confirmation);
-            formData.append("role_id", this.role_id);
-            formData.append("adult_checkbox", this.adult_checkbox);
+            formData.append("role_id", '3');
+            formData.append("adult_checkbox", null);
 
             axios
                 .post(
-                    `register`, formData, {
+                    `/profile/register`, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     }
                 )
                 .then(function (response) {
-                    location.href = '/email/verify'
+                    // location.href = '/profile'
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;

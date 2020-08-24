@@ -41,7 +41,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+
     }
 
     /**
@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'avatar' => ['image'],
+//            'avatar' => ['image'],
             'role_id' => [
                 'required',
                 Rule::in([3, 4]),
@@ -84,9 +84,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if ($data['avatar'] ?? false) {
-            $avatar = $data['avatar']->store('avatars');
-        }
+//        if ($data['avatar'] ?? false) {
+//            $avatar = $data['avatar']->store('public/avatars');
+//        }
 
         $representativeId = User::whereEmail($data['representative_email'])->value('id');
 
@@ -98,7 +98,7 @@ class RegisterController extends Controller
             'city' => $data['city'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'avatar' => $avatar ?? null,
+//            'avatar' => $avatar ?? null,
             'role_id' => $data['role_id'],
             'representative_id' => $representativeId
         ]);

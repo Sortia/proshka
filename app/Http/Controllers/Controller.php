@@ -16,9 +16,9 @@ class Controller extends BaseController
         return response('success', 200);
     }
 
-    public function respondError($message)
+    public function respondError($message, $status = 500)
     {
-        return response($message, 500);
+        return response($message, $status);
     }
 
     /**

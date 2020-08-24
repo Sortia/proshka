@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname', 'nickname', 'phone', 'city', 'avatar', 'role_id',
+        'name', 'email', 'password', 'surname', 'nickname', 'phone', 'city', 'avatar', 'role_id', 'email_verified_at',
     ];
 
     /**
@@ -112,5 +112,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isStudent()
     {
         return $this->role_id === 3;
+    }
+
+    public function isRepresentative()
+    {
+        return $this->role_id === 4;
     }
 }
