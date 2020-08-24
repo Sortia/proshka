@@ -62,13 +62,14 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'avatar' => ['image'],
             'role_id' => [
+                'required',
                 Rule::in([3, 4]),
             ]
         ];
 
         // если регистрируется ученик и он являеся несовершеннолетним
         // ему требуется ввести email представителя (зарегестрированного на этом сайте)
-        if (!isset($data['adult_checkbox']) and $data['role_id'] == 3) {
+        if (!$data['adult_checkbox'] and $data['role_id'] === '3') {
             $rules['representative_email'] = ['exists:users,email'];
         }
 

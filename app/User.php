@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Jobs\ResetPasswordNotificationQueue;
+use App\Jobs\VerifyEmailQueue;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -70,6 +72,27 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        VerifyEmailQueue::dispatch($this);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        ResetPasswordNotificationQueue::dispatch($this, $token);
+    }
 
     public function fullName()
     {

@@ -13,9 +13,13 @@ import 'select2/dist/css/select2.css';  // optional if you have css loader
 
 import 'bootstrap-table'
 
-$(() => {
-    $('.select2-enable').select2();
-});
+import Lang from 'lang.js';
+
+const default_locale = window.default_language;
+const fallback_locale = window.fallback_locale;
+const messages = window.messages;
+
+Vue.prototype.trans = new Lang({messages, locale: default_locale, fallback: fallback_locale});
 
 /**
  * The following block of code may be used to automatically register your
