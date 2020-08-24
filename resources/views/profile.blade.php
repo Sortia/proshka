@@ -12,17 +12,19 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">@lang('User data')</a>
                             </li>
+                            @if(Gate::allows('is_representative'))
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">@lang('Students')</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">@lang('Student registration')</a>
                             </li>
+                            @endif
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row mt-4">
-                                    <div class="col-lg-6 mb-3">
-                                        <img class="w-100" src="{{asset($user->avatar)}}" alt="">
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
+{{--                                    <div class="col-lg-6 mb-3">--}}
+{{--                                        <img class="w-100" src="{{asset($user->avatar)}}" alt="">--}}
+{{--                                    </div>--}}
+                                    <div class="col-lg-12 mb-3">
                                         <div class="col-sm-12 my-1 mb-3">
                                             <label class="sr-only" for="name">@lang('auth.name')</label>
                                             <div class="input-group">

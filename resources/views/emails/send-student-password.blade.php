@@ -4,6 +4,7 @@
 
 Ваш пароль для входа: {{$password}}
 
-Thanks,<br>
+<br>
+
 {{ config('app.name') }}
 @endcomponent

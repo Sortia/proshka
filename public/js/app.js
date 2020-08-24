@@ -46540,7 +46540,7 @@ var render = function() {
         _c("div", { staticClass: "form-group row mb-0" }, [
           _c("div", { staticClass: "col-md-6 offset-md-4" }, [
             _c("button", { staticClass: "btn btn-primary" }, [
-              _vm._v(_vm._s(_vm.trans.get("auth.register")))
+              _vm._v(_vm._s(_vm.trans.get("auth.registrate")))
             ])
           ])
         ])

@@ -102,5 +102,8 @@
     "Status": "Статус",
     "Student": "Ученик",
     "Next": "Далее",
-    "Question": "Вопрос"
+    "Question": "Вопрос",
+    "User data": "Данные пользователя",
+    "Student registration": "Регистрация ученика",
+    "Profile": "Профиль"
 }

@@ -38,5 +38,6 @@ return [
     'register' => 'Register',
     'student' => 'Student',
     'representative' => 'Representative',
+    'registrate' => 'Register',
 
 ];

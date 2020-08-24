@@ -37,4 +37,5 @@ return [
     'register' => 'Регистрация',
     'student' => 'Ученик',
     'representative' => 'Представитель',
+    'registrate' => 'Зарегистрировать',
 ];

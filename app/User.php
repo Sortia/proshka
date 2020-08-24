@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $representative_id
  * @property string $name
+ * @property string $surname
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
@@ -52,7 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname', 'nickname', 'phone', 'city', 'avatar', 'role_id', 'email_verified_at',
+        'name', 'email', 'password', 'surname', 'nickname', 'phone', 'city',
+        'avatar', 'role_id', 'representative_id', 'email_verified_at',
     ];
 
     /**
@@ -96,7 +98,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function fullName()
     {
-        return $this->name;
+        return $this->name . $this->surname;
     }
 
     public function isMethodist()

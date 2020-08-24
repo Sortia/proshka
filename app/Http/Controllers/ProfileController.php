@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Mail\SendStudentPassword;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class ProfileController extends RegisterController
 {
@@ -24,7 +22,7 @@ class ProfileController extends RegisterController
     {
         $this->validator($request->all())->validate();
 
-        $password = '123';
+        $password = Str::random(10);
 
         $data = [
             'name' => $request->name,
@@ -34,12 +32,13 @@ class ProfileController extends RegisterController
             'phone' => $request->phone,
             'email' => $request->email,
             'role_id' => 3,
-            'password' => bcrypt($password),
+            'password' => $password,
             'representative_email' => auth()->user()->email,
-            'email_verified_at' => now(),
         ];
 
         $user = $this->create($data);
+
+        $user->update(['email_verified_at' => now()]);
 
         Mail::to($user)->send(new SendStudentPassword($user, $password));
 
