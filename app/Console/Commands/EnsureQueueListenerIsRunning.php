@@ -57,9 +57,9 @@ class EnsureQueueListenerIsRunning extends Command
 
         $process = exec("ps -p $pid -opid=,cmd=");
         //$processIsQueueListener = str_contains($process, 'queue:listen'); // 5.1
-        $processIsQueueListener = ! empty($process); // 5.6 - see comments
+        // 5.6 - see comments
 
-        return $processIsQueueListener;
+        return ! empty($process);
     }
 
     /**
@@ -95,8 +95,7 @@ class EnsureQueueListenerIsRunning extends Command
      */
     private function startQueueListener()
     {
-        //$command = 'php-cli ' . base_path() . '/artisan queue:listen --timeout=60 --sleep=5 --tries=3 > /dev/null & echo $!'; // 5.1
-        $command = 'php-cli ' . base_path() . '/artisan queue:work --timeout=60 --sleep=5 --tries=3 > /dev/null & echo $!'; // 5.6 - see comments
+        $command = 'php ' . base_path() . '/artisan queue:work --timeout=60 --sleep=3 --tries=3 > /dev/null & echo $!'; // 5.6 - see comments
         $pid = exec($command);
 
         return $pid;
