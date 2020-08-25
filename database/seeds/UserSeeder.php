@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'email' => 'methodist@mail.ru',
                 'password' => Hash::make('123'),
                 'role_id' => 1,
+                'email_verified_at' => now(),
             ],
             [
                 'id' => 2,
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
                 'email' => 'teacher@mail.ru',
                 'password' => Hash::make('123'),
                 'role_id' => 2,
+                'email_verified_at' => now(),
             ],
             [
                 'id' => 3,
@@ -36,6 +38,7 @@ class UserSeeder extends Seeder
                 'email' => 'student@mail.ru',
                 'password' => Hash::make('123'),
                 'role_id' => 3,
+                'email_verified_at' => now(),
             ],
         ];
 
