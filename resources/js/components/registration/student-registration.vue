@@ -160,7 +160,7 @@ export default {
                     }
                 )
                 .then(function (response) {
-                    // location.href = '/profile'
+                    location.href = '/profile'
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
