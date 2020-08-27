@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Mail\SendStudentPassword;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,7 @@ class ProfileController extends RegisterController
 {
     public function index()
     {
-        $user = auth()->user();
+        $user = User::with('representative')->find(auth()->user()->id);
 
         return view('profile', compact('user'));
     }

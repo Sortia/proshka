@@ -98,7 +98,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function fullName()
     {
-        return $this->name . $this->surname;
+        return $this->name . ' ' . $this->surname;
     }
 
     public function isMethodist()
@@ -119,5 +119,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isRepresentative()
     {
         return $this->role_id === 4;
+    }
+
+    public function isAdult()
+    {
+        return is_null($this->representative_id);
+    }
+
+    public function representative()
+    {
+        return $this->hasOne(User::class,'id', 'representative_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(User::class, 'representative_id');
     }
 }
