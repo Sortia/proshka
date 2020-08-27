@@ -163,8 +163,12 @@ export default {
                     location.href = '/profile'
                 })
                 .catch((error) => {
-                    this.errors = error.response.data.errors;
-                    console.log(this.errors.name);
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
+                    } else {
+                        console.log(error.response.data);
+                        alert('Что-то пошло не так.')
+                    }
                 });
 
         }

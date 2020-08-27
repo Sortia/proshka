@@ -2345,8 +2345,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         location.href = '/profile';
       })["catch"](function (error) {
-        _this.errors = error.response.data.errors;
-        console.log(_this.errors.name);
+        if (error.response.data.errors) {
+          _this.errors = error.response.data.errors;
+        } else {
+          console.log(error.response.data);
+          alert('Что-то пошло не так.');
+        }
       });
     }
   }
