@@ -40,6 +40,23 @@ class UserSeeder extends Seeder
                 'role_id' => 3,
                 'email_verified_at' => now(),
             ],
+            [
+                'id' => 4,
+                'name' => 'representative',
+                'email' => 'representative@mail.ru',
+                'password' => Hash::make('123'),
+                'role_id' => 4,
+                'email_verified_at' => now(),
+            ],
+            [
+                'id' => 5,
+                'name' => 'minor_student',
+                'email' => 'minor_student@mail.ru',
+                'password' => Hash::make('123'),
+                'role_id' => 3,
+                'representative_id' => 4,
+                'email_verified_at' => now(),
+            ],
         ];
 
         foreach ($users as $user) {
