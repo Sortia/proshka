@@ -88,13 +88,14 @@
                                             </div>
                                         </div>
                                         @if(Gate::allows('is_student') and !auth()->user()->isAdult())
+                                            <hr>
                                             <div class="col-sm-12 my-1 mb-3">
                                                 <label class="sr-only" for="representative">@lang('auth.representative')</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">@lang('auth.representative')</div>
                                                     </div>
-                                                    <input value="{{auth()->user()->representative->fullName()}}" class="form-control" disabled="">
+                                                    <input value="{{$user->representative->fullName()}} ({{$user->representative->email}})" class="form-control" disabled="">
                                                 </div>
                                             </div>
                                         @endif

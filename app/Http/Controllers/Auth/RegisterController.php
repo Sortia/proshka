@@ -6,6 +6,7 @@ use App\Constants\Roles;
 use App\Http\Controllers\Controller;
 use App\Http\Services\FileService;
 use App\Providers\RouteServiceProvider;
+use App\Rules\CheckRepresentative;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -70,7 +71,7 @@ class RegisterController extends Controller
         // если регистрируется ученик и он являеся несовершеннолетним
         // ему требуется ввести email представителя (зарегестрированного на этом сайте)
         if (!$data['adult_checkbox'] and $data['role_id'] === '3') {
-            $rules['representative_email'] = ['exists:users,email'];
+            $rules['representative_email'] = [new CheckRepresentative()];
         }
 
         return Validator::make($data, $rules);
