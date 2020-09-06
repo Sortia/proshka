@@ -10,12 +10,11 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid px-5">
+        <div class="row page-header no-gutters"><h3 class="page-title">@lang('Test')</h3></div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="card mb-5">
-                    <div class="card-header">@lang('Test')</div>
-
                     <div class="card-body">
                         <div id="carouselExampleControls" data-keyboard="false" data-wrap="false" data-interval="false"
                              class="carousel slide" data-ride="carousel">
@@ -30,50 +29,54 @@
                                                        value="{{$question->isActive()}}">
                                                 <input type="hidden" class="question_user_id"
                                                        value="{{$question->user->id ?? ''}}">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
 
-                                                <div class="form-group">
-                                                    {{$question->question}}
-                                                </div>
-
-                                                <div class="form-group">
-                                                    @foreach($question->files as $file)
-                                                        <a href="{{route('file.show', $file)}}">{{$file->name}}</a><br>
-                                                    @endforeach
-                                                </div>
-
-                                                @switch($question->type)
-                                                    @case('select')
-                                                    @include('public.components.question_select')
-                                                    @break
-                                                    @case('text')
-                                                    @include('public.components.question_text')
-                                                    @break
-                                                @endswitch
-
-                                                <div class="teacher-comment mt-3">
-                                                    {{$question->user->comment ?? ''}}
-                                                </div>
-                                                <div class="teacher_files mt-3">
-                                                    @if($question->user->teacherFiles ?? false)
-                                                        @foreach($question->user->teacherFiles as $file)
-                                                            <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
-                                                        @endforeach
-                                                    @endif
-                                                </div>
-                                                @if($question->accept_file)
-                                                    <div class="student_files">
-                                                        <hr>
-                                                        @if($question->user->studentFiles ?? false)
-                                                            @foreach($question->user->studentFiles as $file)
-                                                            <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
+                                                    <div class="form-group mb-0">
+                                                        {{$question->question}}
+                                                    </div>
+                                                        <div class="form-group mb-0">
+                                                            @foreach($question->files as $file)
+                                                                <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
+                                                                <br>
                                                             @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <div class="container-fluid">
+
+                                                        @switch($question->type)
+                                                            @case('select')
+                                                            @include('public.components.question_select')
+                                                            @break
+                                                            @case('text')
+                                                            @include('public.components.question_text')
+                                                            @break
+                                                        @endswitch
+                                                        <div class="teacher-comment mt-3">
+                                                            {{$question->user->comment ?? ''}}
+                                                        </div>
+                                                        <div class="teacher_files mt-3">
+                                                            @if($question->user->teacherFiles ?? false)
+                                                                @foreach($question->user->teacherFiles as $file)
+                                                                    <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+                                                        @if($question->accept_file)
+                                                            <div class="student_files">
+                                                                @if($question->user->studentFiles ?? false)
+                                                                    @foreach($question->user->studentFiles as $file)
+                                                                        <a href="{{route('file.show', $file)}}">{{$file->name}}</a>
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                            <div class="files mt-3">
+                                                                <div class="dropzone"
+                                                                     @unless($question->isActive()) data-disable="true" @endunless></div>
+                                                            </div>
                                                         @endif
                                                     </div>
-                                                    <div class="files mt-3">
-                                                        <div class="dropzone"
-                                                             @unless($question->isActive()) data-disable="true" @endunless></div>
-                                                    </div>
-                                                @endif
+                                                </div>
                                             </div>
 
                                         </fieldset>
@@ -81,18 +84,25 @@
                                 @endforeach
                                 <div class="carousel-item">
                                     <div class="test-item">
-                                        <div class="m-5"><h1 class="text-center text-uppercase">Тест пройден!</h1></div>
-                                        <a href="{{route('course.show', $test->lesson->course)}}"
-                                           class="btn btn-primary btn-block">@lang('Next')</a>
+                                        <div class="row justify-content-center">
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                                                <div class="m-5"><h1 class="text-center text-uppercase">Тест пройден!</h1></div>
+                                                <a href="{{route('course.show', $test->lesson->course)}}"
+                                                   class="btn btn-primary btn-block">@lang('Next')</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-primary btn-sm float-right mt-2 text-white" id="save_answer"
-                               role="button"
-                               data-slide="next">
-                                @lang('Next')
-                            </a>
+
                         </div>
+                    </div>
+                    <div class="card-footer py-2">
+                        <a class="btn btn-primary btn-sm float-right text-white" id="save_answer"
+                           role="button"
+                           data-slide="next">
+                            @lang('Next')
+                        </a>
                     </div>
                 </div>
             </div>

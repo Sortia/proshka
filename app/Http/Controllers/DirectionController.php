@@ -30,7 +30,7 @@ class DirectionController extends Controller
     {
         $direction->load('courses');
 
-        return view('public.direction_show', compact('direction'));
+        return view('public.course', compact('direction'));
     }
 
 }

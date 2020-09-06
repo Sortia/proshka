@@ -5,24 +5,11 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid px-5">
+        <div class="row page-header no-gutters"><h3 class="page-title">@lang('Tasks') {{$course->name}}</h3></div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header pb-2 h5">
-                        <span>{{$course->name}} @lang('Tasks')</span>
-                        @if($course->isBought())
-{{--                            <span class="float-right">--}}
-{{--                                @lang('Balance'): {{$course->user->balance}}--}}
-{{--                            </span>--}}
-                        @else
-                            <span>
-                            <a href="{{route('course.buy', $course)}}" class="btn btn-sm btn-success float-right">@lang('Buy')</a>
-                            </span>
-                        @endif
-
-                    </div>
-
                     <div class="card-body">
                         <div class="list-group">
                             @foreach($course->lessons->sortBy('order_number') as $lesson)
@@ -50,6 +37,13 @@
                             @endforeach
                         </div>
                     </div>
+                    @unless($course->isBought())
+                    <div class="card-footer py-2">
+                        <span>
+                            <a href="{{route('course.buy', $course)}}" class="btn btn-sm btn-success float-right">@lang('Buy')</a>
+                        </span>
+                    </div>
+                    @endunless
                 </div>
             </div>
         </div>

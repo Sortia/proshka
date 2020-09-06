@@ -1,36 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid px-5">
+        <div class="row">
             <div class="col-md-12">
+                <div class="row page-header no-gutters"><h3 class="page-title">@lang('Directions')</h3></div>
                 <div class="card">
-                    <div class="card-header pb-2 h5">
-                        <span>@lang('Directions')</span>
-                    </div>
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col">@lang('Name')</th>
-                                <th scope="col">@lang('Description')</th>
-                                <th scope="col">@lang('Actions')</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <div class="list-group">
                             @foreach($directions as $direction)
-                                <tr>
-                                    <td>{{$direction->name}}</td>
-                                    <td>{{$direction->description}}</td>
-                                    <td>
-                                        <a href="{{route('direction.show', $direction)}}">
-                                            <button class="btn btn-primary btn-sm">@lang('Show')</button>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <a href="{{route('direction.show', $direction)}}" class="list-group-item list-group-item-action">
+                                    <div class="row">
+                                        <div class="col-sm-2">{{$direction->name}}</div>
+                                        <div class="col-sm-10">{{$direction->description}}</div>
+                                    </div>
+                                </a>
                             @endforeach
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>

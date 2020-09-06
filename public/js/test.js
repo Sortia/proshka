@@ -66,7 +66,7 @@ $(() => {
 
     function moveCarousel() {
         if ($('.carousel .active .test-item').hasClass('final')) {
-            $('#save_answer').remove();
+            $('#save_answer').parent().remove();
         }
 
         $('#carouselExampleControls').carousel('next');
