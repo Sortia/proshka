@@ -43,4 +43,9 @@ class Test extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+
+    public function getCountQuestions()
+    {
+        return $this->questions()->count();
+    }
 }

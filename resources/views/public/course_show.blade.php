@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('js')
+    <script src="{{asset('js/course_show.js')}}" defer></script>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -8,9 +12,9 @@
                     <div class="card-header pb-2 h5">
                         <span>{{$course->name}} @lang('Tasks')</span>
                         @if($course->isBought())
-                            <span class="float-right">
-                                @lang('Balance'): {{$course->user->balance}}
-                            </span>
+{{--                            <span class="float-right">--}}
+{{--                                @lang('Balance'): {{$course->user->balance}}--}}
+{{--                            </span>--}}
                         @else
                             <span>
                             <a href="{{route('course.buy', $course)}}" class="btn btn-sm btn-success float-right">@lang('Buy')</a>
@@ -23,7 +27,7 @@
                         <div class="list-group">
                             @foreach($course->lessons->sortBy('order_number') as $lesson)
                                 @if($course->isBought())
-                                    <a href="{{route('lesson.show', $lesson)}}" class="list-group-item list-group-item-action @unless($lesson->available()) disabled @endunless">
+                                    <a href="{{route('lesson.show', $lesson)}}" data-lesson_name="{{$lesson->name}}" data-lesson_id="{{$lesson->id}}" class="list-group-item @unless($lesson->user) buy-course-link @endunless list-group-item-action @unless($lesson->available()) disabled @endunless">
                                         <div class="row">
                                             <div class="col-lg-2">{{$lesson->name}}</div>
                                             <div class="col-lg-8">{{$lesson->description}}</div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Student\BuyLessonRequest;
 use App\Http\Requests\Student\LessonRequest;
 use App\Http\Requests\Student\ShowLessonRequest;
 use App\Http\Services\LessonService;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Throwable;
 
 class LessonController extends Controller
 {
@@ -32,6 +34,20 @@ class LessonController extends Controller
     }
 
     /**
+     * Покупка учеником задания
+     *
+     * @param Lesson $lesson
+     * @return mixed
+     * @throws Throwable
+     */
+    public function buy(Lesson $lesson, BuyLessonRequest $request)
+    {
+        $this->service->buyLesson($lesson);
+
+        return $this->respondSuccess();
+    }
+
+    /**
      * Вьюха занятия
      *
      * @param Lesson $lesson
@@ -40,13 +56,9 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson, ShowLessonRequest $request)
     {
-        return DB::transaction(function () use ($lesson) {
-            $lesson->load('videos', 'files', 'course', 'user');
+        $lesson->load('videos', 'files', 'course', 'user');
 
-            $lessonUser = $this->service->maybeBuyLesson($lesson);
-
-            return view('public.lesson_show', compact('lesson', 'lessonUser'));
-        });
+        return view('public.lesson_show', compact('lesson'));
     }
 
     /**
@@ -55,6 +67,7 @@ class LessonController extends Controller
      * @param Lesson $lesson
      * @param LessonRequest $request
      * @return RedirectResponse
+     * @throws Throwable
      */
     public function complete(Lesson $lesson, LessonRequest $request)
     {

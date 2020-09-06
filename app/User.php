@@ -27,6 +27,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $role_id
+ * @property int $points
+ * @property int $rating
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @method static Builder|User newModelQuery()
@@ -54,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name', 'email', 'password', 'surname', 'nickname', 'phone', 'city',
-        'avatar', 'role_id', 'representative_id', 'email_verified_at',
+        'avatar', 'role_id', 'representative_id', 'email_verified_at', 'points', 'rating',
     ];
 
     /**

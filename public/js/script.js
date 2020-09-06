@@ -23,7 +23,7 @@ $(() => {
 
     window.show_error = function (response) {
         console.log(response);
-        alert(response.statusText);
+        swal_error();
     }
 
     window.initFiler = function (selector, clickable = true) {
@@ -36,5 +36,11 @@ $(() => {
         });
     }
 
-});
+    window.swal_success = function (text = 'Успешно!', timer = 900) {
+        return Swal.fire({title: text, icon: 'success', timer: timer})
+    }
 
+    window.swal_error = function (text = 'Что-то пошло не так...', timer = 900) {
+        Swal.fire({title: text, icon: 'error', timer: timer})
+    }
+});

@@ -10,10 +10,14 @@ window.Vue = require('vue');
 
 import 'select2';                       // globally assign select2 fn to $ element
 import 'select2/dist/css/select2.css';  // optional if you have css loader
-
 import 'bootstrap-table'
-
 import Lang from 'lang.js';
+
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+window.Swal = Swal;
+
+import 'sweetalert2/src/sweetalert2.scss'
 
 const default_locale = window.default_language;
 const fallback_locale = window.fallback_locale;

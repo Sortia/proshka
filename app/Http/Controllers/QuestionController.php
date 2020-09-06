@@ -6,7 +6,9 @@ use App\Answer;
 use App\Constants\QuestionUserStatus;
 use App\Direction;
 use App\Http\Requests\Student\AnswerRequest;
+use App\Http\Requests\Teacher\CheckQuestionRequest;
 use App\Http\Services\FileService;
+use App\Http\Services\QuestionService;
 use App\QuestionUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -15,16 +17,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Throwable;
 
 class QuestionController extends Controller
 {
-    // todo написание автоматических тестов
+    private FileService $fileService;
 
-    private $fileService;
+    private QuestionService $service;
 
-    public function __construct(FileService $fileService)
+    public function __construct(FileService $fileService, QuestionService $service)
     {
         $this->fileService = $fileService;
+        $this->service = $service;
     }
 
     /**
@@ -32,26 +36,13 @@ class QuestionController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws Throwable
      */
     public function store(AnswerRequest $request)
     {
-        return DB::transaction(function () use ($request) {
-            $questionUser = QuestionUser::updateOrCreate([
-                'id' => $request->question_user_id
-            ],[
-                'question_id' => $request->question_id,
-                'user_id' => Auth::user()->id,
-                'answer_id' => $request->answer_id,
-                'text' => $request->text,
-                'status' => QuestionUserStatus::COMPLETE,
-            ]);
+        $this->service->storeStudentAnswer($request);
 
-            foreach ($request->file('files') ?? [] as $file) {
-                $this->fileService->save($questionUser, $file, 'user_answers');
-            }
-
-            return $this->respondSuccess();
-        });
+        return $this->respondSuccess();
     }
 
     /**
@@ -74,22 +65,7 @@ class QuestionController extends Controller
      */
     public function filterList(Request $request)
     {
-        /** @var QuestionUser $answers */
-        $questionUserList = QuestionUser::with('question.test.lesson.course.direction')
-            ->whereHas('question.test.lesson', function ($query) use ($request) { // фильтрация по курсу
-                $query->where('course_id', $request->course_id);
-            })
-            ->whereHas('user', function ($query) use ($request) { // фильтрация по имени студента
-                $query->where('name', 'like', "%$request->search%");
-            })
-            ->when($request->status === 'not_verified', function (Builder $query) { // фильтрация по статусу (выполненные)
-                $query->where('status', 'complete');
-            })
-            ->when($request->status === 'verified', function (Builder $query) { // фильтрация по статусу (не выполненные)
-                $query->where('status', '<>', 'complete');
-            })
-            ->{$request->date_sort}() // сортировка по дате: oldest() or latest()
-            ->paginate(15);
+        $questionUserList = $this->service->filterTeacherList($request);
 
         $html = $this->prepareLayout('teacher.components.question_list', compact('questionUserList'));
 
@@ -119,17 +95,21 @@ class QuestionController extends Controller
      * @param string $status
      * @param Request $request
      * @return Response
+     * @throws Throwable
      */
-    public function checkQuestion(QuestionUser $questionUser, string $status, Request $request)
+    public function checkQuestion(QuestionUser $questionUser, string $status, CheckQuestionRequest $request)
     {
+        dd($request->all());
         return DB::transaction(function () use ($questionUser, $status, $request) {
-            $questionUser->update([
-                'comment' => $request->comment,
-                'status' => $status,
-            ]);
+            $this->service->updateQuestionUser($questionUser, $request->status, $request->comment);
+            $this->service->saveFiles($questionUser, $request->file('files'));
 
-            foreach ($request->file('files') ?? [] as $file) {
-                $this->fileService->save($questionUser, $file, 'teacher_comment');
+            $test = $questionUser->question->test;
+            $user = $questionUser->user;
+
+            if ($this->service->taskCompleteRight($test, $user)) {
+                $this->service->processAddPoints($test->lesson, $user, $request->additional_points);
+                $this->service->setRightStatusForLessonUser($test->lesson, $user);
             }
 
             return $this->respondSuccess();

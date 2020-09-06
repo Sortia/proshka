@@ -50,6 +50,7 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::get('course/{course}/buy', 'CourseController@buy')->name('course.buy');
         Route::get('course/my', 'CourseController@my')->name('course.my');
 
+        Route::post('lesson/{lesson}/buy', 'LessonController@buy')->name('lesson.buy');
         Route::get('lesson/{lesson}/show', 'LessonController@show')->name('lesson.show');
         Route::post('lesson/{lesson}/complete', 'LessonController@complete')->name('lesson.complete');
 

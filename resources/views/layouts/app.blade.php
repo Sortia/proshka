@@ -57,13 +57,19 @@
                             <li><a class="ml-2" href="{{route('course.my')}}">@lang('My courses')</a></li>
                         @endif
                         @if(Gate::allows('is_teacher'))
-                            <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Tasks')</a></li>
+{{--                            <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Tasks')</a></li>--}}
                             <li><a class="ml-2" href="{{route('teacher.question.show')}}">@lang('Tests')</a></li>
                         @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @if(Gate::allows('is_student'))
+                        <li class="nav-item mr-3">
+                            <div class="nav-link">{{auth()->user()->points}} пр.</div>
+
+                        </li>
+                        @endif
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

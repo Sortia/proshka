@@ -6,8 +6,10 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Throwable;
 
 class LessonService
 {
@@ -16,23 +18,24 @@ class LessonService
      *
      * @param $lesson
      * @return mixed
+     * @throws Throwable
      */
-    public function maybeBuyLesson($lesson)
+    public function buyLesson($lesson)
     {
-        if (!$lesson->user) {
-            $lesson->user()->create([
-                'user_id' => auth()->user()->id,
-                'lesson_id' => $lesson->id,
-                'status' => 'active'
-            ]);
+        return DB::transaction(function () use ($lesson) {
+            if (!$lesson->user) {
+                $lessonUser = $lesson->user()->create([
+                    'user_id' => auth()->user()->id,
+                    'lesson_id' => $lesson->id,
+                    'status' => 'active'
+                ]);
 
-            $balance = $lesson->course->user->balance - $lesson->cost;
+                $points = $lessonUser->user->points - $lesson->cost;
 
-            $lesson->course->user->update(['balance' => $balance]);
-            $lesson->load('user');
-        }
-
-        return $lesson->user;
+                $lessonUser->user->update(['points' => $points]);
+                $lesson->load('user');
+            }
+        });
     }
 
     /**

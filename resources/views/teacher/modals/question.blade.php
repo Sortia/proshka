@@ -50,16 +50,15 @@
                     <label>@lang('Answer')</label>
                     <div id="answer"></div>
                 </div>
-
+                <hr>
                 <div class="row">
-                    <div class="col-lg-4 mt-2">
-                        <button class="btn btn-success btn-block" id="accept_question" data-status="right">@lang('Accept task')</button>
-                    </div>
-                    <div class="col-lg-4 mt-2">
-                        <button class="btn btn-dark btn-block" id="rework_question" data-status="rework">@lang('Send for rework')</button>
-                    </div>
-                    <div class="col-lg-4 mt-2">
-                        <button class="btn btn-danger btn-block" id="wrong_question" data-status="wrong">@lang('Revoke the job')</button>
+                    <div class="col-lg-12">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Дополнительные баллы (от 0 до 10)</div>
+                            </div>
+                            <input type="number" class="form-control" id="additional_points" value="0">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -69,6 +68,17 @@
                     <div class="teacherFiles col-lg-12 mt-3"></div>
                     <div class="col-lg-12 mt-3">
                         <div class="dropzone"></div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-4 mt-2">
+                        <button class="btn btn-success btn-block" id="accept_question" data-status="right">@lang('Accept task')</button>
+                    </div>
+                    <div class="col-lg-4 mt-2">
+                        <button class="btn btn-dark btn-block" id="rework_question" data-status="rework">@lang('Send for rework')</button>
+                    </div>
+                    <div class="col-lg-4 mt-2">
+                        <button class="btn btn-danger btn-block" id="wrong_question" data-status="wrong">@lang('Revoke the job')</button>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\QuestionUser
@@ -16,8 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $answer_id
  * @property string|null $text
  * @property string $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $comment
  * @property-read Answer|null $answer
  * @property-read Collection|File[] $files

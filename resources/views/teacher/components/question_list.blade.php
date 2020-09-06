@@ -1,5 +1,5 @@
 @foreach($questionUserList as $questionUser)
-    <div class="card card-body col-lg-12 my-2 mx-3">
+    <div class="card card-body col-lg-12 my-2 mx-3" id="question_user_{{$questionUser->id}}">
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">@lang('Direction')</label>
             <div class="col-sm-9">
@@ -34,7 +34,6 @@
                         data-target="#checkAnswer">@lang('Show')</button>
             </div>
         </div>
-    </div>
     </div>
 @endforeach
 <div class="col-lg-12 mt-2">

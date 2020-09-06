@@ -24,6 +24,14 @@ $(() => {
         let fd = new FormData();
         let question_user_id = $('#question_user_id').val();
         let files = Dropzone.forElement($('#checkAnswer .dropzone')[0]).files;
+        let additional_points = $('#additional_points');
+
+        if (additional_points.val() < 0 || additional_points.val() > 10) {
+            additional_points.addClass('is-invalid');
+            return;
+        } else {
+            additional_points.removeClass('is-invalid');
+        }
 
         for (let i = 0; i < files.length; i++) {
             fd.append(`files[]`, files[i]);
@@ -31,6 +39,7 @@ $(() => {
 
         fd.append('question_user_id', question_user_id);
         fd.append('comment', $('#comment').val());
+        fd.append('additional_points', $('#additional_points').val());
 
         $.ajax({
             method: "POST",
@@ -40,7 +49,9 @@ $(() => {
             processData: false,
             error: (response) => show_error(response),
             success: (response) => {
+                swal_success();
                 $('#checkAnswer').modal('hide')
+                $(`#question_user_${question_user_id}`).remove()
             }
         });
     });
