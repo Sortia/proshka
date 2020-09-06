@@ -15,22 +15,8 @@ class DirectionController extends Controller
      */
     public function index()
     {
-        $directions = Direction::all();
+        $directions = Direction::with('courses')->get();
 
         return view('public.direction', compact('directions'));
     }
-
-    /**
-     * Страница направления со списком его курсов
-     *
-     * @param Direction $direction
-     * @return View
-     */
-    public function show(Direction $direction)
-    {
-        $direction->load('courses');
-
-        return view('public.course', compact('direction'));
-    }
-
 }
