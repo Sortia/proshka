@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('js')
+    <script src="{{asset('js/lesson_show.js')}}" defer></script>
+@endsection
+
 @section('css')
     <link href="{{asset('libraries/quilljs/quill.css')}}" rel="stylesheet">
 @endsection
@@ -29,31 +33,14 @@
                                 </div>
                             </div>
                         @endif
-
-                        {{--                        <fieldset @if(Gate::denies('update', $lesson->user   )) disabled @endif>--}}
-
-                        {{--                            <div class="answer mt-5">--}}
-                        {{--                                <h5>@lang('Answer')</h5>--}}
-                        {{--                                <form action="{{route('lesson.complete', $lesson)}}" method="post"--}}
-                        {{--                                      enctype="multipart/form-data">--}}
-                        {{--                                    @csrf--}}
-                        {{--                                    <textarea name="text" id="text" class="form-control"--}}
-                        {{--                                              rows="10">{{$lesson->user->text ?? ''}}</textarea>--}}
-                        {{--                                    @foreach($lesson->user->files as $file)--}}
-                        {{--                                        <a href="{{route('file.show', $file)}}">{{$file->name}}</a><br>--}}
-                        {{--                                    @endforeach--}}
-                        {{--                                    <div class="custom-file mt-3">--}}
-                        {{--                                        <input type="file" class="custom-file-input change-file-input" id="file"--}}
-                        {{--                                               name="file">--}}
-                        {{--                                        <label id="file-label" class="custom-file-label"--}}
-                        {{--                                               for="customFile">@lang('Choose file')</label>--}}
-                        {{--                                    </div>--}}
-                        {{--                                    <button class="btn btn-success mt-3 float-right">@lang('Send')</button>--}}
-                        {{--                                </form>--}}
-                        {{--                            </div>--}}
-                        {{--                        </fieldset>--}}
-
                     </div>
+                    @if($lesson->user and $lesson->user->status === 'active')
+                        <div class="card-footer py-2">
+                        <span>
+                            <button id="refuse_task" class="btn btn-sm btn-danger float-right">@lang('Отказаться от задания')</button>
+                        </span>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

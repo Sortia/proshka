@@ -41,46 +41,35 @@
                     </div>
                 </div>
                 <hr>
-                <div class="form-group">
-                    <label>@lang('Question')</label>
-                    <div id="question"></div>
-                </div>
-                <div class="files mt-3"></div>
-                <div class="form-group">
-                    <label>@lang('Answer')</label>
-                    <div id="answer"></div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Дополнительные баллы (от 0 до 10)</div>
+
+                <div id="question_list"></div>
+
+                <fieldset id="lesson_control_buttons">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Дополнительные баллы (от 0 до 10)</div>
+                                </div>
+                                <input type="number" class="form-control" id="additional_points" value="0">
                             </div>
-                            <input type="number" class="form-control" id="additional_points" value="0">
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 mt-3">
-                        <textarea placeholder="Укажите причину отправки задания на доработку, отзыва задания ил похвалите ученика за прекрасно выполненное задание" id="comment" class="form-control" rows="3"></textarea>
+                    <div class="row mt-2">
+                        <div class="col-lg-3">
+                            <button class="btn btn-block btn-danger float-right wrong_lesson"
+                                    data-status="rework">@lang('Revoke the job')</button>
+                        </div>
+
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-block btn-success float-left right_lesson"
+                                    data-status="right">@lang('Принять задание')</button>
+                        </div>
                     </div>
-                    <div class="teacherFiles col-lg-12 mt-3"></div>
-                    <div class="col-lg-12 mt-3">
-                        <div class="dropzone"></div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-lg-4 mt-2">
-                        <button class="btn btn-success btn-block" id="accept_question" data-status="right">@lang('Accept task')</button>
-                    </div>
-                    <div class="col-lg-4 mt-2">
-                        <button class="btn btn-dark btn-block" id="rework_question" data-status="rework">@lang('Send for rework')</button>
-                    </div>
-                    <div class="col-lg-4 mt-2">
-                        <button class="btn btn-danger btn-block" id="wrong_question" data-status="wrong">@lang('Revoke the job')</button>
-                    </div>
-                </div>
+                </fieldset>
+
+
             </div>
             <div class="modal-footer p-2">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('Close')</button>

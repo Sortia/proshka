@@ -6,6 +6,7 @@ use App\Http\Requests\Student\BuyLessonRequest;
 use App\Http\Requests\Student\LessonRequest;
 use App\Http\Requests\Student\ShowLessonRequest;
 use App\Http\Services\LessonService;
+use App\Http\Services\QuestionService;
 use App\Lesson;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,9 +18,12 @@ class LessonController extends Controller
 {
     private LessonService $service;
 
-    public function __construct(LessonService $service)
+    private QuestionService $questionService;
+
+    public function __construct(LessonService $service, QuestionService $questionService)
     {
         $this->service = $service;
+        $this->questionService = $questionService;
     }
 
     /**
@@ -83,5 +87,17 @@ class LessonController extends Controller
 
             return redirect(route('course.show', ['course' => $lesson->course]));
         });
+    }
+
+    public function refuse(Lesson $lesson)
+    {
+        if ($lesson->user->status !== 'active') {
+            return $this->respondError("Неверный статус занятия!", 444);
+        }
+
+        $this->questionService->setFine($lesson, $lesson->user->user);
+        $lesson->user->update(['status' => 'wrong']);
+
+        return compact('lesson');
     }
 }

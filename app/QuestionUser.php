@@ -41,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|QuestionUser whereText($value)
  * @method static Builder|QuestionUser whereUpdatedAt($value)
  * @method static Builder|QuestionUser whereUserId($value)
+ * @method static Builder whereTest(Test $test)
  * @mixin Eloquent
  */
 class QuestionUser extends Model
@@ -84,5 +85,13 @@ class QuestionUser extends Model
     public function teacherFiles()
     {
         return $this->morphMany(File::class, 'fileable')->where('path', 'like', 'teacher_comment%');
+    }
+
+
+    public function scopeWhereTest(Builder $query, Test $test)
+    {
+        return $query->with(['question' => function (Builder $query) use ($test) {
+            $query->where('test_id', $test->id);
+        }]);
     }
 }

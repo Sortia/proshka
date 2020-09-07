@@ -24,9 +24,11 @@ $(() => {
                 $('#description').val(response.description);
                 $('#available_at').val(response.available_at);
                 $('#time').val(response.time);
+                $('#fine').val(response.fine);
                 window.editor.clipboard.dangerouslyPasteHTML(response.task);
 
                 $('#create_lesson').click();
+                $('#course_id').val(response.course_id);
             },
             error: (response) => show_error(response),
         });
@@ -306,6 +308,7 @@ $(() => {
                 description: $('#description').val(),
                 available_at: $('#available_at').val(),
                 time: $('#time').val(),
+                fine: $('#fine').val(),
                 task: $('.ql-editor').html(),
             },
             error: (response) => show_error(response),

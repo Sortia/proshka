@@ -22,8 +22,8 @@ $(() => {
     }
 
     window.show_error = function (response) {
+        swal_error(response.status === 444 ? response.responseText : '', 1500);
         console.log(response);
-        swal_error();
     }
 
     window.initFiler = function (selector, clickable = true) {

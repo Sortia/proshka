@@ -1,8 +1,6 @@
 $(() => {
 
     loadCourses();
-    initFiler($('.dropzone')[0])
-
 
     $('#direction_id').on('change', () => loadCourses());
 
@@ -11,19 +9,24 @@ $(() => {
     $('.searchable').on('keyup', () => filterAnswers());
 
     /**
-     * Удаление файлов из dropzone при закрытии модалки
+     *
      */
-    $('#checkAnswer').on('hidden.bs.modal', function (e) {
-        Dropzone.forElement($('#checkAnswer .dropzone')[0]).removeAllFiles(true);
-    })
+    $('.wrong_lesson').on('click', function (e) {
+        $.ajax({
+            method: "POST",
+            url: `/lesson_user/${$(this).data('lesson_user_id')}/wrong`,
+            error: (response) => show_error(response),
+            success: (response) => {
+                swal_success();
+                $('#checkAnswer').modal('hide')
+            }
+        });
+    });
 
     /**
-     * Проставление статуса выполненному заданию
+     *
      */
-    $('#accept_question, #rework_question, #wrong_question').on('click', function () {
-        let fd = new FormData();
-        let question_user_id = $('#question_user_id').val();
-        let files = Dropzone.forElement($('#checkAnswer .dropzone')[0]).files;
+    $('.right_lesson').on('click', function (e) {
         let additional_points = $('#additional_points');
 
         if (additional_points.val() < 0 || additional_points.val() > 10) {
@@ -33,13 +36,37 @@ $(() => {
             additional_points.removeClass('is-invalid');
         }
 
+        $.ajax({
+            method: "POST",
+            data: {
+                additional_points: additional_points.val(),
+            },
+            url: `/lesson_user/${$(this).data('lesson_user_id')}/right`,
+
+            success: (response) => {
+                swal_success();
+                $('#checkAnswer').modal('hide')
+            },
+            error: (response) => show_error(response),
+        });
+    });
+
+    /**
+     * Проставление статуса выполненному заданию
+     */
+    $('body').on('click', '.accept_question, .rework_question', function () {
+        let fd = new FormData();
+        let question_user_id = $(this).data('question_user_id');
+
+        let files = Dropzone.forElement($(`#question_user_${question_user_id} .dropzone`)[0]).files;
+
         for (let i = 0; i < files.length; i++) {
             fd.append(`files[]`, files[i]);
         }
 
         fd.append('question_user_id', question_user_id);
-        fd.append('comment', $('#comment').val());
-        fd.append('additional_points', $('#additional_points').val());
+        fd.append('comment', $(`#question_user_${question_user_id} .comment`).val());
+        // fd.append('additional_points', $('#additional_points').val());
 
         $.ajax({
             method: "POST",
@@ -50,7 +77,6 @@ $(() => {
             error: (response) => show_error(response),
             success: (response) => {
                 swal_success();
-                $('#checkAnswer').modal('hide')
                 $(`#question_user_${question_user_id}`).remove()
             }
         });
@@ -69,27 +95,31 @@ $(() => {
      * Открытие модалки
      */
     $('body').on('click', '.show_answer', function () {
-       let question_user_id = $(this).data('question_user_id');
+       let lesson_user_id = $(this).data('lesson_user_id');
 
         $.ajax({
             method: "GET",
-            url: `/question_user/${question_user_id}/`,
+            url: `/lesson_user/${lesson_user_id}/`,
             error: (response) => show_error(response),
             success: (response) => {
                 console.log(response);
-                $('#checkAnswer #direction_id').val(response.questionUser.question.test.lesson.course.direction.name)
-                $('#checkAnswer #course_id').val(response.questionUser.question.test.lesson.course.name)
-                $('#checkAnswer #lesson_id').val(response.questionUser.question.test.lesson.name)
-                $('#checkAnswer #question').html(response.questionUser.question.question)
-                $('#checkAnswer #question_user_id').val(response.questionUser.id)
-                $('#checkAnswer #status').val(__(response.questionUser.status))
-                $('#checkAnswer #comment').val(response.questionUser.comment)
+                $('#checkAnswer #direction_id').val(response.lessonUser.lesson.course.direction.name)
+                $('#checkAnswer #course_id').val(response.lessonUser.lesson.course.name)
+                $('#checkAnswer #lesson_id').val(response.lessonUser.lesson.name)
+                $('#checkAnswer #status').val(__(response.lessonUser.status))
+                $('#checkAnswer .right_lesson').data('lesson_user_id', response.lessonUser.id)
+                $('#checkAnswer .wrong_lesson').data('lesson_user_id', response.lessonUser.id)
+                $('#checkAnswer #additional_points').val(response.lessonUser.additional_point)
 
-                $('#answer').empty().append(response.html);
+                $('#question_list').empty().append(response.html);
 
-                $.each(response.questionUser.teacher_files, function (i, file) {
-                    $('.teacherFiles').append(`<a href="/file/${file.id}">${file.name}</a><br>`)
+                $('.dropzone').each(function (i, item) {
+                    initFiler(item);
                 });
+
+                if (response.lessonUser.status !== 'complete') {
+                    $('#lesson_control_buttons').attr('disabled', true)
+                }
             }
         });
     });

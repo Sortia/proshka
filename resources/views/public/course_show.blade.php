@@ -6,7 +6,9 @@
 
 @section('content')
     <div class="container-fluid px-5">
-        <div class="row page-header no-gutters"><h3 class="page-title">@lang('Tasks') {{$course->name}}</h3></div>
+        <div class="row page-header no-gutters">
+            <h3 class="page-title">@lang('Tasks') {{$course->name}}</h3>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -21,7 +23,7 @@
                                             @if($lesson->user)
                                                 <div class="col-lg-2">{{__(Str::ucfirst($lesson->user->status))}}</div>
                                             @else
-                                                <div class="col-lg-2">{{(__('Cost') . ': ' . $lesson->cost)}}</div>
+                                                <div class="col-lg-2">{{(__('Cost') . ': ' . $lesson->cost . ' ' . get_case_for_points($lesson->cost))}}</div>
                                             @endif
                                         </div>
                                     </a>

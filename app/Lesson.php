@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property int $complexity
  * @property int $time
  * @property int $available_at
+ * @property int $fine
  * @property string|null $text
  * @property string|null $task
  * @property Carbon|null $created_at
@@ -73,7 +74,13 @@ class Lesson extends Model
         'time',
         'available_at',
         'task',
+        'fine',
     ];
+
+    public function lessons()
+    {
+        return $this->hasMany(LessonUser::class);
+    }
 
     public function files()
     {

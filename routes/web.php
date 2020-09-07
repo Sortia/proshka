@@ -53,6 +53,7 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::post('lesson/{lesson}/buy', 'LessonController@buy')->name('lesson.buy');
         Route::get('lesson/{lesson}/show', 'LessonController@show')->name('lesson.show');
         Route::post('lesson/{lesson}/complete', 'LessonController@complete')->name('lesson.complete');
+        Route::post('lesson/{lesson}/refuse', 'LessonController@refuse')->name('lesson.refuse');
 
         Route::get('test/{test}/show', 'TestController@show')->name('test.show');
 
@@ -68,9 +69,13 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::post('teacher/lesson/{lessonUser}/right', 'TeacherController@right')->name('teacher.lesson.right');
 
         Route::get('answer/list/filter', 'QuestionController@filterList');
-        Route::get('question_user/{questionUser}', 'QuestionController@getQuestionUserData');
+        Route::get('lesson_user/{lessonUser}', 'QuestionController@getLessonUserData');
 
-        Route::post('question_user/{questionUser}/{status}', 'QuestionController@checkQuestion');
+        Route::post('question_user/{questionUser}/right', 'QuestionController@rightQuestion');
+        Route::post('question_user/{questionUser}/rework', 'QuestionController@reworkQuestion');
+
+        Route::post('lesson_user/{lessonUser}/wrong', 'QuestionController@wrongLesson');
+        Route::post('lesson_user/{lessonUser}/right', 'QuestionController@rightLesson');
     });
 
     Route::get('course/list', 'CourseController@list')->name('course.list');

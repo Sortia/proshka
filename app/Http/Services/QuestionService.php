@@ -18,13 +18,6 @@ use Throwable;
 
 class QuestionService
 {
-    private FileService $fileService;
-
-    public function construct(FileService $fileService)
-    {
-        $this->fileService = $fileService;
-    }
-
     /**
      * Фильтрация списка учителя
      *
@@ -33,9 +26,9 @@ class QuestionService
      */
     public function filterTeacherList(Request $request)
     {
-        return QuestionUser::with('question.test.lesson.course.direction')
-            ->whereHas('question.test.lesson', function ($query) use ($request) { // фильтрация по курсу
-                $query->where('course_id', $request->course_id);
+        return LessonUser::with('lesson.course.direction', 'user')
+            ->whereHas('lesson.course', function ($query) use ($request) { // фильтрация по курсу
+                $query->where('id', $request->course_id);
             })
             ->whereHas('user', function ($query) use ($request) { // фильтрация по имени студента
                 $query->where('name', 'like', "%$request->search%");
@@ -44,7 +37,7 @@ class QuestionService
                 $query->where('status', 'complete');
             })
             ->when($request->status === 'verified', function (Builder $query) { // фильтрация по статусу (не выполненные)
-                $query->where('status', '<>', 'complete');
+                $query->whereIn('status', ['right', 'wrong']);
             })
             ->{$request->date_sort}() // сортировка по дате: oldest() or latest()
             ->paginate(15);
@@ -54,11 +47,12 @@ class QuestionService
      * Сохранение ответа ученика
      *
      * @param Request $request
+     * @return QuestionUser
      * @throws Throwable
      */
     public function storeStudentAnswer(Request $request)
     {
-        DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request) {
             $questionUser = QuestionUser::updateOrCreate([
                 'id' => $request->question_user_id
             ], [
@@ -69,9 +63,13 @@ class QuestionService
                 'status' => QuestionUserStatus::COMPLETE,
             ]);
 
+            $fileService = new FileService();
+
             foreach ($request->file('files') ?? [] as $file) {
-                $this->fileService->save($questionUser, $file, 'user_answers');
+                $fileService->save($questionUser, $file, 'user_answers');
             }
+
+            return $questionUser;
         });
     }
 
@@ -83,8 +81,10 @@ class QuestionService
      */
     public function saveFiles(QuestionUser $questionUser, ?array $files)
     {
+        $fileService = new FileService();
+
         foreach ($files ?? [] as $file) {
-            $this->fileService->save($questionUser, $file, 'teacher_comment');
+            $fileService->save($questionUser, $file, 'teacher_comment');
         }
     }
 
@@ -109,15 +109,30 @@ class QuestionService
      * @param Lesson $test
      * @param User $user
      */
-    public function processAddPoints(Lesson $lesson, User $user, $additionalPoints)
+    public function processAddPoints(LessonUser $lessonUser, User $user, $additionalPoints)
     {
         if (is_null($additionalPoints)) {
             $additionalPoints = 0;
         }
 
         $user->update([
-            'rating' => $user->rating + $lesson->bonus + $additionalPoints,
-            'points' => $user->points + $lesson->bonus + $additionalPoints,
+            'rating' => $user->rating + $lessonUser->lesson->bonus + $additionalPoints,
+            'points' => $user->points + $lessonUser->lesson->bonus + $additionalPoints,
+        ]);
+
+        $lessonUser->update(['additional_point' => $additionalPoints]);
+    }
+
+    /**
+     * Проставление штрафа за невыполнение задания
+     *
+     * @param Lesson $lesson
+     * @param User $user
+     */
+    public function setFine(Lesson $lesson, User $user)
+    {
+        $user->update([
+            'points' => $user->points - $lesson->fine,
         ]);
     }
 
@@ -126,15 +141,15 @@ class QuestionService
      *
      * @param LessonUser $lessonUser
      */
-    public function setRightStatusForLessonUser(Lesson $lesson, User $user)
+    public function updateStatusForLessonUser(Lesson $lesson, User $user, string $status)
     {
         LessonUser::where('lesson_id', $lesson->id)
             ->where('user_id', $user->id)
-            ->update(['status' => 'right']);
+            ->update(['status' => $status]);
     }
 
     /**
-     * Вернет true если все задания
+     * Вернет true если все задания выполнены правильно
      *
      * @param Test $test
      * @param User $user
@@ -149,7 +164,27 @@ class QuestionService
     }
 
     /**
-     * Подсчет числа правильных ответов в тесте $testId для ученика $userId
+     * Вернет true если все задания выполнены (не обязательно правильно)
+     *
+     * @param Test $test
+     * @param User $user
+     * @return bool
+     */
+    public function allQuestionsCompleted(Test $test, User $user)
+    {
+        $countQuestionsInTest = $test->getCountQuestions();
+        $countCompletedAnswers = $this->getCountCompletedAnswers($test, $user);
+
+        return $countQuestionsInTest === $countCompletedAnswers;
+    }
+
+    public function setCompletedStatusForLessonUser(LessonUser $lessonUser)
+    {
+        $lessonUser->update(['status' => 'complete']);
+    }
+
+    /**
+     * Подсчет числа правильных ответов в тесте $test для ученика $user
      *
      * @param Test $test
      * @param User $user
@@ -157,10 +192,18 @@ class QuestionService
      */
     private function getCountRightAnswers(Test $test, User $user)
     {
-        return QuestionUser::where('status', 'right')
-            ->where('user_id', $user->id)
-            ->with(['question' => function (Builder $query) use ($test) {
-                $query->where('test_id', $test->id);
-            }])->count();
+        return QuestionUser::whereStatus('right')->whereUserId($user->id)->whereTest($test)->count();
+    }
+
+    /**
+     * Подсчет числа ответов ученика $user в тесте $test
+     *
+     * @param Test $test
+     * @param User $user
+     * @return int
+     */
+    private function getCountCompletedAnswers(Test $test, User $user)
+    {
+        return QuestionUser::whereStatus('complete')->whereUserId($user->id)->whereTest($test)->count();
     }
 }

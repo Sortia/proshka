@@ -27,21 +27,26 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <label for="complexity">@lang('Complexity')</label>
                                 <input required type="number" class="form-control" id="complexity"
                                        name="complexity"
                                        placeholder="@lang('Enter complexity')">
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <label for="cost">@lang('Cost')</label>
                                 <input required type="number" class="form-control" id="cost" name="cost"
                                        placeholder="@lang('Enter cost')">
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <label for="bonus">@lang('Bonus')</label>
                                 <input required type="number" class="form-control" id="bonus" name="bonus"
                                        placeholder="@lang('Enter bonus')">
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="fine">@lang('Fine')</label>
+                                <input required type="number" class="form-control" id="fine" name="fine"
+                                       placeholder="@lang('Enter fine')">
                             </div>
                         </div>
                         <div class="row mt-2">

@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property int $lesson_id
+ * @property int additional_point
  * @property string $status
  * @property string|null $text
  * @property Carbon|null $created_at
@@ -44,6 +45,7 @@ class LessonUser extends Model
         'lesson_id',
         'status',
         'text',
+        'additional_point',
     ];
 
     public function files()
