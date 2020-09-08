@@ -1,5 +1,5 @@
 @foreach($lessonUserList as $lessonUser)
-    <div class="card card-body col-lg-12 my-2 mx-3" id="question_user_{{$lessonUser->id}}">
+    <div class="card card-body col-lg-12 my-2 mx-3" id="lesson_user_{{$lessonUser->id}}">
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">@lang('Direction')</label>
             <div class="col-sm-9">

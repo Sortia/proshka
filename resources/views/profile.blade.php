@@ -29,6 +29,7 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row mt-4">
                                     <div class="col-lg-12 mb-3">
+                                        @if(Gate::allows('is_student'))
                                         <div class="row">
                                             <div class="col-sm-6 my-1 mb-3">
                                                 <label class="sr-only" for="name">Общее количество прошек</label>
@@ -50,6 +51,7 @@
                                             </div>
                                         </div>
                                         <hr>
+                                        @endif
                                         <div class="row">
                                             <div class="col-sm-12 my-1 mb-3">
                                                 <label class="sr-only" for="name">@lang('auth.name')</label>

@@ -204,6 +204,6 @@ class QuestionService
      */
     private function getCountCompletedAnswers(Test $test, User $user)
     {
-        return QuestionUser::whereStatus('complete')->whereUserId($user->id)->whereTest($test)->count();
+        return QuestionUser::whereIn('status', ['complete', 'right'])->whereUserId($user->id)->whereTest($test)->count();
     }
 }

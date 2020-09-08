@@ -1,5 +1,5 @@
 @foreach($questionUserList as $questionUser)
-    <fieldset @unless($questionUser->status === 'complete') disabled @endunless>
+    <fieldset id="question_user_fieldset_{{$questionUser->id}}" @unless($questionUser->status === 'complete') disabled @endunless>
 
     <div id="question_user_{{$questionUser->id}}">
         <div class="form-group">
@@ -85,7 +85,7 @@
             <div class="col-lg-3">
                 <button class="btn btn-block btn-success float-left accept_question"
                         data-question_user_id="{{$questionUser->id}}"
-                        data-status="right">@lang('Accept task')</button>
+                        data-status="right">@lang('Accept')</button>
             </div>
         </div>
         <hr>

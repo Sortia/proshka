@@ -19,6 +19,7 @@ $(() => {
             success: (response) => {
                 swal_success();
                 $('#checkAnswer').modal('hide')
+                $(`#lesson_user_${$(this).data('lesson_user_id')}`).remove();
             }
         });
     });
@@ -46,6 +47,7 @@ $(() => {
             success: (response) => {
                 swal_success();
                 $('#checkAnswer').modal('hide')
+                $(`#lesson_user_${$(this).data('lesson_user_id')}`).remove();
             },
             error: (response) => show_error(response),
         });
@@ -77,7 +79,8 @@ $(() => {
             error: (response) => show_error(response),
             success: (response) => {
                 swal_success();
-                $(`#question_user_${question_user_id}`).remove()
+                // $(`#question_user_${question_user_id}`).remove()
+                $(`#question_user_fieldset_${question_user_id}`).attr('disabled', true);
             }
         });
     });
