@@ -66,7 +66,7 @@
                                 <th data-field="complexity">@lang('Complexity')</th>
                                 <th data-sortable="true" data-field="cost">@lang('Cost')</th>
                                 <th data-field="bonus">@lang('Bonus')</th>
-                                <th data-field="user.status">@lang('Status')</th>
+                                <th data-formatter="statusFormatter" data-field="user.status">@lang('Status')</th>
                             </tr>
                             </thead>
                         </table>
@@ -84,8 +84,6 @@
 
         let classes = [];
 
-        // classes.push('cursor-link')
-
         if (!row.is_available) {
             classes.push('cursor-link unavailable_lesson')
         } else if (row.user) {
@@ -97,6 +95,10 @@
         return {
             classes: classes
         }
+    }
+
+    function statusFormatter(value) {
+        return __(value);
     }
 </script>
 

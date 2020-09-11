@@ -64,8 +64,8 @@ class LessonUser extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getStatusAttribute($value)
-    {
-        return __(Str::ucfirst($value));
-    }
+//    public function getStatusAttribute($value)
+//    {
+//        return __(Str::ucfirst($value));
+//    }
 }
