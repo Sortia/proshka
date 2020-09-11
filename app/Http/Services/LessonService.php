@@ -2,6 +2,9 @@
 
 namespace App\Http\Services;
 
+use App\Course;
+use App\CourseUser;
+use App\User;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -87,5 +90,19 @@ class LessonService
             throw $e;
         }
         return ob_get_clean();
+    }
+
+    public function courseNotBought(Course $course, User $user)
+    {
+        return CourseUser::whereCourseId($course->id)->whereUserId($user->id)->doesntExist();
+    }
+
+    public function buyCourse(Course $course, User $user)
+    {
+        return CourseUser::create([
+            'course_id' => $course->id,
+            'user_id' => $user->id,
+            'balance' => 100
+        ]);
     }
 }

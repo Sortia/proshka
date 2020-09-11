@@ -46,6 +46,10 @@ class LessonController extends Controller
      */
     public function buy(Lesson $lesson, BuyLessonRequest $request)
     {
+        if ($this->service->courseNotBought($lesson->course, auth()->user())) {
+            $this->service->buyCourse($lesson->course, auth()->user());
+        }
+
         $this->service->buyLesson($lesson);
 
         return $this->respondSuccess();

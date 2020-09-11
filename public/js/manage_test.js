@@ -9,6 +9,11 @@ $(() => {
     });
 
     $('.edit-test').on('click', function () {
+
+        if (!$('#id').val()) {
+            return;
+        }
+
         $.ajax({
             method: "GET",
             url: `/manage/test/${$('#id').val()}`,

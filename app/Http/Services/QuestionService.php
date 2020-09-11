@@ -7,6 +7,7 @@ namespace App\Http\Services;
 use App\Constants\QuestionUserStatus;
 use App\Lesson;
 use App\LessonUser;
+use App\Question;
 use App\QuestionUser;
 use App\Test;
 use App\User;
@@ -192,7 +193,11 @@ class QuestionService
      */
     private function getCountRightAnswers(Test $test, User $user)
     {
-        return QuestionUser::whereStatus('right')->whereUserId($user->id)->whereTest($test)->count();
+        $questionIds = Question::whereTestId($test->id)->pluck('id');
+
+        return QuestionUser::whereStatus('right')
+            ->whereUserId($user->id)
+            ->whereIn('question_id', $questionIds)->count();
     }
 
     /**
@@ -204,6 +209,10 @@ class QuestionService
      */
     private function getCountCompletedAnswers(Test $test, User $user)
     {
-        return QuestionUser::whereIn('status', ['complete', 'right'])->whereUserId($user->id)->whereTest($test)->count();
+        $questionIds = Question::whereTestId($test->id)->pluck('id');
+
+        return QuestionUser::whereIn('question_id', $questionIds)
+            ->whereIn('status', ['complete', 'right'])
+            ->whereUserId($user->id)->count();
     }
 }

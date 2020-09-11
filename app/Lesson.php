@@ -129,7 +129,7 @@ class Lesson extends Model
      */
     private function balanceAvailable(): bool
     {
-        return $this->available_at <= $this->course->user->balance;
+        return $this->available_at <= auth()->user()->rating;
     }
 
     /**

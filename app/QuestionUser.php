@@ -87,11 +87,4 @@ class QuestionUser extends Model
         return $this->morphMany(File::class, 'fileable')->where('path', 'like', 'teacher_comment%');
     }
 
-
-    public function scopeWhereTest(Builder $query, Test $test)
-    {
-        return $query->with(['question' => function (Builder $query) use ($test) {
-            $query->where('test_id', $test->id);
-        }]);
-    }
 }

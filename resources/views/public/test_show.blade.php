@@ -87,7 +87,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                                                 <div class="m-5"><h1 class="text-center text-uppercase">Тест пройден!</h1></div>
-                                                <a href="{{route('course.show', $test->lesson->course)}}"
+                                                <a href="{{route('tasks', $test->lesson->course)}}"
                                                    class="btn btn-primary btn-block">@lang('Next')</a>
                                             </div>
                                         </div>
