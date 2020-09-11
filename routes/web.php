@@ -58,6 +58,9 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::get('test/{test}/show', 'TestController@show')->name('test.show');
 
         Route::post('question_user/store', 'QuestionController@store')->name('test.store');
+
+        Route::get('tasks', 'TaskController@index')->name('tasks');
+        Route::get('tasks/show', 'TaskController@show')->name('tasks.show');
     });
 
     Route::middleware('teacher')->group(function () {

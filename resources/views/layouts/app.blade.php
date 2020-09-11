@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="{{ asset('js/script.js') }}" defer></script>
     <script src="{{ asset('js/translate.js') }}" defer></script>
+    <script src="{{ asset('libraries/bootstrap-table/ru-RU.js') }}" defer></script>
 
     <script>
         window.default_locale = "{{ config('app.locale') }}";
@@ -53,8 +54,9 @@
                             <li><a class="ml-2" href="{{route('manage.lesson.index')}}">@lang('Tasks')</a></li>
                         @endif
                         @if(Gate::allows('is_student'))
-                            <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>
-                            <li><a class="ml-2" href="{{route('course.my')}}">@lang('My courses')</a></li>
+                            <li><a class="ml-2" href="{{route('tasks')}}">@lang('Tasks')</a></li>
+{{--                            <li><a class="ml-2" href="{{route('direction.index')}}">@lang('Directions')</a></li>--}}
+{{--                            <li><a class="ml-2" href="{{route('course.my')}}">@lang('My courses')</a></li>--}}
                         @endif
                         @if(Gate::allows('is_teacher'))
 {{--                            <li><a class="ml-2" href="{{route('teacher.lesson.completed')}}">@lang('Tasks')</a></li>--}}
