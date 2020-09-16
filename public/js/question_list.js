@@ -40,7 +40,7 @@ $(() => {
         $.ajax({
             method: "POST",
             data: {
-                additional_points: additional_points.val(),
+                additional_points: additional_points.val() || 0,
             },
             url: `/lesson_user/${$(this).data('lesson_user_id')}/right`,
 
