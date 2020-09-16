@@ -65,8 +65,8 @@ class QuestionService
             ]);
 
             /** Если это задание с выбором варианта ответа и ответ выбран правильно */
-            if ($questionUser->question->type === 'select') {
-                if ($questionUser->question->rightAnswer->id == $request->answer_id) {
+            if ($questionUser->question->type === 'select' && $questionUser->question->rightAnswer) {
+                if ($questionUser->question->rightAnswer->id ?? null == $request->answer_id) {
                     $questionUser->status = QuestionUserStatus::RIGHT;
                 } else {
                     $questionUser->status = QuestionUserStatus::WRONG;
