@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('libraries/dropzone/dropzone.css')}}">
+    <link rel="stylesheet" href="{{asset('libraries/dropzone/dropzone.css')}}?v={{config('app.version')}}">
 @endsection
 
 @section('js')
-    <script src="{{asset('libraries/dropzone/dropzone.js')}}"></script>
-    <script src="{{asset('js/test.js')}}" defer></script>
+    <script src="{{asset('libraries/dropzone/dropzone.js')}}?v={{config('app.version')}}"></script>
+    <script src="{{asset('js/test.js')}}?v={{config('app.version')}}" defer></script>
 @endsection
 
 @section('content')

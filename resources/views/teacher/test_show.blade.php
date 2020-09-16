@@ -5,7 +5,7 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('js/question_list.js')}}" defer></script>
+    <script src="{{asset('js/question_list.js')}}?v={{config('app.version')}}" defer></script>
     <script src="{{asset('libraries/dropzone/dropzone.js')}}"></script>
 @endsection
 

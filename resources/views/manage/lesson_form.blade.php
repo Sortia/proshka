@@ -7,9 +7,9 @@
 
 @section('js')
     <script src="{{asset('libraries/quilljs/quill.js')}}"></script>
-    <script src="{{asset('js/editor.js')}}" defer></script>
-    <script src="{{asset('js/manage_lesson.js')}}" defer></script>
-    <script src="{{asset('js/manage_test.js')}}" defer></script>
+    <script src="{{asset('js/editor.js')}}?v={{config('app.version')}}" defer></script>
+    <script src="{{asset('js/manage_lesson.js')}}?v={{config('app.version')}}" defer></script>
+    <script src="{{asset('js/manage_test.js')}}?v={{config('app.version')}}" defer></script>
     <script src="{{asset('libraries/dropzone/dropzone.js')}}"></script>
 @endsection
 
