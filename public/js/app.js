@@ -62047,11 +62047,13 @@ window.Swal = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___defau
 var default_locale = window.default_language;
 var fallback_locale = window.fallback_locale;
 var messages = window.messages;
-Vue.prototype.trans = new lang_js__WEBPACK_IMPORTED_MODULE_3___default.a({
+var trans = new lang_js__WEBPACK_IMPORTED_MODULE_3___default.a({
   messages: messages,
   locale: default_locale,
   fallback: fallback_locale
 });
+Vue.prototype.trans = trans;
+window.trans = trans;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

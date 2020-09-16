@@ -23,8 +23,10 @@ const default_locale = window.default_language;
 const fallback_locale = window.fallback_locale;
 const messages = window.messages;
 
-Vue.prototype.trans = new Lang({messages, locale: default_locale, fallback: fallback_locale});
+let trans = new Lang({messages, locale: default_locale, fallback: fallback_locale});
 
+Vue.prototype.trans = trans;
+window.trans = trans;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

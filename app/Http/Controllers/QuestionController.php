@@ -38,12 +38,17 @@ class QuestionController extends Controller
     public function store(AnswerRequest $request)
     {
         $questionUser = $this->service->storeStudentAnswer($request);
+        $test = $questionUser->question->test;
 
-        if ($this->service->allQuestionsCompleted($questionUser->question->test, $questionUser->user)) {
-            $this->service->setCompletedStatusForLessonUser($questionUser->question->test->lesson->user);
+        if ($this->service->allQuestionsCompleted($test, $questionUser->user)) {
+            $this->service->setCompletedStatusForLessonUser($test->lesson->user);
         }
 
-        return $this->respondSuccess();
+        if ($this->service->taskCompleteRight($test, $questionUser->user)) {
+            $this->service->updateStatusForLessonUser($test->lesson, $questionUser->user, 'right');
+        }
+
+        return LessonUser::where('user_id', auth()->user()->id)->where('lesson_id', $test->lesson_id)->first();
     }
 
     /**

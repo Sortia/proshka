@@ -66,6 +66,11 @@ class Question extends Model
         return $this->hasOne(QuestionUser::class)->where('user_id', auth()->user()->id);
     }
 
+    public function rightAnswer()
+    {
+        return $this->hasOne(Answer::class)->where('is_right', 1);
+    }
+
     public function isActive()
     {
         if (is_null($this->user)) {

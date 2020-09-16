@@ -43,7 +43,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="container-fluid">
-
                                                         @switch($question->type)
                                                             @case('select')
                                                             @include('public.components.question_select')
@@ -82,17 +81,6 @@
                                         </fieldset>
                                     </div>
                                 @endforeach
-                                <div class="carousel-item">
-                                    <div class="test-item">
-                                        <div class="row justify-content-center">
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
-                                                <div class="m-5"><h1 class="text-center text-uppercase">Тест пройден!</h1></div>
-                                                <a href="{{route('tasks', $test->lesson->course)}}"
-                                                   class="btn btn-primary btn-block">@lang('Next')</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>

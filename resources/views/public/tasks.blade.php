@@ -56,8 +56,7 @@
                             data-undefined-text="-"
                             data-toggle="table"
                             data-row-style="rowStyle"
-                            data-id-field="id"
-                            data-url="{{route('tasks.show')}}">
+                            data-id-field="id">
                             <thead>
                             <tr>
                                 <th data-field="id" data-class='hidden id' >#</th>
@@ -70,7 +69,7 @@
                             </tr>
                             </thead>
                         </table>
-
+                        <span class="float-right mt-3">Количество заданий: <span class="count-rows"></span></span>
                     </div>
                 </div>
             </div>
@@ -98,7 +97,10 @@
     }
 
     function statusFormatter(value) {
-        return __(value);
+        if (!value)
+            return '-'
+
+        return trans.get('__JSON__.' + value);
     }
 </script>
 

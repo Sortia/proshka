@@ -16,7 +16,7 @@ class BuyLessonRequest extends FormRequest
     {
         return !LessonUser
             ::where('user_id', auth()->user()->id)
-            ->where('status', 'active')
+            ->whereIn('status', ['active', 'complete'])
             ->exists();
     }
 

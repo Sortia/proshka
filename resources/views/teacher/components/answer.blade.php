@@ -1,5 +1,5 @@
 @foreach($questionUserList as $questionUser)
-    <fieldset id="question_user_fieldset_{{$questionUser->id}}" @unless($questionUser->status === 'complete') disabled @endunless>
+    <fieldset id="question_user_fieldset_{{$questionUser->id}}" @unless(in_array($questionUser->status, ['complete', 'wrong'])) disabled @endunless>
 
     <div id="question_user_{{$questionUser->id}}">
         <div class="form-group">
@@ -68,7 +68,7 @@
                     <a href="{{route('file.show', $file)}}">{{$file->name}}</a><br>
                 @endforeach
             </div>
-            @if($questionUser->status === 'complete')
+            @if(in_array($questionUser->status, ['complete', 'wrong']))
             <div class="col-lg-12 mt-3">
                 <div class="dropzone"></div>
             </div>

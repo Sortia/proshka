@@ -30,7 +30,6 @@
         window.fallback_locale = "{{ config('app.fallback_locale') }}";
         window.messages = @json($messages);
     </script>
-
     @yield('css')
 
 </head>

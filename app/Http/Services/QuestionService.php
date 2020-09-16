@@ -54,7 +54,7 @@ class QuestionService
     public function storeStudentAnswer(Request $request)
     {
         return DB::transaction(function () use ($request) {
-            $questionUser = QuestionUser::updateOrCreate([
+            $questionUser = QuestionUser::firstOrNew([
                 'id' => $request->question_user_id
             ], [
                 'question_id' => $request->question_id,
@@ -63,6 +63,17 @@ class QuestionService
                 'text' => $request->text,
                 'status' => QuestionUserStatus::COMPLETE,
             ]);
+
+            /** Если это задание с выбором варианта ответа и ответ выбран правильно */
+            if ($questionUser->question->type === 'select') {
+                if ($questionUser->question->rightAnswer->id == $request->answer_id) {
+                    $questionUser->status = QuestionUserStatus::RIGHT;
+                } else {
+                    $questionUser->status = QuestionUserStatus::WRONG;
+                }
+            }
+
+            $questionUser->save();
 
             $fileService = new FileService();
 
@@ -212,7 +223,7 @@ class QuestionService
         $questionIds = Question::whereTestId($test->id)->pluck('id');
 
         return QuestionUser::whereIn('question_id', $questionIds)
-            ->whereIn('status', ['complete', 'right'])
+            ->whereIn('status', ['complete', 'right', 'wrong'])
             ->whereUserId($user->id)->count();
     }
 }

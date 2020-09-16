@@ -25,7 +25,7 @@
                             @endforeach
                         </div>
 
-                        @if($lesson->test)
+                        @if($lesson->test && $lesson->user->status === 'active')
                             <div class="row justify-content-center">
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                                     <a href="{{route('test.show', $lesson->test)}}"

@@ -109,7 +109,7 @@ $(() => {
                 $('#checkAnswer #direction_id').val(response.lessonUser.lesson.course.direction.name)
                 $('#checkAnswer #course_id').val(response.lessonUser.lesson.course.name)
                 $('#checkAnswer #lesson_id').val(response.lessonUser.lesson.name)
-                $('#checkAnswer #status').val(__(response.lessonUser.status))
+                $('#checkAnswer #status').val(trans.get('__JSON__.' + response.lessonUser.status))
                 $('#checkAnswer .right_lesson').data('lesson_user_id', response.lessonUser.id)
                 $('#checkAnswer .wrong_lesson').data('lesson_user_id', response.lessonUser.id)
                 $('#checkAnswer #additional_points').val(response.lessonUser.additional_point)

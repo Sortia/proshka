@@ -46,6 +46,10 @@ class LessonController extends Controller
      */
     public function buy(Lesson $lesson, BuyLessonRequest $request)
     {
+        if ($lesson->cost > auth()->user()->points) {
+            return $this->respondError('Недостаточно прошек!', 444);
+        }
+
         if ($this->service->courseNotBought($lesson->course, auth()->user())) {
             $this->service->buyCourse($lesson->course, auth()->user());
         }

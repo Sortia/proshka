@@ -14,7 +14,7 @@ $(() => {
                     url: `refuse`,
                     success: (response) => {
                         swal_success().then(() => {
-                            location.href = `/course/${response.lesson.course_id}/show`
+                            location.href = `/tasks`
                         });
                     },
                     error: (response) => show_error(response),

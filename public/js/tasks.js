@@ -1,16 +1,30 @@
 $(() => {
+    refreshTableData();
 
     $('#direction_id, #my_courses, input[name=task_type]').on('change', function () {
-        $('#table').bootstrapTable('refresh', {
-            query: {
-                direction_id: $('#direction_id').val(),
-                my_courses: $('#my_courses').is(':checked'),
-                task_type: $("input[name='task_type']:checked").val(),
-            }
-        })
+        refreshTableData({
+            direction_id: $('#direction_id').val(),
+            my_courses: $('#my_courses').is(':checked'),
+            task_type: $("input[name='task_type']:checked").val(),
+        });
     });
 
-    $('body').on('click', 'tr', function () {
+    function refreshTableData(params = {}) {
+        $.ajax({
+            method: "get",
+            url: `/tasks/show`,
+            data: params,
+            error: (response) => {
+                show_error(response)
+            },
+            success: (response) => {
+                $('#table').bootstrapTable("destroy").bootstrapTable({data: response})
+                $('.count-rows').text(response.length);
+            }
+        });
+    }
+
+    $('body').on('click', 'tr:not(:first)', function () {
         let tr = $(this);
         let lesson_id = tr.children('.id').html();
 

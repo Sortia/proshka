@@ -11,9 +11,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function respondSuccess()
+    public function respondSuccess($message = 'success')
     {
-        return response('success', 200);
+        return response($message, 200);
     }
 
     public function respondError($message, $status = 500)

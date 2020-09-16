@@ -55,8 +55,14 @@ $(() => {
             contentType: false,
             processData: false,
             error: (response) => show_error(response),
-            success: () => {
-                moveCarousel();
+            success: (response) => {
+                switch (response.status) {
+                    case 'complete':
+                        return swal_success('Тест принят', 2000).then(() => location.href = '/tasks');
+                    case 'right':
+                        return swal_success('Тест сдан', 2000).then(() => location.href = '/tasks');
+                    default: moveCarousel();
+                }
             }
         });
 

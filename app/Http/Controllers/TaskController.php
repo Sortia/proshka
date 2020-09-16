@@ -40,7 +40,9 @@ class TaskController extends Controller
     {
         $directionCondition = $request->direction_id ? "and c.direction_id = $request->direction_id" : '';
         $typeCondition = $request->task_type === 'new' ? "and lu.status in ('active', 'rework')" : '';
-        $myCondition = $request->my_courses === 'true' ? "and lu.id is not null" : '';
+        $myCondition = $request->my_courses === 'true' ? "and cu.id is not null " : '';
+
+        $userId = auth()->user()->id;
 
         $query =
             "select l.id as id,
@@ -53,6 +55,7 @@ class TaskController extends Controller
              from lessons as l
                   left join lesson_user lu on l.id = lu.lesson_id
                   left join courses c on l.course_id = c.id
+                  left join course_user cu on c.id = cu.course_id and cu.user_id = $userId
              where 1
                 $directionCondition
                 $typeCondition
