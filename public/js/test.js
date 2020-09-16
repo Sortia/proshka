@@ -1,5 +1,7 @@
 $(() => {
 
+    $('.carousel-item:first').addClass('active');
+
     $('.dropzone').each((i, elem) => {
         console.log($(elem).data('disable'));
         if ($(elem).data('disable') === true) {

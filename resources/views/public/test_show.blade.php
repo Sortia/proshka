@@ -20,8 +20,8 @@
                              class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 @foreach($test->questions as $question)
-                                    <div class="carousel-item @if ($loop->first) active @endif">
-                                        <fieldset @unless($question->isActive()) disabled @endunless>
+                                    @if($question->isActive())
+                                    <div class="carousel-item">
                                             <div class="test-item @if($loop->last) final @endif">
                                                 <input type="hidden" class="answer_type" value="{{$question->type}}">
                                                 <input type="hidden" class="question_id" value="{{$question->id}}">
@@ -78,8 +78,8 @@
                                                 </div>
                                             </div>
 
-                                        </fieldset>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
 
