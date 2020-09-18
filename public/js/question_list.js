@@ -25,6 +25,19 @@ $(() => {
     });
 
     /**
+     * Чтобы в поле нельзя было ввести больше 10 и меньше 0
+     */
+    $('#additional_points').on('input', function (event) {
+        if ($(this).val() > 10) {
+            $(this).val(10);
+        }
+
+        if ($(this).val() < 0) {
+            $(this).val(0);
+        }
+    });
+
+    /**
      *
      */
     $('.right_lesson').on('click', function (e) {
