@@ -54,7 +54,7 @@ class QuestionService
     public function storeStudentAnswer(Request $request)
     {
         return DB::transaction(function () use ($request) {
-            $questionUser = QuestionUser::firstOrNew([
+            $questionUser = QuestionUser::updateOrCreate([
                 'id' => $request->question_user_id
             ], [
                 'question_id' => $request->question_id,
