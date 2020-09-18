@@ -24,21 +24,6 @@ class TeacherController extends Controller
     }
 
     /**
-     * Вьюха занятия
-     *
-     * @param LessonUser $lessonUser
-     * @return View
-     */
-    public function show(LessonUser $lessonUser)
-    {
-        $lessonUser->load('lesson.videos', 'lesson.files', 'lesson.course', 'files');
-
-        $lesson = $lessonUser->lesson;
-
-        return view('teacher.lesson_show', compact('lesson', 'lessonUser'));
-    }
-
-    /**
      * Проставление отметки о неверном выполнении задания
      *
      * @param LessonUser $lessonUser

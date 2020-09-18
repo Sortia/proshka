@@ -22,4 +22,17 @@ $(() => {
             }
         });
     });
+
+    $('#complete_task').on('click', function () {
+        $.ajax({
+            method: "POST",
+            url: `complete`,
+            success: (response) => {
+                swal_success().then(() => {
+                    location.href = `/tasks`
+                });
+            },
+            error: (response) => show_error(response),
+        });
+    });
 });

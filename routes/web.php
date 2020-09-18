@@ -66,10 +66,6 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
     Route::middleware('teacher')->group(function () {
         Route::get('teacher/lesson/completed', 'TeacherController@index')->name('teacher.lesson.completed');
         Route::get('teacher/question', 'QuestionController@teacherShow')->name('teacher.question.show');
-        Route::get('teacher/lesson/{lessonUser}/show', 'TeacherController@show')->name('teacher.lesson.show');
-
-        Route::post('teacher/lesson/{lessonUser}/wrong', 'TeacherController@wrong')->name('teacher.lesson.wrong');
-        Route::post('teacher/lesson/{lessonUser}/right', 'TeacherController@right')->name('teacher.lesson.right');
 
         Route::get('answer/list/filter', 'QuestionController@filterList');
         Route::get('lesson_user/{lessonUser}', 'QuestionController@getLessonUserData');

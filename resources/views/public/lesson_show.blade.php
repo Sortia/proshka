@@ -37,7 +37,11 @@
                     @if($lesson->user and $lesson->user->status === 'active')
                         <div class="card-footer py-2">
                         <span>
-                            <button id="refuse_task" class="btn btn-sm btn-danger float-right">@lang('Отказаться от задания')</button>
+                            @if($lesson->test)
+                                <button id="refuse_task" class="btn btn-sm btn-danger float-right">@lang('Отказаться от задания')</button>
+                            @else
+                                <button id="complete_task" class="btn btn-sm btn-success float-right ml-3">@lang('Сдать задание')</button>
+                            @endif
                         </span>
                         </div>
                     @endif

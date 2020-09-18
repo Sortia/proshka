@@ -83,18 +83,7 @@ class LessonController extends Controller
      */
     public function complete(Lesson $lesson, LessonRequest $request)
     {
-        return DB::transaction(function () use ($lesson, $request) {
-            $lesson->load('user');
-
-            $lesson->user->update([
-                'text' => $request->text,
-                'status' => 'complete',
-            ]);
-
-            $this->service->maybeUploadFile($request, 'answers', $lesson->user);
-
-            return redirect(route('course.show', ['course' => $lesson->course]));
-        });
+        return $lesson->user->update(['status' => 'right']);
     }
 
     public function refuse(Lesson $lesson)

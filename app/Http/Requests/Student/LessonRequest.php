@@ -15,7 +15,7 @@ class LessonRequest extends FormRequest
     {
         $lesson = $this->route('lesson');
 
-        return !is_null($lesson->user) && in_array($lesson->user->status, ['active', 'complete']);
+        return !is_null($lesson->user) && in_array($lesson->user->status, ['active']) && !$lesson->test;
     }
 
     /**
