@@ -20,6 +20,10 @@
                                 <label for="description">@lang('Description')</label>
                                 <input type="text" class="form-control" id="description" name="description"  value="{{$direction->description ?? ''}}" placeholder="@lang('Enter description')">
                             </div>
+                            <div class="form-group">
+                                <label for="order">@lang('Order')</label>
+                                <input type="number" class="form-control" id="order" name="order"  value="{{$direction->order ?? ''}}" placeholder="@lang('Enter order')">
+                            </div>
                             <a href="{{route('manage.direction.index')}}"><button type="button" class="btn btn-secondary float-left">@lang('Back')</button></a>
                             <button type="submit" class="btn btn-primary float-right">@lang('Save')</button>
                         </form>

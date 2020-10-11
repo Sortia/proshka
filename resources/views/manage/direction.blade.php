@@ -22,7 +22,7 @@
                             <tbody>
                             @foreach($directions as $direction)
                                 <tr>
-                                    <th scope="row">{{$direction->id}}</th>
+                                    <th scope="row">{{$direction->order}}</th>
                                     <td>{{$direction->name}}</td>
                                     <td>{{$direction->description}}</td>
                                     <td>

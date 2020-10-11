@@ -34,6 +34,7 @@ class Direction extends Model
         'id',
         'name',
         'description',
+        'order'
     ];
 
     public function courses()
