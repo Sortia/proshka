@@ -17,12 +17,12 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="name">@lang('Name')</label>
-                                <input required type="text" class="form-control" id="name" name="name"
+                                <input max="255" required type="text" class="form-control" id="name" name="name"
                                        placeholder="@lang('Enter name')">
                             </div>
                             <div class="col-lg-6">
                                 <label for="description">@lang('Description')</label>
-                                <input required type="text" class="form-control" id="description" name="description"
+                                <input max="255" required type="text" class="form-control" id="description" name="description"
                                        placeholder="@lang('Enter description')">
                             </div>
                         </div>
@@ -31,21 +31,23 @@
                                 <label for="complexity">@lang('Complexity')</label>
                                 <input required type="number" class="form-control" id="complexity"
                                        name="complexity"
+                                       min="0"
+                                       max="10"
                                        placeholder="@lang('Enter complexity')">
                             </div>
                             <div class="col-lg-3">
                                 <label for="cost">@lang('Cost')</label>
-                                <input required type="number" class="form-control" id="cost" name="cost"
+                                <input min="0" required type="number" class="form-control" id="cost" name="cost"
                                        placeholder="@lang('Enter cost')">
                             </div>
                             <div class="col-lg-3">
                                 <label for="bonus">@lang('Bonus')</label>
-                                <input required type="number" class="form-control" id="bonus" name="bonus"
+                                <input min="0" required type="number" class="form-control" id="bonus" name="bonus"
                                        placeholder="@lang('Enter bonus')">
                             </div>
                             <div class="col-lg-3">
                                 <label for="fine">@lang('Fine')</label>
-                                <input required type="number" class="form-control" id="fine" name="fine"
+                                <input min="0" required type="number" class="form-control" id="fine" name="fine"
                                        placeholder="@lang('Enter fine')">
                             </div>
                         </div>
@@ -54,17 +56,19 @@
                                 <label for="available_at">@lang('Available at')</label>
                                 <input required type="number" class="form-control" id="available_at"
                                        name="available_at"
+                                       min="0"
                                        placeholder="@lang('Enter available at')">
                             </div>
                             <div class="col-lg-4">
                                 <label for="time">@lang('Time')</label>
-                                <input required type="number" class="form-control" id="time" name="time"
+                                <input required type="number" min="0" class="form-control" id="time" name="time"
                                        placeholder="@lang('Enter time')">
                             </div>
                             <div class="col-lg-4">
                                 <label for="order_number">@lang('Order number')</label>
                                 <input required type="number" class="form-control" id="order_number"
                                        name="order_number"
+                                       min="0"
                                        placeholder="@lang('Enter order number')">
                             </div>
                         </div>
@@ -81,7 +85,7 @@
                 </div>
                 <div class="modal-footer d-block col-lg-12 mb-3">
                     <span class="float-left mb-3">
-                         <button type="button" class="btn btn-outline-danger edit-test" data-toggle="modal"
+                         <button id="edit_test" type="button" class="btn btn-outline-danger edit-test" data-toggle="modal"
                                  data-target="#testModal">@lang('Add/Edit tests')</button>
                     </span>
                     <span class="float-right mb-3">
