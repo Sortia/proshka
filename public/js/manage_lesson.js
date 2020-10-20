@@ -5,6 +5,7 @@ $(() => {
 
     $('#create_lesson').on('click', () => {
         $('#course_id').val($("#search_course_id option:selected").val())
+        $('#edit_test').attr('disabled', true)
     });
 
     $('.edit-lesson').on('click', function () {
@@ -29,6 +30,7 @@ $(() => {
 
                 $('#create_lesson').click();
                 $('#course_id').val(response.course_id);
+                $('#edit_test').attr('disabled', false)
             },
             error: (response) => show_error(response),
         });
