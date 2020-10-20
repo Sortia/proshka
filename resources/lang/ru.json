@@ -38,6 +38,8 @@
     "Delete": "Удалить",
     "Name": "Название",
     "Description": "Описание",
+    "Description for parents": "Описание для родителей",
+    "Enter description for parents": "Введите описание для родителей",
     "Order": "Порядковый номер",
     "Actions": "Действия",
     "#": "№",

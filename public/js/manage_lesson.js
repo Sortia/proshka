@@ -23,6 +23,7 @@ $(() => {
                 $('#bonus').val(response.bonus);
                 $('#text').val(response.text);
                 $('#description').val(response.description);
+                $('#parents_description').val(response.parents_description);
                 $('#available_at').val(response.available_at);
                 $('#time').val(response.time);
                 $('#fine').val(response.fine);
@@ -31,6 +32,7 @@ $(() => {
                 $('#create_lesson').click();
                 $('#course_id').val(response.course_id);
                 $('#edit_test').attr('disabled', false)
+                $('#form_course_id').val(response.course_id)
             },
             error: (response) => show_error(response),
         });
@@ -308,6 +310,7 @@ $(() => {
                 cost: $('#cost').val(),
                 bonus: $('#bonus').val(),
                 description: $('#description').val(),
+                parents_description: $('#parents_description').val(),
                 available_at: $('#available_at').val(),
                 time: $('#time').val(),
                 fine: $('#fine').val(),

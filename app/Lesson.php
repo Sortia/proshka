@@ -74,6 +74,7 @@ class Lesson extends Model
         'time',
         'available_at',
         'task',
+        'parents_description',
         'fine',
     ];
 

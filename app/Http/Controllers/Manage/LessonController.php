@@ -21,7 +21,9 @@ class LessonController extends Controller
 
     public function index(Request $request)
     {
-        $courses = Course::where('direction_id', $request->direction_id)->get();
+        $courses = Course::when($request->direction_id, function ($query) use ($request) {
+            $query->where('direction_id', $request->direction_id);
+        })->get();
 
         $lessons = Lesson::with('constraints')->when($request->course_id, function ($query) use ($request) {
             $query->where('course_id', $request->course_id);
