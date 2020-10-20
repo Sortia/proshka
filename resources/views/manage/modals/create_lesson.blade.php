@@ -27,7 +27,18 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
+                                <label for="cost">@lang('Course')</label>
+                                <select name="course_id" id="search_course_id" required
+                                        class="form-control input-lg">
+                                    <option value="">@lang('Select course')</option>
+                                    @foreach($courses as $course)
+                                        <option @if(request()->course_id == $course->id) selected
+                                                @endif value="{{$course->id}}">{{$course->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
                                 <label for="complexity">@lang('Complexity')</label>
                                 <input required type="number" class="form-control" id="complexity"
                                        name="complexity"
@@ -35,17 +46,19 @@
                                        max="10"
                                        placeholder="@lang('Enter complexity')">
                             </div>
-                            <div class="col-lg-3">
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-4">
                                 <label for="cost">@lang('Cost')</label>
                                 <input min="0" required type="number" class="form-control" id="cost" name="cost"
                                        placeholder="@lang('Enter cost')">
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label for="bonus">@lang('Bonus')</label>
                                 <input min="0" required type="number" class="form-control" id="bonus" name="bonus"
                                        placeholder="@lang('Enter bonus')">
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label for="fine">@lang('Fine')</label>
                                 <input min="0" required type="number" class="form-control" id="fine" name="fine"
                                        placeholder="@lang('Enter fine')">
