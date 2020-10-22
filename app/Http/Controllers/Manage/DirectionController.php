@@ -36,7 +36,9 @@ class DirectionController extends Controller
 
     public function destroy(Direction $direction)
     {
-        $direction->load('courses.lessons.files');
+        if ($direction->courses->count()) {
+            return redirect()->back()->withErrors(['Невозможно удалить направление']);
+        }
 
         try {
             $direction->delete();
