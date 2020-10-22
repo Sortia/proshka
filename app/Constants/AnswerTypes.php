@@ -13,7 +13,7 @@ class AnswerTypes
         return [
             self::SELECT => 'Choice from several',
             self::TEXT => 'Text field',
-            self::NONE => 'Without field',
+            self::NONE => 'There is no choice',
         ];
     }
 }
