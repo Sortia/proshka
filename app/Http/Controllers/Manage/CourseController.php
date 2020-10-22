@@ -41,6 +41,10 @@ class CourseController extends Controller
 
     public function destroy(Course $course)
     {
+        if ($course->lessons->count()) {
+            return redirect()->back()->withErrors(['Невозможно удалить курс']);
+        }
+
         try {
             $course->delete();
         } catch (\Exception $e) {
