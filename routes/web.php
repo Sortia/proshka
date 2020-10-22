@@ -46,7 +46,7 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::get('direction', 'DirectionController@index')->name('direction.index');
         Route::get('direction/{direction}/show', 'DirectionController@show')->name('direction.show');
 
-        Route::get('course/{course}/show', 'CourseController@show')->name('course.show');
+//        Route::get('course/{course}/show', 'CourseController@show')->name('course.show');
         Route::get('course/{course}/buy', 'CourseController@buy')->name('course.buy');
         Route::get('course/my', 'CourseController@my')->name('course.my');
 

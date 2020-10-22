@@ -23,7 +23,7 @@
                                             @if($lesson->user)
                                                 <div class="col-lg-2">{{__(Str::ucfirst($lesson->user->status))}}</div>
                                             @else
-                                                <div class="col-lg-2">{{(__('Cost') . ': ' . $lesson->cost . ' ' . get_case_for_points($lesson->cost))}}</div>
+                                                <div class="col-lg-2">{{(__('Cost') . ': ' . $lesson->cost . ' ' . get_points_name($lesson->cost))}}</div>
                                             @endif
                                         </div>
                                     </a>

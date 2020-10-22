@@ -32,19 +32,19 @@
                                         @if(Gate::allows('is_student'))
                                         <div class="row">
                                             <div class="col-sm-6 my-1 mb-3">
-                                                <label class="sr-only" for="name">Общее количество прошек</label>
+                                                <label class="sr-only" for="name">Общее количество {{get_points_name(0, 'third')}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">Общее количество прошек</div>
+                                                        <div class="input-group-text">Общее количество {{get_points_name(0, 'third')}}</div>
                                                     </div>
                                                     <input value="{{$user->rating}}" class="form-control" disabled="">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 my-1 mb-3">
-                                                <label class="sr-only" for="name">Текущее количество прошек</label>
+                                                <label class="sr-only" for="name">Текущее количество {{get_points_name(0, 'third')}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">Текущее количество прошек</div>
+                                                        <div class="input-group-text">Текущее количество {{get_points_name(0, 'third')}}</div>
                                                     </div>
                                                     <input value="{{$user->points}}" class="form-control" disabled="">
                                                 </div>

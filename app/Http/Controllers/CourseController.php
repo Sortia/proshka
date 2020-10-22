@@ -27,10 +27,10 @@ class CourseController extends Controller
      * @param Course $course
      * @return View
      */
-    public function show(Course $course)
-    {
-        return view('public.course_show', compact('course'));
-    }
+//    public function show(Course $course)
+//    {
+//        return view('public.course_show', compact('course'));
+//    }
 
     /**
      * Покупка курса

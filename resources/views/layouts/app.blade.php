@@ -67,7 +67,7 @@
                     <ul class="navbar-nav ml-auto">
                         @if(Gate::allows('is_student'))
                         <li class="nav-item mr-3">
-                            <div class="nav-link">{{auth()->user()->points}} пр.</div>
+                            <div class="nav-link">{{auth()->user()->points}} {{ get_points_name(0, 'short') }}</div>
 
                         </li>
                         @endif

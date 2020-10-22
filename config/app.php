@@ -17,6 +17,13 @@ return [
 
     'version' => env('APP_VERSION', '0.0.1'),
 
+    'point_name' => [
+        'first' => env('POINT_NAME_1'),
+        'second' => env('POINT_NAME_2'),
+        'third' => env('POINT_NAME_3'),
+        'short' => env('POINT_NAME_SHORT'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
