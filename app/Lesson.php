@@ -78,6 +78,10 @@ class Lesson extends Model
         'fine',
     ];
 
+    protected $attributes = [
+        'order_number' => 0,
+    ];
+
     public function lessons()
     {
         return $this->hasMany(LessonUser::class);

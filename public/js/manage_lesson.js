@@ -3,6 +3,8 @@ $(() => {
     let policy_lessons = [];
     let current_row = 0;
 
+    $('#time').mask('00:00', {clearIfNotMatch: true});
+
     $('#create_lesson').on('click', () => {
         $('#course_id').val($("#search_course_id option:selected").val())
         $('#edit_test').attr('disabled', true)
@@ -16,7 +18,7 @@ $(() => {
                 current_row = response.id;
 
                 $('#id').val(response.id);
-                $('#order_number').val(response.order_number);
+                // $('#order_number').val(response.order_number);
                 $('#name').val(response.name);
                 $('#complexity').val(response.complexity);
                 $('#cost').val(response.cost);
@@ -25,7 +27,7 @@ $(() => {
                 $('#description').val(response.description);
                 $('#parents_description').val(response.parents_description);
                 $('#available_at').val(response.available_at);
-                $('#time').val(response.time);
+                $('#time').val(time_by_minutes(response.time));
                 $('#fine').val(response.fine);
                 window.editor.clipboard.dangerouslyPasteHTML(response.task);
 
@@ -304,7 +306,7 @@ $(() => {
             data: {
                 id: $('#id').val(),
                 course_id: $('#course_id').val(),
-                order_number: $('#order_number').val(),
+                // order_number: $('#order_number').val(),
                 name: $('#name').val(),
                 complexity: $('#complexity').val(),
                 cost: $('#cost').val(),
@@ -312,7 +314,7 @@ $(() => {
                 description: $('#description').val(),
                 parents_description: $('#parents_description').val(),
                 available_at: $('#available_at').val(),
-                time: $('#time').val(),
+                time: get_minutes_by_time($('#time').val()),
                 fine: $('#fine').val(),
                 task: $('.ql-editor').html(),
             },

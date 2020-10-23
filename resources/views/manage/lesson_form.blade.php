@@ -11,6 +11,7 @@
     <script src="{{asset('js/manage_lesson.js')}}?v={{config('app.version')}}" defer></script>
     <script src="{{asset('js/manage_test.js')}}?v={{config('app.version')}}" defer></script>
     <script src="{{asset('libraries/dropzone/dropzone.js')}}"></script>
+    <script src="{{ asset('libraries/mask/jquery.mask.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -76,7 +77,8 @@
                             <tbody>
                             @foreach($lessons->sortBy('order_number') as $lesson)
                                 <tr class="lesson_row" data-lesson_id="{{$lesson->id}}">
-                                    <td class="row-order_number">{{$lesson->order_number}}</td>
+{{--                                    <td class="row-order_number">{{$lesson->order_number}}</td>--}}
+                                    <td class="row-name">{{$loop->index + 1}}</td>
                                     <td class="row-name">{{$lesson->name}}</td>
                                     <td class="row-complexity">{{$lesson->complexity}}</td>
                                     <td class="row-cost">{{$lesson->cost}}</td>

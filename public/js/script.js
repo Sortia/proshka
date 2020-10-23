@@ -43,4 +43,26 @@ $(() => {
     window.swal_error = function (text = 'Что-то пошло не так...', timer = 900) {
         Swal.fire({title: text, icon: 'error', timer: timer})
     }
+
+    window.get_minutes_by_time = function (time) {
+        if (!time) return null
+
+        time = time.split(':');
+
+        let minutes = +time[0] * 60;
+
+        return minutes + +time[1];
+    }
+
+    window.time_by_minutes = function (time) {
+        if (!time) return null
+
+        let h = Math.floor(time / 60);
+        let m = time % 60;
+
+        h = h < 10 ? '0' + h : h;
+        m = m < 10 ? '0' + m : m;
+
+        return h + ':' + m;
+    }
 });

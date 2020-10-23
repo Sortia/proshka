@@ -47,25 +47,17 @@
 
                         </div>
                         <div class="row mt-2">
-                            <div class="col-lg-3">
-                                <label for="complexity">@lang('Complexity')</label>
-                                <input required type="number" class="form-control" id="complexity"
-                                       name="complexity"
-                                       min="0"
-                                       max="10"
-                                       placeholder="@lang('Enter complexity')">
-                            </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label for="cost">@lang('Cost')</label>
                                 <input min="0" required type="number" class="form-control" id="cost" name="cost"
                                        placeholder="@lang('Enter cost')">
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label for="bonus">@lang('Bonus')</label>
                                 <input min="0" required type="number" class="form-control" id="bonus" name="bonus"
                                        placeholder="@lang('Enter bonus')">
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label for="fine">@lang('Fine')</label>
                                 <input min="0" required type="number" class="form-control" id="fine" name="fine"
                                        placeholder="@lang('Enter fine')">
@@ -81,16 +73,24 @@
                             </div>
                             <div class="col-lg-4">
                                 <label for="time">@lang('Time')</label>
-                                <input required type="number" min="0" class="form-control" id="time" name="time"
+                                <input type="text" class="form-control" id="time" name="time"
                                        placeholder="@lang('Enter time')">
                             </div>
                             <div class="col-lg-4">
-                                <label for="order_number">@lang('Order number')</label>
-                                <input required type="number" class="form-control" id="order_number"
-                                       name="order_number"
+                                <label for="complexity">@lang('Complexity')</label>
+                                <input required type="number" class="form-control" id="complexity"
+                                       name="complexity"
                                        min="0"
-                                       placeholder="@lang('Enter order number')">
+                                       max="10"
+                                       placeholder="@lang('Enter complexity')">
                             </div>
+{{--                            <div class="col-lg-4">--}}
+{{--                                <label for="order_number">@lang('Order number')</label>--}}
+{{--                                <input required type="number" class="form-control" id="order_number"--}}
+{{--                                       name="order_number"--}}
+{{--                                       min="0"--}}
+{{--                                       placeholder="@lang('Enter order number')">--}}
+{{--                            </div>--}}
                         </div>
                         <div class="row mt-2">
                             <div class="col-lg-12">
