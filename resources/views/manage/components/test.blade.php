@@ -53,6 +53,7 @@
                             </div>
                         </div>
                         <div class="answers">
+                            @if($question->type === \App\Constants\AnswerTypes::SELECT)
                             @foreach($question->answers->sortBy('order_number') as $answer)
                                 <div class="form-row align-items-center answer">
                                     <div class="col-auto">
@@ -65,7 +66,7 @@
                                         <input type="text" class="form-control mb-2 answer_text" data-answer_id="{{$answer->id}}" value="{{$answer->text}}">
                                     </div>
                                     <div class="col-auto" style="height: 42px">
-                                        <span class="sort mr-4">
+                                        <span class="sort">
                                             <input type="hidden" class="order_number" value="{{$question->order_number}}" data-question_id="{{$question->id}}">
                                             <button style="height: 35px" type="button" class="btn btn-sm btn-outline-primary sort_answer_up">
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -81,6 +82,7 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                     <div class="answer-cover-many" @if($question->type != \App\Constants\AnswerTypes::SELECT_MANY) style="display: none" @endif>
@@ -89,11 +91,12 @@
                             <div class="form-row align-items-center">
                                 <div class="col mb-2">
                                     <button type="button"
-                                            class="btn btn-outline-success add_answer float-right btn-sm">@lang('Add answer option')</button>
+                                            class="btn btn-outline-success add_answer_many float-right btn-sm">@lang('Add answer option')</button>
                                 </div>
                             </div>
                         </div>
                         <div class="answers-many">
+                            @if($question->type === \App\Constants\AnswerTypes::SELECT_MANY)
                             @foreach($question->answers->sortBy('order_number') as $answer)
                                 <div class="form-row align-items-center answer">
                                     <div class="col-auto">
@@ -122,6 +125,7 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                     <hr>
