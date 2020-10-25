@@ -28,3 +28,19 @@
     content:"*";
     color:red;
 }
+
+.large-radio {
+    height: 25px;
+    width: 25px;
+    margin-top: 0;
+    margin-right: 0 !important;
+    right: 0 !important;
+}
+
+.large-checkbox {
+    height: 25px;
+    width: 25px;
+    margin-top: 0;
+    margin-right: 0 !important;
+    right: 0 !important;
+}

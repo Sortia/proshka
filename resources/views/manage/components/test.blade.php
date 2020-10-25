@@ -58,7 +58,7 @@
                                 <div class="form-row align-items-center answer">
                                     <div class="col-auto">
                                         <div class="form-check mb-2">
-                                            <input class="form-check-input answer_right" type="radio" @if($answer->is_right) checked @endif name="card_radio_answer_id_{{$question->id}}">
+                                            <input class="form-check-input answer_right large-radio" type="radio" @if($answer->is_right) checked @endif name="card_radio_answer_id_{{$question->id}}">
                                             <label class="form-check-label"></label>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                 <div class="form-row align-items-center answer">
                                     <div class="col-auto">
                                         <div class="form-check mb-2">
-                                            <input class="form-check-input answer_right" type="checkbox" @if($answer->is_right) checked @endif>
+                                            <input class="form-check-input answer_right large-checkbox" type="checkbox" @if($answer->is_right) checked @endif>
                                             <label class="form-check-label"></label>
                                         </div>
                                     </div>
