@@ -30,13 +30,17 @@ $(() => {
 
         fd.append('question_id', question_id);
         fd.append('question_user_id', question_user_id);
-
         switch (answer_type) {
             case "select":
-                fd.append('answer_id', item.find('.answer_right:checked').data('answer_id'))
+                fd.append('answer_id[]', item.find('.answer_right:checked').data('answer_id'))
                 break;
             case "text":
                 fd.append('text', item.find('.question_answer_text').val())
+                break;
+            case "select_many":
+                item.find('.answer_right:checked').each((i, elem) => {
+                    fd.append('answer_id[]', $(elem).data('answer_id'))
+                });
                 break;
         }
 
@@ -67,9 +71,6 @@ $(() => {
                 }
             }
         });
-
-        console.log(answer_type, question_id);
-
     });
 
     function moveCarousel() {

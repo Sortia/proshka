@@ -63,13 +63,14 @@ class QuestionService
                 'text' => $request->text,
                 'status' => QuestionUserStatus::COMPLETE,
             ]);
-
             /** Если это задание с выбором варианта ответа и ответ выбран правильно */
-            if ($questionUser->question->type === 'select' && $questionUser->question->rightAnswer) {
-                if ($questionUser->question->rightAnswer->id == $request->answer_id) {
-                    $questionUser->status = QuestionUserStatus::RIGHT;
-                } else {
-                    $questionUser->status = QuestionUserStatus::WRONG;
+            if ($this->isAutoCheck($questionUser)) {
+                if ($this->isSelect($questionUser)) {
+                    $questionUser->status = $this->checkSelect($questionUser, $request);
+                }
+
+                if ($this->isSelectMany($questionUser)) {
+                    $questionUser->status = $this->checkSelectMany($questionUser, $request);
                 }
             }
 
@@ -225,5 +226,42 @@ class QuestionService
         return QuestionUser::whereIn('question_id', $questionIds)
             ->whereIn('status', ['complete', 'right', 'wrong'])
             ->whereUserId($user->id)->count();
+    }
+
+    private function isAutoCheck(QuestionUser $questionUser)
+    {
+        return $this->isSelect($questionUser) || $this->isSelectMany($questionUser);
+    }
+
+    private function isSelect(QuestionUser $questionUser)
+    {
+        return $questionUser->question->type === 'select';
+    }
+
+    private function isSelectMany(QuestionUser $questionUser)
+    {
+        return $questionUser->question->type === 'select_many';
+    }
+
+    private function checkSelect($questionUser, $request)
+    {
+        if ($questionUser->question->rightAnswer) {
+            if ($questionUser->question->rightAnswer->id == $request->answer_id) {
+                return QuestionUserStatus::RIGHT;
+            }
+        }
+
+        return QuestionUserStatus::WRONG;
+    }
+
+    private function checkSelectMany($questionUser, $request)
+    {
+        if ($questionUser->question->rightAnswer) {
+            if ($questionUser->answer_id == $questionUser->question->rightAnswers->pluck('id')->toArray()) {
+                return QuestionUserStatus::RIGHT;
+            }
+        }
+
+        return QuestionUserStatus::WRONG;
     }
 }

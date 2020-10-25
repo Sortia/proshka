@@ -57,6 +57,14 @@ class QuestionUser extends Model
         'comment',
     ];
 
+    protected $casts = [
+        'answer_id' => 'array'
+    ];
+
+    protected $attributes = [
+        'answer_id' => '[]'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

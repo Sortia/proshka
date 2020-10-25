@@ -47,6 +47,9 @@
                                                             @case('select')
                                                             @include('public.components.question_select')
                                                             @break
+                                                            @case('select_many')
+                                                            @include('public.components.question_select_many')
+                                                            @break
                                                             @case('text')
                                                             @include('public.components.question_text')
                                                             @break
