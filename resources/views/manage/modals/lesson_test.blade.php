@@ -40,6 +40,20 @@
 
                                     </div>
                                 </div>
+                                <div class="answer-cover-many">
+                                    <hr>
+                                    <div class="template">
+                                        <div class="form-row align-items-center">
+                                            <div class="col mb-2">
+                                                <button type="button"
+                                                        class="btn btn-outline-success add_answer_many float-right btn-sm">@lang('Add answer option')</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="answers-many">
+
+                                    </div>
+                                </div>
                                 <hr>
                                 <div class="files">
                                     <div class="dropzone"></div>

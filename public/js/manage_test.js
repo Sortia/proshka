@@ -114,11 +114,18 @@ $(() => {
             case 'none':
                 process_none_show(card);
                 break;
+            case 'select_many':
+                process_select_many_show(card);
+                break;
         }
     })
 
     $('body').on('click', '.add_answer', function () {
         add_answer(get_card(this));
+    })
+
+    $('body').on('click', '.add_answer_many', function () {
+        add_answer_many(get_card(this));
     })
 
     $('body').on('click', '.add_question', function () {
@@ -170,18 +177,31 @@ $(() => {
     function process_select_show(card) {
         console.log(3);
         $(card).find('.answer-cover').show();
+        $(card).find('.answer-cover-many').hide();
+        $(card).find('.answers-many').empty();
     }
 
     function process_text_show(card) {
         console.log(1);
         $(card).find('.answer-cover').hide();
         $(card).find('.answers').empty();
+        $(card).find('.answer-cover-many').hide();
+        $(card).find('.answers-many').empty();
     }
 
     function process_none_show(card) {
         console.log(2);
         $(card).find('.answer-cover').hide();
         $(card).find('.answers').empty();
+        $(card).find('.answer-cover-many').hide();
+        $(card).find('.answers-many').empty();
+    }
+
+    function process_select_many_show(card) {
+        console.log(4);
+        $(card).find('.answer-cover').hide();
+        $(card).find('.answers').empty();
+        $(card).find('.answer-cover-many').show();
     }
 
     function get_card($this) {
@@ -194,6 +214,22 @@ $(() => {
                 <div class="col-auto">
                     <div class="form-check mb-2">
                         <input class="form-check-input answer_right" type="radio" name="card_radio_${card.data('index')}">
+                        <label class="form-check-label"></label>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control mb-2 answer_text">
+                </div>
+            </div>
+        `);
+    }
+
+    function add_answer_many(card) {
+        $(card).find('.answers-many').append(`
+            <div class="form-row align-items-center answer">
+                <div class="col-auto">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input answer_right" type="checkbox" name="card_radio_${card.data('index')}">
                         <label class="form-check-label"></label>
                     </div>
                 </div>

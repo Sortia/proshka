@@ -83,6 +83,47 @@
                             @endforeach
                         </div>
                     </div>
+                    <div class="answer-cover-many" @if($question->type != \App\Constants\AnswerTypes::SELECT_MANY) style="display: none" @endif>
+                        <hr>
+                        <div class="template">
+                            <div class="form-row align-items-center">
+                                <div class="col mb-2">
+                                    <button type="button"
+                                            class="btn btn-outline-success add_answer float-right btn-sm">@lang('Add answer option')</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="answers-many">
+                            @foreach($question->answers->sortBy('order_number') as $answer)
+                                <div class="form-row align-items-center answer">
+                                    <div class="col-auto">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input answer_right" type="checkbox" @if($answer->is_right) checked @endif>
+                                            <label class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control mb-2 answer_text" data-answer_id="{{$answer->id}}" value="{{$answer->text}}">
+                                    </div>
+                                    <div class="col-auto" style="height: 42px">
+                                        <span class="sort">
+                                            <input type="hidden" class="order_number" value="{{$question->order_number}}" data-question_id="{{$question->id}}">
+                                            <button style="height: 35px" type="button" class="btn btn-sm btn-outline-primary sort_answer_up">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                  <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                                                </svg>
+                                            </button>
+                                            <button style="height: 35px" type="button" class="btn btn-sm btn-outline-primary sort_answer_down">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                  <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                     <hr>
                     <div class="files">
                         <div class="dropzone dropzone-files"></div>
