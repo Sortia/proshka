@@ -19,7 +19,7 @@
                         <div id="carouselExampleControls" data-keyboard="false" data-wrap="false" data-interval="false"
                              class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
-                                @foreach($test->questions as $question)
+                                @foreach($test->questions->sortBy('order_number') as $question)
                                     @if($question->isActive())
                                     <div class="carousel-item">
                                             <div class="test-item @if($loop->last) final @endif">

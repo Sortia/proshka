@@ -44,6 +44,7 @@ class Question extends Model
         'accept_file',
         'question',
         'test_id',
+        'order_number',
     ];
 
     public function test()

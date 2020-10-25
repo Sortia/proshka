@@ -34,6 +34,7 @@ class Answer extends Model
         'text',
         'is_right',
         'question_id',
+        'order_number',
     ];
 
     public function question()

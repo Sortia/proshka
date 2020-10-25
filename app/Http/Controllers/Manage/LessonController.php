@@ -38,7 +38,7 @@ class LessonController extends Controller
 
     public function show(Lesson $lesson)
     {
-        $lesson = $lesson->load('files')->toArray(); // todo resource
+        $lesson = $lesson->load('files')->toArray();
 
         $lesson['task'] = $this->service->printTask($lesson['task']);
 

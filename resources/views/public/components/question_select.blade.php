@@ -2,7 +2,7 @@
     <hr>
     <div class="row justify-content-center">
         <div class="answers col-xl-5 col-lg-6 col-md-8">
-            @foreach($question->answers as $answer)
+            @foreach($question->answers->sortBy('order_number') as $answer)
                 <div class="form-row align-items-center answer">
                     <div class="col-auto">
                         <div class="form-check mb-2">

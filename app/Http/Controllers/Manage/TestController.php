@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
+    // todo протестить добавление/удаление вопросов/ответов
+
     /** @var TestService  */
     private TestService $service;
 
@@ -57,11 +59,12 @@ class TestController extends Controller
             $this->service->deleteFilesIfNeed($test, $data['inline_files']);
             $this->service->deleteQuestionsIfNeed($test, $data['questions']);
 
-            foreach ($questions as $questionData) {
-                $question = $this->service->saveQuestion($test, $questionData);
+            for ($i = 0; $i < count($questions); $i++) {
+                $questions[$i]['order_number'] = $i;
+                $question = $this->service->saveQuestion($test, $questions[$i]);
 
-                $this->service->saveQuestionFiles($question, $request->file("files_$questionData[index]"));
-                $this->service->saveQuestionAnswers($question, $questionData['answers']);
+                $this->service->saveQuestionFiles($question, $request->file("files_" . $questions[$i]['index']));
+                $this->service->saveQuestionAnswers($question, $questions[$i]['answers']);
             }
 
             return $this->respondSuccess();

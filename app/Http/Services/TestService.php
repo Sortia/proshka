@@ -66,8 +66,10 @@ class TestService
         $question->refresh();
 
         if (!is_null($answers)) {
-            foreach ($answers as $answer) {
-                $question->answers()->updateOrCreate(['id' => $answer['id']], $answer);
+            for ($i = 0; $i < count($answers); $i++) {
+                $answers[$i]['order_number'] = $i;
+
+                $question->answers()->updateOrCreate(['id' => $answers[$i]['id']], $answers[$i]);
             }
         }
     }

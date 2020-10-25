@@ -4,6 +4,10 @@ $(() => {
 
     window.dpzMultipleFiles = initFiler('.dropzone');
 
+    $(document).on('click', '.sort_question_up, .sort_question_down', function(e) {
+        e.stopPropagation();
+    });
+
     $('#testModal').on('show.bs.modal', function (e) {
         $('.answer_type').trigger('change');
     });
@@ -133,6 +137,34 @@ $(() => {
     $('body').on('click', '.delete_question', function (event) {
         event.preventDefault();
         get_card(this).remove();
+    });
+
+    $('body').on('click', '.sort_question_up', function (event) {
+        let cur = $(this).parents('.answer-card');
+        let sib = cur.prev();
+
+        sib.before(cur)
+    });
+
+    $('body').on('click', '.sort_question_down', function (event) {
+        let cur = $(this).parents('.answer-card');
+        let sib = cur.next();
+
+        sib.after(cur)
+    });
+
+    $('body').on('click', '.sort_answer_up', function (event) {
+        let cur = $(this).parents('.answer');
+        let sib = cur.prev();
+
+        sib.before(cur)
+    });
+
+    $('body').on('click', '.sort_answer_down', function (event) {
+        let cur = $(this).parents('.answer');
+        let sib = cur.next();
+
+        sib.after(cur)
     });
 
     function process_select_show(card) {
