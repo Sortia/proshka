@@ -65,6 +65,12 @@ class TestService
     {
         $question->refresh();
 
+        $question->answers->each(function ($item) use ($answers) {
+            if (!in_array($item->id, array_column($answers, 'id'))) {
+                $item->delete();
+            }
+        });
+
         if (!is_null($answers)) {
             for ($i = 0; $i < count($answers); $i++) {
                 $answers[$i]['order_number'] = $i;
