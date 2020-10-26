@@ -18,7 +18,9 @@ class CourseController extends Controller
      */
     public function list(Request $request)
     {
-        return Course::where('direction_id', $request->direction_id)->get();
+        return Course::when($request->direction_id, function ($query) use ($request) {
+            $query->where('direction_id', $request->direction_id);
+        })->get();
     }
 
     /**

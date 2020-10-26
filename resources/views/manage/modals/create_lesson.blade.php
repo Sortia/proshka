@@ -15,20 +15,27 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label for="name">@lang('Name')</label>
                                 <input max="255" required type="text" class="form-control" id="name" name="name"
                                        placeholder="@lang('Enter name')">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label for="cost">@lang('Direction')</label>
+                                <select name="direction_id" id="form_direction_id"
+                                        class="form-control input-lg">
+                                    <option value="">@lang('Select direction')</option>
+                                    @foreach($directions as $direction)
+                                        <option @if(request()->direction_id == $direction->id) selected
+                                                @endif value="{{$direction->id}}">{{$direction->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
                                 <label for="cost">@lang('Course')</label>
                                 <select name="course_id" id="form_course_id" required
                                         class="form-control input-lg">
                                     <option value="">@lang('Select course')</option>
-                                    @foreach($courses as $course)
-                                        <option @if(request()->course_id == $course->id) selected
-                                                @endif value="{{$course->id}}">{{$course->name}}</option>
-                                    @endforeach
                                 </select>
                             </div>
 

@@ -34,6 +34,10 @@ $(() => {
                 $('#create_lesson').click();
                 $('#course_id').val(response.course_id);
                 $('#edit_test').attr('disabled', false)
+                $('#form_direction_id').val(response.course.direction_id)
+
+                fillCourses(getCourses(response.course.direction_id))
+
                 $('#form_course_id').val(response.course_id)
             },
             error: (response) => show_error(response),
@@ -98,7 +102,7 @@ $(() => {
     });
 
     $('#createLessonModal').on('hidden.bs.modal', function () {
-        $('#createLessonModal input, #createLessonModal textarea').val('');
+        $('#createLessonModal input, #createLessonModal textarea, #createLessonModal select').val('');
     });
 
     $('.add_task').on('click', function () {
@@ -123,6 +127,11 @@ $(() => {
     $('#createLessonTaskModal').on('hidden.bs.modal', function () {
         $('#task_lesson_id').val('');
     });
+
+    $('#form_direction_id').on('change', function () {
+        $('#form_course_id').empty()
+        fillCourses(getCourses(this.value))
+    })
 
     // $('#save_task').on('click', () => {
     //     $.ajax({
@@ -305,7 +314,7 @@ $(() => {
             method: 'post',
             data: {
                 id: $('#id').val(),
-                course_id: $('#course_id').val(),
+                course_id: $('#form_course_id').val(),
                 // order_number: $('#order_number').val(),
                 name: $('#name').val(),
                 complexity: $('#complexity').val(),
@@ -339,5 +348,31 @@ $(() => {
                 </div>
             </div>`
         );
+    }
+
+    function getCourses(directionId) {
+        let result = [];
+        $.ajax({
+            url: `/course/list`,
+            method: 'get',
+            async: false,
+            data: {
+                direction_id: directionId,
+            },
+            error: (response) => show_error(response),
+            success: (response) => {
+                result = response
+            },
+        });
+
+        return result
+    }
+
+    function fillCourses(courses) {
+        $('#form_course_id').empty().append(new Option('Выберите курс', ''))
+
+        $.each(courses, function (key, value) {
+            $('#form_course_id').append(new Option(value.name, value.id))
+        });
     }
 });

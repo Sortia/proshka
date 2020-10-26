@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::all();
+        $courses = Course::when($request->direction_id, function ($query) use ($request) {
+            $query->where('direction_id', $request->direction_id);
+        })->get();
 
         return view('manage.course', compact('courses'));
     }
