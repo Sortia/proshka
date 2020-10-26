@@ -20,8 +20,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/script.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css')}}?v={{config('app.version')}}">
+    <script src="{{asset('js/script.js')}}?v={{config('app.version')}}" defer></script>
     <script src="{{ asset('js/translate.js') }}" defer></script>
     <script src="{{ asset('libraries/bootstrap-table/ru-RU.js') }}" defer></script>
 
