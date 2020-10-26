@@ -213,7 +213,7 @@ $(() => {
             <div class="form-row align-items-center answer">
                 <div class="col-auto">
                     <div class="form-check mb-2">
-                        <input class="form-check-input answer_right" type="radio" name="card_radio_${card.data('index')}">
+                        <input class="form-check-input answer_right large-radio" type="radio" name="card_radio_${card.data('index')}">
                         <label class="form-check-label"></label>
                     </div>
                 </div>
@@ -244,7 +244,7 @@ $(() => {
             <div class="form-row align-items-center answer">
                 <div class="col-auto">
                     <div class="form-check mb-2">
-                        <input class="form-check-input answer_right" type="checkbox" name="card_radio_${card.data('index')}">
+                        <input class="form-check-input answer_right large-checkbox" type="checkbox" name="card_radio_${card.data('index')}">
                         <label class="form-check-label"></label>
                     </div>
                 </div>
