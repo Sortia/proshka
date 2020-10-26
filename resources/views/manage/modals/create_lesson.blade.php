@@ -26,8 +26,7 @@
                                         class="form-control input-lg">
                                     <option value="">@lang('Select direction')</option>
                                     @foreach($directions as $direction)
-                                        <option @if(request()->direction_id == $direction->id) selected
-                                                @endif value="{{$direction->id}}">{{$direction->name}}</option>
+                                        <option value="{{$direction->id}}">{{$direction->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

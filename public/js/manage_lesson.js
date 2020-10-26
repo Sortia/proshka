@@ -3,6 +3,8 @@ $(() => {
     let policy_lessons = [];
     let current_row = 0;
 
+    fillCourses(getCourses(null))
+
     $('#time').mask('00:00', {clearIfNotMatch: true});
 
     $('#create_lesson').on('click', () => {
