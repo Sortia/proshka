@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -58,6 +59,8 @@ use Illuminate\Support\Carbon;
  */
 class Lesson extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'id',
         'course_id',
