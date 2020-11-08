@@ -65,7 +65,7 @@ class LessonService
         foreach ($imageTags as $tag) {
             $imageName = Str::random(32);
 
-            Storage::put("images/$imageName" , str_replace('<img', '<img width="100%"', $tag));
+            Storage::put("images/$imageName" , $tag);
 
             $task = str_ireplace($tag, "{!! Storage::get('images/$imageName')!!}", $task);
         }

@@ -55,9 +55,7 @@ $(() => {
                             }
                         },
                         success: () => {
-                            swal_success().then(() => {
-                                location.href = `/lesson/${lesson_id}/show`
-                            });
+                            location.href = `/lesson/${lesson_id}/show`
                         }
                     });
                 }

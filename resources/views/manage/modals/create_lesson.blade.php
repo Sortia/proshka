@@ -78,7 +78,7 @@
                                        placeholder="@lang('Enter available at')">
                             </div>
                             <div class="col-lg-4">
-                                <label for="time">@lang('Time')</label>
+                                <label for="time">@lang('Recommended time (in minutes)')</label>
                                 <input type="text" class="form-control" id="time" name="time"
                                        placeholder="@lang('Enter time')">
                             </div>

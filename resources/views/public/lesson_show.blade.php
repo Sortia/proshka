@@ -29,7 +29,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                                     <a href="{{route('test.show', $lesson->test)}}"
-                                       class="btn btn-outline-primary btn-block">Перейти к выполнению теста</a>
+                                       class="btn btn-outline-primary btn-block">Ответить на вопросы и подтвердить выполнение задания</a>
                                 </div>
                             </div>
                         @endif

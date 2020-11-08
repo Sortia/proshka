@@ -58,7 +58,7 @@ class LessonController extends Controller
 
         $task = $this->service->replaceImages($request->task);
 
-        $lesson->update(['task' => $task]); // todo optimize
+        $lesson->update(['task' => $task]);
 
         return redirect()->back();
     }
