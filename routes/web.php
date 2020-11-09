@@ -51,7 +51,7 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::get('course/my', 'CourseController@my')->name('course.my');
 
         Route::post('lesson/{lesson}/buy', 'LessonController@buy')->name('lesson.buy');
-        Route::get('lesson/{lesson}/show', 'LessonController@show')->name('lesson.show');
+        Route::get('lesson/{lesson}/show', 'LessonController@show')->name('lesson.show')->middleware('access:lesson');
         Route::post('lesson/{lesson}/complete', 'LessonController@complete')->name('lesson.complete');
         Route::post('lesson/{lesson}/refuse', 'LessonController@refuse')->name('lesson.refuse');
 

@@ -20,7 +20,7 @@ class TaskController extends Controller
     {
         $lessonIds = $this->getLessonIds($request);
 
-        $lessons = Lesson::with('course', 'user')->whereIn('id', $lessonIds)->get();
+        $lessons = Lesson::active()->with('course', 'user')->whereIn('id', $lessonIds)->get();
 
         if ($request->my_courses === 'true') {
             $lessons->filter(function (Lesson $lesson) {

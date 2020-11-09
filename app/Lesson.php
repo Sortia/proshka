@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Http\Services\LessonService;
+use App\Models\LessonStatus;
 use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -79,6 +80,7 @@ class Lesson extends Model
         'task',
         'parents_description',
         'fine',
+        'status_id',
     ];
 
     protected $attributes = [
@@ -120,6 +122,11 @@ class Lesson extends Model
         return $this->hasOne(Test::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(LessonStatus::class, 'status_id');
+    }
+
     /**
      * Проверка на доступ к заданию для текущего студента
      *
@@ -138,6 +145,22 @@ class Lesson extends Model
     private function balanceAvailable(): bool
     {
         return $this->available_at <= auth()->user()->rating;
+    }
+
+    /**
+     * Только задания со статусом "Рабочее"
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status_id', 1);
+    }
+
+    public function isActive()
+    {
+        return $this->status_id === 1;
     }
 
     /**

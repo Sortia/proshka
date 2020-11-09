@@ -8,6 +8,7 @@ use App\Http\Requests\Manage\LessonRequest;
 use App\Http\Services\LessonService;
 use App\Lesson;
 use App\Direction;
+use App\Models\LessonStatus;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -32,8 +33,9 @@ class LessonController extends Controller
         })->paginate(20);
 
         $directions = Direction::all();
+        $statuses = LessonStatus::all();
 
-        return view('manage.lesson_form', compact('directions', 'courses', 'lessons'));
+        return view('manage.lesson_form', compact('directions', 'courses', 'lessons', 'statuses'));
     }
 
     public function show(Lesson $lesson)

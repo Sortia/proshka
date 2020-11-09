@@ -40,15 +40,24 @@
 
                         </div>
                         <div class="row mt-2">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label for="description">@lang('Description')</label>
                                 <input max="255" required type="text" class="form-control" id="description" name="description"
                                        placeholder="@lang('Enter description')">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label for="description">@lang('Description for parents')</label>
                                 <input max="255" required type="text" class="form-control" id="parents_description" name="parents_description"
                                        placeholder="@lang('Enter description for parents')">
+                            </div>
+                            <div class="col-lg-4">
+                                <label for="cost">@lang('Status')</label>
+                                <select name="status_id" id="status_id" required
+                                        class="form-control input-lg">
+                                    @foreach($statuses as $status)
+                                        <option value="{{$status->id}}">@lang($status->name)</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                         </div>

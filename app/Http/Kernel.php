@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AccessMiddleware;
 use App\Http\Middleware\CheckMethodistRights;
 use App\Http\Middleware\CheckStudentRights;
 use App\Http\Middleware\CheckTeacherRights;
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'methodist' => CheckMethodistRights::class,
         'teacher' => CheckTeacherRights::class,
         'student' => CheckStudentRights::class,
+        'access' => AccessMiddleware::class,
     ];
 }

@@ -31,6 +31,7 @@ $(() => {
                 $('#available_at').val(response.available_at);
                 $('#time').val(time_by_minutes(response.time));
                 $('#fine').val(response.fine);
+                $('#status_id').val(response.status_id);
                 window.editor.clipboard.dangerouslyPasteHTML(response.task);
 
                 $('#create_lesson').click();
@@ -317,6 +318,7 @@ $(() => {
             data: {
                 id: $('#id').val(),
                 course_id: $('#form_course_id').val(),
+                status_id: $('#status_id').val(),
                 // order_number: $('#order_number').val(),
                 name: $('#name').val(),
                 complexity: $('#complexity').val(),
