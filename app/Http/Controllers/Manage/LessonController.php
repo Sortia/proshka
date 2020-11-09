@@ -56,9 +56,13 @@ class LessonController extends Controller
 
     public function store(LessonRequest $request)
     {
-        $lesson = Lesson::updateOrCreate(['id' => $request->id], $request->toArray());
+        $data = json_decode($request->data, true);
 
-        $task = $this->service->replaceImages($request->task);
+        $lesson = Lesson::updateOrCreate(['id' => $data['id']], $data);
+        $this->service->deleteFilesIfNeed($lesson, $data['inline_files']);
+        $this->service->saveFiles($lesson, $request->file('files') ?? []);
+
+        $task = $this->service->replaceImages($data['task']);
 
         $lesson->update(['task' => $task]);
 

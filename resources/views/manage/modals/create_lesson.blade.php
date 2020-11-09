@@ -108,6 +108,11 @@
 {{--                            </div>--}}
                         </div>
                         <div class="row mt-2">
+                            <div class="col-lg-12 mt-4">
+                                <div id="dropzone_lesson" class="dropzone"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
                             <div class="col-lg-12">
                                 <label for="text" class="m-0 mt-2">@lang('Theory')</label>
                                 <hr class="mt-1">

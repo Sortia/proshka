@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Course;
 use App\CourseUser;
+use App\Lesson;
 use App\User;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,33 @@ use Throwable;
 
 class LessonService
 {
+    private FileService $fileService;
+
+    public function __construct(FileService $fileService)
+    {
+        $this->fileService = $fileService;
+    }
+
+    public function saveFiles(Lesson $lesson, ?array $files): void
+    {
+        if (!is_null($files)) {
+            foreach ($files as $file) {
+                $this->fileService->save($lesson, $file, 'lessons');
+            }
+        }
+    }
+
+    public function deleteFilesIfNeed(Lesson $lesson, ?array $inlineFiles): void
+    {
+        $files = $lesson->files;
+        $inlineFiles = [];
+
+        foreach ($files ?? [] as $file) {
+            if (!in_array($file->id, array_column($inlineFiles, 'id'))) {
+                $this->fileService->delete($file);
+            }
+        }
+    }
     /**
      * Покупка занятия, если оно еще не куплено
      *

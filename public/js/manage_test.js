@@ -2,7 +2,7 @@ $(() => {
     let index = 0;
     let current_row;
 
-    window.dpzMultipleFiles = initFiler('.dropzone');
+    window.dpzMultipleFiles = initFiler('.dropzone_question');
 
     $(document).on('click', '.sort_question_up, .sort_question_down', function(e) {
         e.stopPropagation();
@@ -28,7 +28,6 @@ $(() => {
 
 
                 $.each(response.lesson.test.questions, function (i, question) {
-                    console.log(`.card_question_id_${question.id} .dropzone-files`);
                     let dpzMultipleFiles = initFiler($(`.card_question_id_${question.id} .dropzone-files`)[0]);
 
                     $.each(question.files, function (i, file) {
@@ -74,7 +73,7 @@ $(() => {
                 accept_file: $(question).find('.attach_file_checkbox').prop('checked'),
                 answers: answers,
             });
-            let files = Dropzone.forElement($(question).find('.dropzone')[0]).files;
+            let files = Dropzone.forElement($(question).find('.dropzone_question')[0]).files;
 
             for (let i = 0; i < files.length; i++) {
                 if (files[i] instanceof File) {
@@ -84,7 +83,6 @@ $(() => {
                 }
             }
         });
-        console.log(data);
 
         fd.append('data', JSON.stringify(data));
 
@@ -137,8 +135,8 @@ $(() => {
 
         $('.card_0').append(card);
 
-        card.find('.files').empty().append('<div class="dropzone"></div>');
-        initFiler($('.dropzone')[0]);
+        card.find('.files').empty().append('<div class="dropzone dropzone_question"></div>');
+        initFiler($('.dropzone_question')[0]);
     });
 
     $('body').on('click', '.delete_question', function (event) {

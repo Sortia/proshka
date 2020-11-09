@@ -130,7 +130,7 @@
                     </div>
                     <hr>
                     <div class="files">
-                        <div class="dropzone dropzone-files"></div>
+                        <div class="dropzone dropzone-files dropzone_question"></div>
                     </div>
                     <hr>
                     <div class="form-check mt-2">

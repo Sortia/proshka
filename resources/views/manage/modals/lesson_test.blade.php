@@ -56,7 +56,7 @@
                                 </div>
                                 <hr>
                                 <div class="files">
-                                    <div class="dropzone"></div>
+                                    <div class="dropzone dropzone_question"></div>
                                 </div>
 
                                 <hr>

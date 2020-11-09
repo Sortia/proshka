@@ -1,4 +1,5 @@
 $(() => {
+    window.dpzLessonMultipleFiles = initFiler('#dropzone_lesson');
 
     let policy_lessons = [];
     let current_row = 0;
@@ -42,6 +43,15 @@ $(() => {
                 fillCourses(getCourses(response.course.direction_id))
 
                 $('#form_course_id').val(response.course_id)
+
+                $.each(response.files, function (i, file) {
+                    let mockFile = {name: file.name, size: 0, id: file.id, lesson_id: response.id}
+
+                    dpzLessonMultipleFiles.files.push(mockFile);
+                    dpzLessonMultipleFiles.emit('addedfile', mockFile)
+                    dpzLessonMultipleFiles.emit('thumbnail', mockFile, `/file/${file.id}`)
+                    dpzLessonMultipleFiles.emit('complete', mockFile)
+                })
             },
             error: (response) => show_error(response),
         });
@@ -261,23 +271,6 @@ $(() => {
         });
     });
 
-    $('.set-files').on('click', function () {
-        $.ajax({
-            method: "GET",
-            url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
-            error: (response) => show_error(response),
-            success: (response) => {
-                current_row = response.id;
-
-                $('#lesson-files .list-group').empty();
-                for (let file in response.files) {
-                    add_file(response.files[file]);
-                }
-                console.log(response);
-            }
-        });
-    });
-
     $('body').on('click', '.delete-file', function () {
         $.ajax({
             url: `/file/${$(this).data('file_id')}`,
@@ -291,46 +284,48 @@ $(() => {
         });
     });
 
-    $('body').on('change', '.lesson-file', function () {
-        let fd = new FormData();
-        let files = $('#upload_file')[0].files[0];
-        fd.append('file', files);
-
-        $.ajax({
-            url: `/manage/lesson/${current_row}/upload_file`,
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            error: (response) => show_error(response),
-            success: function (response) {
-                add_file(response);
-            },
-        });
-    });
-
     $('#save_lesson').on('submit', function (event) {
         event.preventDefault();
+
+        let fd = new FormData();
+
+        let data = {
+            id: $('#id').val(),
+            course_id: $('#form_course_id').val(),
+            status_id: $('#status_id').val(),
+            // order_number: $('#order_number').val(),
+            name: $('#name').val(),
+            complexity: $('#complexity').val(),
+            cost: $('#cost').val(),
+            bonus: $('#bonus').val(),
+            description: $('#description').val(),
+            parents_description: $('#parents_description').val(),
+            available_at: $('#available_at').val(),
+            time: get_minutes_by_time($('#time').val()),
+            fine: $('#fine').val(),
+            task: $('.ql-editor').html(),
+        };
+
+        data.inline_files = [];
+
+        let files = Dropzone.forElement($('#dropzone_lesson')[0]).files;
+
+        for (let i = 0; i < files.length; i++) {
+            if (files[i] instanceof File) {
+                fd.append(`files[]`, files[i]);
+            } else {
+                data.inline_files.push(files[i]);
+            }
+        }
+
+        fd.append('data', JSON.stringify(data));
 
         $.ajax({
             url: `/manage/lesson`,
             method: 'post',
-            data: {
-                id: $('#id').val(),
-                course_id: $('#form_course_id').val(),
-                status_id: $('#status_id').val(),
-                // order_number: $('#order_number').val(),
-                name: $('#name').val(),
-                complexity: $('#complexity').val(),
-                cost: $('#cost').val(),
-                bonus: $('#bonus').val(),
-                description: $('#description').val(),
-                parents_description: $('#parents_description').val(),
-                available_at: $('#available_at').val(),
-                time: get_minutes_by_time($('#time').val()),
-                fine: $('#fine').val(),
-                task: $('.ql-editor').html(),
-            },
+            data: fd,
+            contentType: false,
+            processData: false,
             error: (response) => show_error(response),
             success: function () {
                 location.reload();

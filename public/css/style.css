@@ -20,7 +20,7 @@
     display: none !important;
 }
 
-.dropzone {
+.dropzone, .dropzone_lesson {
     min-height: 100px !important;
 }
 

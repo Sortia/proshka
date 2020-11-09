@@ -24,15 +24,15 @@ class LessonRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_id' => 'required|numeric',
-            'name' => 'required|max:255',
-            'description' => 'required|max:255',
-            'complexity' => 'required|numeric',
-//            'order_number' => 'required|numeric',
-            'cost' => 'required|numeric',
-            'bonus' => 'required|numeric',
-//            'time' => 'required|numeric',
-            'available_at' => 'required|numeric',
+//            'course_id' => 'required|numeric',
+//            'name' => 'required|max:255',
+//            'description' => 'required|max:255',
+//            'complexity' => 'required|numeric',
+////            'order_number' => 'required|numeric',
+//            'cost' => 'required|numeric',
+//            'bonus' => 'required|numeric',
+////            'time' => 'required|numeric',
+//            'available_at' => 'required|numeric',
         ];
     }
 }

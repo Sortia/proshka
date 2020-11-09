@@ -15,9 +15,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">{{ __('Tasks') }}
                         <span><button id="create_lesson" data-toggle="modal" data-target="#createLessonModal"
@@ -122,17 +122,6 @@
                                                 </svg>
                                             @endif
                                         </button>
-
-                                        <button title="@lang('Attach file')" class="btn btn-sm btn-outline-primary mt-1 set-files" data-toggle="modal"
-                                                data-target="#filesModal">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
-                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                      d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3z"/>
-                                                <path
-                                                    d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
-                                            </svg>
-                                        </button>
                                         <button title="@lang('Delete')" class="btn btn-sm btn-outline-danger mt-1 delete-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +149,7 @@
     </div>
 
     @include('manage.modals.create_lesson')
-    @include('manage.modals.lesson_files')
+{{--    @include('manage.modals.lesson_files')--}}
     @include('manage.modals.lesson_politics')
     @include('manage.modals.lesson_test')
 @endsection
