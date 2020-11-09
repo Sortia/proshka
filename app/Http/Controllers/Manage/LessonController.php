@@ -26,7 +26,7 @@ class LessonController extends Controller
             $query->where('direction_id', $request->direction_id);
         })->get();
 
-        $lessons = Lesson::with('constraints', 'test.questions')->when($request->course_id, function ($query) use ($request) {
+        $lessons = Lesson::with('constraints')->withCount('questions', 'files')->when($request->course_id, function ($query) use ($request) {
             $query->where('course_id', $request->course_id);
         })->when($request->direction_id, function ($query) use ($courses) {
             $query->whereIn('course_id', $courses->pluck('id'));

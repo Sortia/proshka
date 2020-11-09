@@ -127,6 +127,11 @@ class Lesson extends Model
         return $this->belongsTo(LessonStatus::class, 'status_id');
     }
 
+    public function questions()
+    {
+        return $this->hasManyThrough(Question::class, Test::class);
+    }
+
     /**
      * Проверка на доступ к заданию для текущего студента
      *

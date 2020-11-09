@@ -73,6 +73,7 @@
                                 <th data-sortable="true" data-field="available_at">@lang('Available at')</th>
                                 <th data-sortable="true" data-field="status">@lang('Status')</th>
                                 <th data-sortable="true" data-field="count_questions">@lang('Count questions')</th>
+                                <th data-sortable="true" data-field="count_files">@lang('Count files')</th>
                                 <th data-sortable="true" data-field="actions">@lang('Actions')</th>
                             </tr>
                             </thead>
@@ -88,7 +89,8 @@
                                     <td class="row-description">{{$lesson->description}}</td>
                                     <td class="row-available_at">{{$lesson->available_at}}</td>
                                     <td class="row-status">@lang($lesson->status->name)</td>
-                                    <td class="row-count_questions">{{$lesson->test ? $lesson->test->questions->count() : 0}}</td>
+                                    <td class="row-count_questions">{{$lesson->questions_count}}</td>
+                                    <td class="row-count_files">{{$lesson->files_count}}</td>
                                     <td class="">
                                         <button title="@lang('Edit task')" class="btn btn-sm btn-outline-primary mt-1 edit-lesson">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
