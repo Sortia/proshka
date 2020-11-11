@@ -9,6 +9,8 @@ use App\Http\Services\FileService;
 use App\Http\Services\QuestionService;
 use App\LessonUser;
 use App\QuestionUser;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -44,9 +46,9 @@ class QuestionController extends Controller
             $this->service->setCompletedStatusForLessonUser($test->lesson->user);
         }
 
-        if ($this->service->taskCompleteRight($test, $questionUser->user)) {
-            $this->service->updateStatusForLessonUser($test->lesson, $questionUser->user, 'right');
-        }
+//        if ($this->service->taskCompleteRight($test, $questionUser->user)) {
+//            $this->service->updateStatusForLessonUser($test->lesson, $questionUser->user, 'right');
+//        }
 
         return LessonUser::where('user_id', auth()->user()->id)->where('lesson_id', $test->lesson_id)->first();
     }
@@ -106,43 +108,6 @@ class QuestionController extends Controller
     }
 
     /**
-     * Проверка тестового задания учителем (смена статуса на right, wrong, rework)
-     * + сохранение коммента и файлов (учитель)
-     *
-     * @param QuestionUser $questionUser
-     * @param Request $request
-     * @return Response
-     * @throws Throwable
-     */
-    public function rightQuestion(QuestionUser $questionUser, Request $request)
-    {
-        return DB::transaction(function () use ($questionUser, $request) {
-            $this->service->updateQuestionUser($questionUser, 'right', $request->comment);
-            $this->service->saveFiles($questionUser, $request->file('files'));
-
-            return $this->respondSuccess();
-        });
-    }
-
-    /**
-     * @param QuestionUser $questionUser
-     * @param CheckQuestionRequest $request
-     * @return mixed
-     * @throws Throwable
-     */
-    public function reworkQuestion(QuestionUser $questionUser, Request $request)
-    {
-        return DB::transaction(function () use ($questionUser, $request) {
-            $this->service->updateQuestionUser($questionUser, 'rework', $request->comment);
-            $this->service->saveFiles($questionUser, $request->file('files'));
-
-            $this->service->updateStatusForLessonUser($questionUser->question->test->lesson, $questionUser->user, 'active');
-
-            return $this->respondSuccess();
-        });
-    }
-
-    /**
      * Проставление отметки о верном выполниении задания
      *
      * @param LessonUser $lessonUser
@@ -155,34 +120,67 @@ class QuestionController extends Controller
             return $this->respondError("Неверный статус!", 444);
         }
 
-        if ($this->service->taskCompleteRight($lessonUser->lesson->test, $lessonUser->user)) {
-            $this->service->updateStatusForLessonUser($lessonUser->lesson, $lessonUser->user, 'right');
-            $this->service->processAddPoints($lessonUser, $lessonUser->user, $request->additional_points);
+        $this->saveQuestions($request, 'right');
+        $this->service->updateStatusForLessonUser($lessonUser->lesson, $lessonUser->user, 'right');
+        $this->service->processAddPoints($lessonUser, $request);
 
-            return $this->respondSuccess();
-        } else {
-            return $this->respondError("Необходимо чтобы все задания были выполнены верно!", 444);
-        }
-
+        return $this->respondSuccess();
     }
 
     /**
      * Проставление отметки о неверном выполнении задания
      *
      * @param LessonUser $lessonUser
-     * @param CheckQuestionRequest $request
+     * @param Request $request
      * @return Response
      */
-    public function wrongLesson(LessonUser $lessonUser, CheckQuestionRequest $request)
+    public function wrongLesson(LessonUser $lessonUser, Request $request)
     {
         if ($this->checkLessonState($lessonUser)) {
             return $this->respondError("Неверный статус!", 444);
         }
 
+        $this->saveQuestions($request, 'wrong');
         $this->service->setFine($lessonUser->lesson, $lessonUser->user);
         $this->service->updateStatusForLessonUser($lessonUser->lesson, $lessonUser->user, 'wrong');
 
         return $this->respondSuccess();
+    }
+
+    /**
+     * Отправка задания на доработку
+     *
+     * @param LessonUser $lessonUser
+     * @param Request $request
+     * @return Application|ResponseFactory|Response
+     */
+    public function reworkLesson(LessonUser $lessonUser, Request $request)
+    {
+        if ($this->checkLessonState($lessonUser)) {
+            return $this->respondError("Неверный статус!", 444);
+        }
+
+        $this->saveQuestions($request, 'rework');
+        $this->service->updateStatusForLessonUser($lessonUser->lesson, $lessonUser->user, 'active');
+
+        return $this->respondSuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @param string $status
+     */
+    private function saveQuestions(Request $request, string $status)
+    {
+        $questions = json_decode($request->questions, true);
+
+        foreach ($questions as $question) {
+            $questionUser = QuestionUser::find($question['id']);
+            $question['status'] = $status;
+
+            $this->service->updateQuestionUser($questionUser, $question);
+            $this->service->saveFiles($questionUser, $request->file("files_" . $questionUser->id));
+        }
     }
 
     private function checkLessonState(LessonUser $lessonUser)

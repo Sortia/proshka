@@ -17,10 +17,11 @@ use Illuminate\Support\Str;
  * @property int $lesson_id
  * @property int additional_point
  * @property string $status
+ * @property string $comment
  * @property string|null $text
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|\App\File[] $files
+ * @property-read Collection|File[] $files
  * @property-read int|null $files_count
  * @property-read Lesson $lesson
  * @property-read User $user
@@ -47,6 +48,7 @@ class LessonUser extends Model
         'status',
         'text',
         'additional_point',
+        'comment',
     ];
 
     public function files()

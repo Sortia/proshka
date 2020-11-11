@@ -70,11 +70,12 @@ Route::middleware(['auth', 'locale', 'verified'])->group(function () {
         Route::get('answer/list/filter', 'QuestionController@filterList');
         Route::get('lesson_user/{lessonUser}', 'QuestionController@getLessonUserData');
 
-        Route::post('question_user/{questionUser}/right', 'QuestionController@rightQuestion');
-        Route::post('question_user/{questionUser}/rework', 'QuestionController@reworkQuestion');
+//        Route::post('question_user/{questionUser}/right', 'QuestionController@rightQuestion');
+//        Route::post('question_user/{questionUser}/rework', 'QuestionController@reworkQuestion');
 
         Route::post('lesson_user/{lessonUser}/wrong', 'QuestionController@wrongLesson');
         Route::post('lesson_user/{lessonUser}/right', 'QuestionController@rightLesson');
+        Route::post('lesson_user/{lessonUser}/rework', 'QuestionController@reworkLesson');
     });
 
     Route::get('course/list', 'CourseController@list')->name('course.list');

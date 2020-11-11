@@ -19,6 +19,13 @@ use Throwable;
 
 class QuestionService
 {
+    private ?FileService $fileService;
+
+    public function __construct(FileService $fileService = null)
+    {
+        $this->fileService = $fileService;
+    }
+
     /**
      * Фильтрация списка учителя
      *
@@ -102,38 +109,51 @@ class QuestionService
     }
 
     /**
+     * @param QuestionUser $questionUser
+     * @param array|null $inlineFiles
+     * @throws \Exception
+     */
+    public function deleteFilesIfNeed(QuestionUser $questionUser, ?array $inlineFiles): void
+    {
+        $files = $questionUser->files;
+
+        foreach ($files ?? [] as $file) {
+            if (!in_array($file->id, array_column($inlineFiles, 'id'))) {
+                $this->fileService->delete($file);
+            }
+        }
+    }
+
+    /**
      * Проставление статуса и комментария
      *
      * @param QuestionUser $questionUser
-     * @param string $status
-     * @param $comment
+     * @param array $data
      */
-    public function updateQuestionUser(QuestionUser $questionUser, string $status, ?string $comment)
+    public function updateQuestionUser(QuestionUser $questionUser, array $data)
     {
-        $questionUser->update([
-            'status' => $status,
-            'comment' => $comment,
-        ]);
+        $questionUser->update($data);
     }
 
     /**
      * Начисление баллов за правильное выполнение задания $lessonId пользователю $userId
      *
-     * @param Lesson $test
-     * @param User $user
+     * @param LessonUser $lessonUser
+     * @param Request $request
      */
-    public function processAddPoints(LessonUser $lessonUser, User $user, $additionalPoints)
+    public function processAddPoints(LessonUser $lessonUser, Request $request)
     {
-        if (is_null($additionalPoints)) {
-            $additionalPoints = 0;
-        }
+        $additionalPoints = $request->additional_points ?? 0;
 
-        $user->update([
-            'rating' => $user->rating + $lessonUser->lesson->bonus + $additionalPoints,
-            'points' => $user->points + $lessonUser->lesson->bonus + $additionalPoints,
+        $lessonUser->user->update([
+            'rating' => $lessonUser->user->rating + $lessonUser->lesson->bonus + $additionalPoints,
+            'points' => $lessonUser->user->points + $lessonUser->lesson->bonus + $additionalPoints,
         ]);
 
-        $lessonUser->update(['additional_point' => $additionalPoints]);
+        $lessonUser->update([
+            'additional_point' => $additionalPoints,
+            'comment' => $lessonUser->comment,
+        ]);
     }
 
     /**

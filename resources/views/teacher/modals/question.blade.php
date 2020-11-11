@@ -56,14 +56,23 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-lg-3">
-                            <button class="btn btn-block btn-danger float-right wrong_lesson"
+                        <div class="col-lg-12">
+                            <textarea
+                                    placeholder="Укажите причину начисления дополнительных баллов"
+                                    class="form-control lesson_comment" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-4 pr-5">
+                            <button class="btn  btn-block btn-danger float-right wrong_lesson"
                                     data-status="rework">@lang('Revoke the job')</button>
                         </div>
-
-                        <div class="col-lg-6"></div>
-                        <div class="col-lg-3">
-                            <button class="btn btn-block btn-success float-left right_lesson"
+                        <div class="col-lg-4 px-3 text-center">
+                            <button class="btn  btn-block btn-dark rework_lesson"
+                                    data-status="rework">@lang('Send for rework')</button>
+                        </div>
+                        <div class="col-lg-4 pl-5">
+                            <button class="btn  btn-block btn-success float-left right_lesson"
                                     data-status="right">@lang('Принять задание')</button>
                         </div>
                     </div>

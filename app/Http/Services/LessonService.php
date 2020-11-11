@@ -17,9 +17,9 @@ use Throwable;
 
 class LessonService
 {
-    private FileService $fileService;
+    private ?FileService $fileService;
 
-    public function __construct(FileService $fileService)
+    public function __construct(FileService $fileService = null)
     {
         $this->fileService = $fileService;
     }
@@ -36,7 +36,6 @@ class LessonService
     public function deleteFilesIfNeed(Lesson $lesson, ?array $inlineFiles): void
     {
         $files = $lesson->files;
-        $inlineFiles = [];
 
         foreach ($files ?? [] as $file) {
             if (!in_array($file->id, array_column($inlineFiles, 'id'))) {
