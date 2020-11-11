@@ -333,6 +333,7 @@ $(() => {
 
     function reset_card(card) {
         card.find('.question').val('');
+        card.find('.hint').val('');
         card.find('.attach_file_checkbox').prop('checked', false);
         card.find('.answers').empty();
         card.find('.answer_type').val('select').trigger('change');
