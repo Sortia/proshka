@@ -53,6 +53,8 @@ $(() => {
                     dpzLessonMultipleFiles.emit('addedfile', mockFile)
                     dpzLessonMultipleFiles.emit('thumbnail', mockFile, `/file/${file.id}`)
                     dpzLessonMultipleFiles.emit('complete', mockFile)
+
+                    $('a.dz-remove:last').before(`<a class="dz-remove" href="/file/${file.id}" data-dz-remove="">Скачать файл</a>`)
                 })
             },
             error: (response) => show_error(response),
