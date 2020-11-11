@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
-    // todo очищать lesson dropzone при закрытии модалки
-    // todo валидация проверки задания учителем ()
     private LessonService $service;
 
     public function __construct(LessonService $service)

@@ -22,7 +22,7 @@ $(() => {
     }
 
     window.show_error = function (response) {
-        swal_error(response.status === 444 ? response.responseText : '', 1500);
+        swal_error(response.status === 444 ? response.responseText : 'Что-то пошло не так...', 1500);
         console.log(response);
     }
 

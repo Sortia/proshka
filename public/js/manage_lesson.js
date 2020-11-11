@@ -18,6 +18,8 @@ $(() => {
             method: "GET",
             url: `/manage/lesson/${$(this).parents('tr').data('lesson_id')}`,
             success: (response) => {
+                dpzLessonMultipleFiles.removeAllFiles( true );
+
                 current_row = response.id;
 
                 $('#id').val(response.id);
