@@ -152,7 +152,7 @@ class QuestionService
 
         $lessonUser->update([
             'additional_point' => $additionalPoints,
-            'comment' => $lessonUser->comment,
+            'comment' => $request->comment,
         ]);
     }
 

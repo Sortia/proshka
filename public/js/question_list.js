@@ -39,12 +39,12 @@ $(() => {
         let fd = new FormData();
 
         let additional_points = $('#additional_points');
+        let lesson_comment = $('.lesson_comment');
 
-        if (additional_points.val() < 0 || additional_points.val() > 10) {
-            additional_points.addClass('is-invalid');
-            return;
+        if (additional_points.val() > 0 && lesson_comment.val() === '') {
+            return lesson_comment.addClass('is-invalid');
         } else {
-            additional_points.removeClass('is-invalid');
+            lesson_comment.removeClass('is-invalid');
         }
 
         fd = addAdditionalPointsData(fd)
@@ -147,7 +147,6 @@ $(() => {
             },
             error: (response) => show_error(response),
             success: (response) => {
-                console.log(response);
                 $('.answers').empty().append(response.html);
             }
         });
