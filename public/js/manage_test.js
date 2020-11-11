@@ -69,6 +69,7 @@ $(() => {
             data.questions.push({
                 index: $(question).data('index'),
                 question: $(question).find('.question').val(),
+                hint: $(question).find('.hint').val(),
                 type: $(question).find('.answer_type').val(),
                 accept_file: $(question).find('.attach_file_checkbox').prop('checked'),
                 answers: answers,
@@ -207,11 +208,13 @@ $(() => {
     }
 
     function add_answer(card) {
-        $(card).find('.answers').append(`
+        let element = $(card).find('.answers')
+
+        element.append(`
             <div class="form-row align-items-center answer">
                 <div class="col-auto">
                     <div class="form-check mb-2">
-                        <input class="form-check-input answer_right large-radio" type="radio" name="card_radio_${card.data('index')}">
+                        <input title="Укажите правильный вариант ответа при необходимости" class="form-check-input answer_right large-radio" type="radio" name="card_radio_${card.data('index')}">
                         <label class="form-check-label"></label>
                     </div>
                 </div>
@@ -235,14 +238,20 @@ $(() => {
                 </div>
             </div>
         `);
+
+        if (element.find('.answer').length === 1) {
+            add_help_label(element);
+        }
     }
 
     function add_answer_many(card) {
-        $(card).find('.answers-many').append(`
+        let element = $(card).find('.answers-many');
+
+        element.append(`
             <div class="form-row align-items-center answer">
                 <div class="col-auto">
                     <div class="form-check mb-2">
-                        <input class="form-check-input answer_right large-checkbox" type="checkbox" name="card_radio_${card.data('index')}">
+                        <input title="Укажите правильный вариант ответа при необходимости" class="form-check-input answer_right large-checkbox" type="checkbox" name="card_radio_${card.data('index')}">
                         <label class="form-check-label"></label>
                     </div>
                 </div>
@@ -266,6 +275,14 @@ $(() => {
                 </div>
             </div>
         `);
+
+        if (element.find('.answer').length === 1) {
+            add_help_label(element);
+        }
+    }
+
+    function add_help_label(element) {
+        element.after('<small>Добавление варианта ответа</small>')
     }
 
     function move_card(form_card) {

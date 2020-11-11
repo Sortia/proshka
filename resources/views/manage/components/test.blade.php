@@ -35,6 +35,10 @@
                         <textarea class="form-control question" rows="3">{{$question->question}}</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="exampleFormControlTextarea1">@lang('Hint to the answer')</label>
+                        <textarea class="form-control hint" rows="3">{{$question->hint}}</textarea>
+                    </div>
+                    <div class="form-group">
                         <label>@lang('Answer type')</label>
                         <select class="form-control answer_type" name="type">
                             @foreach(\App\Constants\AnswerTypes::getList() as $id => $name)
@@ -55,10 +59,11 @@
                         <div class="answers">
                             @if($question->type === \App\Constants\AnswerTypes::SELECT)
                             @foreach($question->answers->sortBy('order_number') as $answer)
-                                <div class="form-row align-items-center answer">
+
+                                    <div class="form-row align-items-center answer">
                                     <div class="col-auto">
                                         <div class="form-check mb-2">
-                                            <input class="form-check-input answer_right large-radio" type="radio" @if($answer->is_right) checked @endif name="card_radio_answer_id_{{$question->id}}">
+                                            <input title="Укажите правильный вариант ответа при необходимости" class="form-check-input answer_right large-radio" type="radio" @if($answer->is_right) checked @endif name="card_radio_answer_id_{{$question->id}}">
                                             <label class="form-check-label"></label>
                                         </div>
                                     </div>
@@ -84,6 +89,9 @@
                             @endforeach
                             @endif
                         </div>
+                        @if($loop->last)
+                            <small>Добавление варианта ответа</small>
+                        @endif
                     </div>
                     <div class="answer-cover-many" @if($question->type != \App\Constants\AnswerTypes::SELECT_MANY) style="display: none" @endif>
                         <hr>
@@ -101,7 +109,7 @@
                                 <div class="form-row align-items-center answer">
                                     <div class="col-auto">
                                         <div class="form-check mb-2">
-                                            <input class="form-check-input answer_right large-checkbox" type="checkbox" @if($answer->is_right) checked @endif>
+                                            <input title="Укажите правильный вариант ответа при необходимости" class="form-check-input answer_right large-checkbox" type="checkbox" @if($answer->is_right) checked @endif>
                                             <label class="form-check-label"></label>
                                         </div>
                                     </div>
@@ -127,6 +135,9 @@
                             @endforeach
                             @endif
                         </div>
+                        @if($question->answers->count() > 0)
+                            <small>Добавление варианта ответа</small>
+                        @endif
                     </div>
                     <hr>
                     <div class="files">

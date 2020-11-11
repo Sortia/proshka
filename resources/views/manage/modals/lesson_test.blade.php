@@ -19,6 +19,10 @@
                                     <textarea class="form-control question" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">@lang('Hint to the answer')</label>
+                                    <textarea class="form-control hint" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
                                     <label>@lang('Answer type')</label>
                                     <select class="form-control answer_type" name="type">
                                         @foreach(\App\Constants\AnswerTypes::getList() as $id => $name)

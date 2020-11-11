@@ -45,6 +45,7 @@ class Question extends Model
         'question',
         'test_id',
         'order_number',
+        'hint',
     ];
 
     public function test()

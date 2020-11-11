@@ -7,6 +7,11 @@
             <div class="question">{{$questionUser->question->question}}</div>
         </div>
         <hr>
+        <div class="form-group">
+            <label>@lang('Hint to the answer'):</label>
+            <div class="question">{{$questionUser->question->hint}}</div>
+        </div>
+        <hr>
         <div class="files mt-3"></div>
         <div class="form-group">
             <label>@lang('Answer'):</label>
