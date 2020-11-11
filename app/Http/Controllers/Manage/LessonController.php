@@ -58,6 +58,10 @@ class LessonController extends Controller
     {
         $data = json_decode($request->data, true);
 
+        if (!$data['id']) {
+            $data['id'] = null;
+        }
+
         $lesson = Lesson::updateOrCreate(['id' => $data['id']], $data);
         $this->service->deleteFilesIfNeed($lesson, $data['inline_files']);
         $this->service->saveFiles($lesson, $request->file('files') ?? []);
