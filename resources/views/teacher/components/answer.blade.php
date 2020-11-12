@@ -66,11 +66,9 @@
                     <a href="{{route('file.show', $file)}}">{{$file->name}}</a><br>
                 @endforeach
             </div>
-            @if($questionUser->status === 'complete')
-                <div class="col-lg-12">
-                    <div class="dropzone"></div>
-                </div>
-            @endif
+            <div class="col-lg-12">
+                <div class="dropzone"></div>
+            </div>
             <div class="col-lg-12 mt-3">
             <textarea
                 placeholder="Укажите причину отправки задания на доработку, отзыва задания ил похвалите ученика за прекрасно выполненное задание"
