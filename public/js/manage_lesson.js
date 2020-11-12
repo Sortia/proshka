@@ -120,6 +120,8 @@ $(() => {
 
     $('#createLessonModal').on('hidden.bs.modal', function () {
         $('#createLessonModal input, #createLessonModal textarea, #createLessonModal select').val('');
+        $('.ql-editor').html('')
+        dpzLessonMultipleFiles.removeAllFiles( true );
     });
 
     $('.add_task').on('click', function () {
